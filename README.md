@@ -3,12 +3,12 @@
 ## Overview
 Aliens survey application allows customers to log in, then fill in the survey without itself.
 Application includes:
-    ##survey overview
-    ##survey details page
+    ## survey overview
+    ## survey details page
 Create Survey
 Creating a survey consists of two steps, to be displayed as tabs:
-    ##General information
-    ##Survey management
+    ## General information
+    ## Survey management
 User Management
 An administrator can add / edit / delete. There need be only one administrator.
 Each account must have the ability to create their own surveys and see the results.
