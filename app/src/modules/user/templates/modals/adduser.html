@@ -1,0 +1,50 @@
+<!--Add user modal window-->
+<!--modal window start-->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="addUserForm" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add User</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" name="addForm">
+                        <div class="form-group has-danger">
+                            <label for="name" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="name" placeholder="Name" class="form-control" name="name" ng-model="dataEntered.name" autofocus required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="email" placeholder="Email" class="form-control" name="email" ng-model="dataEntered.email"  ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" autofocus required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company" class="col-sm-2 control-label">Company</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="company" placeholder="Company" class="form-control" name="company" ng-model="dataEntered.company" autofocus required>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': addForm.password.$invalid && addForm.password.$dirty, 'has-success': addForm.password.$valid}">
+                            <label for="password" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="password" placeholder="Password" class="form-control" ng-model="dataEntered.password"  name="password" ng-minLength="8" autofocus required>
+                                <p class="help-block" ng-if="addForm.password.$invalid && addForm.password.$dirty">Please Enter at least 8 characters</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="add" class="btn btn-primary" ng-click='addEmployees(dataEntered)'>Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--modal window end-->

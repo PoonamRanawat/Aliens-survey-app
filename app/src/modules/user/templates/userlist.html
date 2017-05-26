@@ -1,0 +1,73 @@
+<div class="container-fluid" ng-controller="userController">
+    <nav class="sidebar-wrap">
+        <ul>
+            <li class="active"><a href="" >User List</a></li>
+        </ul>
+    </nav>
+    <div class="row page-content-wrap">
+        <section class="col-sm-12">
+            <section class="page-header">
+                <h1>User List</h1>
+                <!--<a href="#"><i class="fa fa-angle-left"></i> Back</a>-->
+            </section>
+            <section class="page-body">
+                <!--search name and city/add new - start-->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <form action="" class="search-form">
+                            <div class="form-group has-feedback">
+                                <label for="search" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="search" id="search" placeholder="Search User by name or email..." ng-model="textsearch">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4 col-sm-push-2">
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#addUserForm">Add User</a>
+                    </div>
+                </div>
+                <!--search name and city/add new - end-->
+                <!--Listing data displayed - start-->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email Id</th>
+                        <th>Company</th>
+                        <th>No of survey created</th>
+                        <th>Created on</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in listdata.userList | filter: filterFunction">
+                        <td>{{data.name}}</td>
+                        <td>{{data.email}}</td>
+                        <td>{{data.company}}</td>
+                        <td>{{data.noofsurvey}}</td>
+                        <td>{{data.created_at | date:'MMMM dd, yyyy' }}</td>
+                        <td><span class="fa fa-pencil-square-o" data-toggle="modal" data-target="#editUserModal" ng-click="open(data)"> </span> &#124; <span class="fa fa-trash-o" data-toggle="modal" data-target="#myDeleteModal" ng-click="deleteUser(data)"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--Listing data displayed - end-->
+            </section>
+        </section>
+    </div>
+    <div ng-include="'src/modules/user/templates/modals/deleteuser.html'" ng-controller="userController"></div>
+    <div ng-include="'src/modules/user/templates/modals/adduser.html'" ng-controller="userController"></div>
+    <div ng-include="'src/modules/user/templates/modals/edituser.html'" ng-controller="userController"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

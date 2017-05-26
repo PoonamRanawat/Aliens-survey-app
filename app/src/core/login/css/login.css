@@ -1,0 +1,19 @@
+.login-form {
+    margin-top: 100px;
+    background: #f1f1e9;
+}
+.login-form-header{
+    height: 70px;
+    text-align: center;
+}
+.login-form-body {
+    padding: 15px;
+}
+.logo{
+    width:50%;
+    padding-top: 10px;
+}
+.surveyForm {
+    border: 1px solid black;
+    border-radius: 3px;
+}

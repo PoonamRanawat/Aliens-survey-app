@@ -1,24 +1,31 @@
-<div class="container">
+<link rel="stylesheet" type="text/css" href="src/core/login/css/login.css">
+<div class="container-fluid" ng-controller="loginController">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please log in</h3>
-                </div>
-                <div class="panel-body">
-                    <form accept-charset="UTF-8" role="form" name="surveyForm">
-                        <fieldset>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="Username or email" name="username" type="text" ng-model="username" required/>
+            <div class="login-form">
+                <form accept-charset="UTF-8" role="form" name="surveyForm" class="surveyForm">
+                    <div class="login-form-header">
+                        <img  class="logo" src="http://www.aliens.nl/wp-content/themes/aliens/img/aliens/aliens-logo.svg" alt="Aliens Reclamebureau">
+                    </div>
+                    <div class="login-form-body">
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <input autofocus="" class="form-control" placeholder="Enter email" type="text" ng-model="username"  name="username" required>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': surveyForm.password.$invalid && surveyForm.password.$dirty, 'has-success': surveyForm.password.$valid}">
+                            <label class="control-label">Password</label>
+                            <input autofocus="" class="form-control" placeholder="Password" type="password" ng-model="password" name="password" ng-minLength="8" required>
+                            <p class="help-block" ng-if="surveyForm.password.$invalid && surveyForm.password.$dirty">Please Enter at least 8 characters</p>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-5 pull-right">
+                                <button class="btn btn-success btn-block" type="submit" value="Login" ng-click="login(username,password)"  ng-disabled="surveyForm.username.$invalid || surveyForm.password.$invalid">
+                                    Login
+                                </button>
                             </div>
-                            <div class="form-group" ng-class="{'has-error': surveyForm.password.$invalid && surveyForm.password.$dirty, 'has-success': surveyForm.password.$valid}">
-                                <input class="form-control" placeholder="Password" name="password" type="password" value="" ng-model="password" ng-minLength="8" required/>
-                                <p class="help-block" ng-if="surveyForm.password.$invalid && surveyForm.password.$dirty">Please Enter at least 8 characters</p>
-                            </div>
-                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login" ng-click="login(username,password)" ng-disabled="surveyForm.username.$invalid || surveyForm.password.$invalid">
-                        </fieldset>
-                    </form>
-                </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
