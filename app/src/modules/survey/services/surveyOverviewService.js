@@ -3,7 +3,8 @@ angular.module('survey')
         return {
             getSurveyData: getSurveyData,
             deleteItem: deleteItem,
-            getParticipantData: getParticipantData
+            getParticipantData: getParticipantData,
+            addParticipant: addParticipant
         }
 
 
@@ -51,15 +52,37 @@ angular.module('survey')
             })
         }
 
-        function getParticipantData(){
-            var defer = $q.defer();
-            $http.get('src/modules/survey/assets/participantData.json').then(function (data) {
-                    defer.resolve(data);
-                }
-                , function () {
-                    defer.reject('could not find token.json');
-                });
-            return defer.promise;
+        // function getParticipantData(){
+        //     var defer = $q.defer();
+        //     $http.get('src/modules/survey/assets/participantData.json').then(function (data) {
+        //             defer.resolve(data);
+        //         }
+        //         , function () {
+        //             defer.reject('could not find token.json');
+        //         });
+        //     return defer.promise;
+        // }
+
+        function getParticipantData(data){
+            return $http({
+                method: 'GET',
+                url: 'http://aliens.dev.easternenterprise.com/api/participants/List?survey_id=' + data
+            }).success(function (response) {
+                return response;
+            }).error(function () {
+                console.log('XHR Failed for deleting survey');
+            })
+        }
+
+        function addParticipant(data){
+            return $http({
+                method: 'POST',
+                url: 'http://aliens.dev.easternenterprise.com/api/participant/create?survey_id=' + data
+            }).success(function (response) {
+                return response;
+            }).error(function () {
+                console.log('XHR Failed for creating participant');
+            })
         }
 
     }]);

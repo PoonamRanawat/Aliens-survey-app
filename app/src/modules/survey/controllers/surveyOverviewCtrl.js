@@ -38,14 +38,31 @@ angular.module('survey', [])
             $scope.openParticipantView = false;
         };
 
-        $scope.data = surveyOverviewservice.getParticipantData().then(function (response) {
-            $scope.participantData = response.data.data;
-        });
+
         
         $scope.storeSurveyData = function (data) {
             $rootScope.surveyName = data.name;
-        };
+            $scope.data = surveyOverviewservice.getParticipantData(data.id).then(function (response) {
+                $scope.participantData = response.data.data;
+            });
 
+            $scope.addParticipant = function (firstname, lastname, email, location) {
+                var request = {
+                    "first_name": firstname,
+                    "last_name": lastname,
+                    "email": email,
+                    "location": location,
+                    "id": data.id
+                }
+
+                surveyOverviewservice.addParticipant(request).then(function (response) {
+                    if(response.data.success){
+                        $location.path('/surveyoverview');
+                    }
+                })
+            };
+        };
+        
         $scope.editParticipantData = function (data) {
             CommonService.setData(data);
             //$rootScope.dataToEditParticipant = jQuery.extend({}, data);
@@ -53,11 +70,9 @@ angular.module('survey', [])
             $location.path('/addparticipant');
 
         };
-        editData();
         function editData() {
             $scope.dataToEditParticipant = CommonService.getData();
         }
-
 
         $scope.cancelParticipant = function () {
             $location.path('/participant');
