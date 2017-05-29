@@ -15,16 +15,16 @@
                     <tr>
                         <th>Name</th>
                         <th>Created on</th>
-                        <th>No of enrties</th>
+                        <th>No of entries</th>
                         <th>No of participants</th>
                         <th>No of questions</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="data in surveydata">
+                    <tr ng-repeat="data in surveydata.SurveyList">
                         <td><a href="#/participant" ng-click="storeSurveyData(data)">{{data.name}}</a></td>
-                        <td>{{data.createdOn}}</td>
+                        <td>{{data.created_at}}</td>
                         <td>{{data.noOfEntries}}</td>
                         <td>{{data.noOfParticipants}}</td>
                         <td>{{data.noOfQuestions}}</td>

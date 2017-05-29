@@ -1,7 +1,8 @@
 angular.module('createsurvey')
     .factory("createSurveyService" , ['$q','$http', function ($q,$http) {
         return {
-            createSurvey: createSurvey
+            createSurvey: createSurvey,
+            updateSurvey: updateSurvey
         }
 
         function createSurvey(data) {
@@ -15,4 +16,17 @@ angular.module('createsurvey')
                 console.log('XHR Failed for creating survey');
             })
         }
+
+        function updateSurvey(data) {
+            return $http({
+                method: 'POST',
+                url: 'http://aliens.dev.easternenterprise.com/api/survey/update',
+                data: data
+            }).success(function (response) {
+                return response;
+            }).error(function () {
+                console.log('XHR Failed for updating survey');
+            })
+        }
+
     }]);

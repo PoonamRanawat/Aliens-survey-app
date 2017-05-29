@@ -1,1 +1,1 @@
-angular.module('core', ['login']);
+angular.module('core', ['login', 'shared']);

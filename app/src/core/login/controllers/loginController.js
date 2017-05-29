@@ -54,6 +54,8 @@ angular.module('login', [])
                     localStorage.removeItem("refresh_token");
                     $location.path('/');
                     return response;
+                } else if(!response.data.success && response.data.message == 'Unathenticated'){
+                    $location.path('/');
                 }
             })
         }

@@ -1,12 +1,16 @@
 angular.module('survey', [])
-    .controller("surveyOverviewCtrl" , ['$scope','$rootScope','surveyOverviewservice','$location', function ($scope, $rootScope,surveyOverviewservice, $location) {
+    .controller("surveyOverviewCtrl" , ['$scope','$rootScope','surveyOverviewservice','$location','CommonService', function ($scope, $rootScope,surveyOverviewservice, $location, CommonService) {
 
         $rootScope.activeSurveyTab = true;
         $rootScope.activeCreateSurveyTab = false;
+        function surveyList() {
+            $scope.data = surveyOverviewservice.getSurveyData().then(function (response) {
+                $scope.surveydata = response.data.data;
+                console.log(response.data);
+            });
+        }
+        surveyList();
 
-        $scope.data = surveyOverviewservice.getSurveyData().then(function (response) {
-            $scope.surveydata = response.data.data;
-        });
 
         $scope.deleteItem = function (data) {
             $rootScope.itemTodelete = data.id;
@@ -14,13 +18,11 @@ angular.module('survey', [])
 
         //delete user - start
         $scope.delete = function (data) {
-            var request = {
-                id : data
-            }
-            surveyOverviewservice.deleteItem(request).then(function (response) {
+            surveyOverviewservice.deleteItem(data).then(function (response) {
                 if(response.data.success){
                     $('#myDeleteItemModal').modal('hide');
                 }
+                surveyList();
                 return response.data;
             })
         };
@@ -45,9 +47,17 @@ angular.module('survey', [])
         };
 
         $scope.editParticipantData = function (data) {
-            $scope.dataToEdit = jQuery.extend({}, data);
+            CommonService.setData(data);
+            //$rootScope.dataToEditParticipant = jQuery.extend({}, data);
+            editData();
             $location.path('/addparticipant');
+
         };
+        editData();
+        function editData() {
+            $scope.dataToEditParticipant = CommonService.getData();
+        }
+
 
         $scope.cancelParticipant = function () {
             $location.path('/participant');
@@ -57,5 +67,4 @@ angular.module('survey', [])
             $rootScope.dataToEditSurvey = jQuery.extend({}, data);
             $location.path('/createsurvey');
         }
-
     }]);

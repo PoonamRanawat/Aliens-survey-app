@@ -18,22 +18,32 @@ angular.module('survey')
         //     })
         // }
 
+        // function getSurveyData(){
+        //     var defer = $q.defer();
+        //     $http.get('src/modules/survey/assets/surveydata.json').then(function (data) {
+        //             defer.resolve(data);
+        //         }
+        //         , function () {
+        //             defer.reject('could not find token.json');
+        //         });
+        //     return defer.promise;
+        // }
+
         function getSurveyData(){
-            var defer = $q.defer();
-            $http.get('src/modules/survey/assets/surveydata.json').then(function (data) {
-                    defer.resolve(data);
-                }
-                , function () {
-                    defer.reject('could not find token.json');
-                });
-            return defer.promise;
+            return $http({
+                method: 'GET',
+                url: 'http://aliens.dev.easternenterprise.com/api/survey/List'
+            }).success(function (response) {
+                return response;
+            }).error(function () {
+                console.log('XHR Failed for getting survey list');
+            })
         }
 
         function deleteItem(data){
             return $http({
                 method: 'DELETE',
-                url: 'http://aliens.dev.easternenterprise.com/api/survey/delete',
-                data: data
+                url: 'http://aliens.dev.easternenterprise.com/api/survey/delete?id=' + data
             }).success(function (response) {
                 return response;
             }).error(function () {

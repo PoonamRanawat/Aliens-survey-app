@@ -1,20 +1,43 @@
 angular.module('createsurvey', ['naif.base64'])
-    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService', function ($scope, $rootScope, createSurveyService) {
-        console.log($rootScope.dataToEditSurvey);
+    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location', function ($scope, $rootScope, createSurveyService, $location) {
+        function edit() {
+            $scope.edit = $rootScope.dataToEditSurvey;
+            console.log(edit);
+        }
         $rootScope.activeCreateSurveyTab = true;
         $rootScope.activeSurveyTab = false;
 
-        $scope.createSurvey = function (data) {
+        function htmlToPlaintext(text) {
+            return text ? String(text).replace(/<[^>]+>/gm, '') : '';
+        }
+
+        $scope.createSurvey = function (file, name , desc , msg , id) {
             var request = {
-                "logo_path": data.yourModel,
-                "nameOfSurvey": data.nameOfSurvey,
-                "description": data.description,
-                "message": data.message
+                "logo_path": file,
+                "name": name,
+                "description": desc,
+                "message": msg
 
             }
-            createSurveyService.createSurvey(request).then(function (response) {
-                return response.data;
-            });
+
+            if(id){
+                //update call
+                request ['id'] =  id;
+                createSurveyService.updateSurvey(request).then(function (response) {
+                    if(response.data.success && response.data.status_code == 200){
+                        $location.path('/surveyoverview');
+                    }
+                })
+            } else {
+                //create call
+                createSurveyService.createSurvey(request).then(function (response) {
+                    if(response.data.success && response.data.status_code == 200){
+                        $location.path('/surveyoverview');
+                    }
+                });
+            }
+
+
         }
 
     }]);

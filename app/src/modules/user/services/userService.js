@@ -56,7 +56,7 @@ angular.module('user')
         function deleteUser(data){
             return $http({
                 method: 'DELETE',
-                url: 'http://aliens.dev.easternenterprise.com/api/user/delete?id=' +  data,
+                url: 'http://aliens.dev.easternenterprise.com/api/user/delete?id=' +  data
                // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             }).success(function (response) {
                 return response;
