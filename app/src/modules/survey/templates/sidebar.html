@@ -1,7 +1,7 @@
 <nav class="sidebar-wrap">
     <ul>
-        <li class="active"><a href="" >Survey Overview</a></li>
+        <li ng-class="{'active': activeSurveyTab}"><a href="#/surveyoverview" >Survey Overview</a></li>
         <li><a href="" >Results</a></li>
-        <li><a href="" >Create Survey</a></li>
+        <li ng-class="{'active': activeCreateSurveyTab}"><a href="#/createsurvey" >Create Survey</a></li>
     </ul>
 </nav>

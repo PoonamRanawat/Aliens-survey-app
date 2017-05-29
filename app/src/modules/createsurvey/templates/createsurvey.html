@@ -1,0 +1,53 @@
+<div ng-include="'src/core/shared/templates/navbar.html'"></div>
+<div class="container-fluid" ng-controller="createSurveyCtrl">
+    <div ng-include="'src/modules/survey/templates/sidebar.html'"></div>
+    <div class="row page-content-wrap">
+        <section class="col-sm-12">
+            <section class="page-header">
+                <h1>Create Survey</h1>
+            </section>
+            <section class="page-body">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#/createsurvey" ng-click="openGeneralSection()">General Information</a></li>
+                    <li role="presentation"><a href="#/surveymanagement">Survey Management</a></li>
+                </ul>
+                <!-- Add Participant Form -->
+                <form class="form-horizontal" style="padding-top: 10px;" name="dataToEditSurvey">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Logo:</label>
+                        <div class="col-sm-4">
+                            <!--<input type="file" class="form-control"  placeholder="Upload logo"  value="fileupload" id="fileUpload" accept="image/x-png,image/gif,image/jpeg" ng-model="fileupload">-->
+                            <!--<input type="file" fileread="uploadme" />-->
+                            <input type='file' ng-model='dataToEditSurvey.yourModel' base-sixty-four-input class="form-control"  placeholder="Upload logo" value="fileupload" id="fileUpload" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Name of survey:</label>
+                        <div class="col-sm-8">
+                            <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.nameOfSurvey"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Description:</label>
+                        <div class="col-sm-8">
+                            <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.description"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Message:</label>
+                        <div class="col-sm-8">
+                            <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.message"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 text-right">
+                            <button type="submit" class="btn btn-success" ng-click="createSurvey(dataToEditSurvey)">Create</button>
+                            <button type="submit" class="btn btn-danger">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- From End -->
+            </section>
+        </section>
+    </div>
+</div>

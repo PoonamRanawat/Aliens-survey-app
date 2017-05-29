@@ -1,3 +1,4 @@
+<div ng-include="'src/core/shared/templates/navbar.html'"></div>
 <div class="container-fluid" ng-controller="surveyOverviewCtrl">
     <div ng-include="'src/modules/survey/templates/sidebar.html'"></div>
     <div class="row page-content-wrap">
@@ -5,7 +6,7 @@
             <section class="page-header">
                 <h1>Survey Overview</h1>
                 <!--show only when in participant tab-->
-                <a href=""><i class="fa fa-angle-left"></i> Back</a>
+                <!--<a href=""><i class="fa fa-angle-left"></i> Back</a>-->
             </section>
             <section class="page-body" >
                 <!--Listing data displayed - start-->
@@ -22,12 +23,12 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="data in surveydata">
-                        <td><a href="/participant">{{data.name}}</a></td>
+                        <td><a href="#/participant" ng-click="storeSurveyData(data)">{{data.name}}</a></td>
                         <td>{{data.createdOn}}</td>
                         <td>{{data.noOfEntries}}</td>
                         <td>{{data.noOfParticipants}}</td>
                         <td>{{data.noOfQuestions}}</td>
-                        <td><span class="fa fa-pencil-square-o"> </span> &#124; <span class="fa fa-trash-o"></span></td>
+                        <td><span class="fa fa-pencil-square-o cursor-pointer" ng-click="editSurveyData(data)"> </span> &#124; <span class="fa fa-trash-o cursor-pointer" data-toggle="modal" data-target="#myDeleteItemModal" ng-click="deleteItem(data)"></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -53,7 +54,7 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="data in surveydata">
-                        <td>{{data.name}}</a></td>
+                        <td>{{data.name}}</td>
                         <td>{{data.emailid}}</td>
                         <td>{{data.location}}</td>
                         <td>{{data.completedOn}}</td>
@@ -66,4 +67,5 @@
             </section>
         </section>
     </div>
+    <div ng-include="'src/modules/survey/templates/modals/deleteitem.html'"></div>
 </div>

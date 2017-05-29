@@ -7,28 +7,40 @@
     "createdOn": "10/10/2017",
     "noOfEntries" : 10,
     "noOfParticipants": 2,
-    "noOfQuestions": 11
+    "noOfQuestions": 11,
+    "nameOfSurvey": "My edited survey",
+    "description": "desc",
+    "message": "this is message"
   }, {
     "id": 2,
     "name": "Jhony",
     "createdOn": "10/10/2017",
     "noOfEntries" : 10,
     "noOfParticipants": 2,
-    "noOfQuestions": 11
+    "noOfQuestions": 11,
+    "nameOfSurvey": "My edited survey",
+    "description": "desc",
+    "message": "this is message"
   }, {
     "id": 3,
     "name": "Mickey",
     "createdOn": "10/10/2017",
     "noOfEntries" : 10,
     "noOfParticipants": 2,
-    "noOfQuestions": 11
+    "noOfQuestions": 11,
+    "nameOfSurvey": "My edited survey",
+    "description": "desc",
+    "message": "this is message"
   }, {
     "id": 4,
     "name": "Ryan",
     "createdOn": "10/10/2017",
     "noOfEntries" : 10,
     "noOfParticipants": 2,
-    "noOfQuestions": 11
+    "noOfQuestions": 11,
+    "nameOfSurvey": "My edited survey",
+    "description": "desc",
+    "message": "this is message"
   },
     {
       "id": 5,
@@ -36,7 +48,10 @@
       "createdOn": "10/10/2017",
       "noOfEntries" : 10,
       "noOfParticipants": 2,
-      "noOfQuestions": 11
+      "noOfQuestions": 11,
+      "nameOfSurvey": "My edited survey",
+      "description": "desc",
+      "message": "this is message"
     },
     {
       "id": 5,
@@ -44,7 +59,10 @@
       "createdOn": "10/10/2017",
       "noOfEntries" : 10,
       "noOfParticipants": 2,
-      "noOfQuestions": 11
+      "noOfQuestions": 11,
+      "nameOfSurvey": "My edited survey",
+      "description": "desc",
+      "message": "this is message"
     }
   ]
 }

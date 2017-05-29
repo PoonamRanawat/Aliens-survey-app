@@ -1,1 +1,1 @@
-angular.module('module', ['user', 'survey']);
+angular.module('module', ['user', 'survey', 'createsurvey']);

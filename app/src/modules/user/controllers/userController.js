@@ -72,12 +72,11 @@ angular.module('user', [])
         }
         //delete user - start
         $scope.delete = function (data) {
-            var request = {
-                id : data
-            }
-            userService.deleteUser(request).then(function (response) {
+
+            userService.deleteUser(data).then(function (response) {
                 if(response.data.success){
                     $('#myDeleteModal').modal('hide');
+                    userlist();
                 }
                 return response.data;
             })

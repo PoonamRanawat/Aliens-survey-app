@@ -13,6 +13,11 @@
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/satellizer/dist/satellizer.js"></script>
+    <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css">
+    <script src="bower_components/textAngular/dist/textAngular-rangy.min.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular-sanitize.min.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular.min.js"></script>
+    <script src="bower_components/angular-base64-upload/src/angular-base64-upload.js"></script>
       <!--Custom scripts-->
     <script src="app.module.js"></script>
     <script src="app.config.js"></script>
@@ -27,11 +32,12 @@
     <script src="src/modules/survey/survey.module.js"></script>
     <script src="src/modules/survey/controllers/surveyOverviewCtrl.js"></script>
     <script src="src/modules/survey/services/surveyOverviewService.js"></script>
-
-
+    <script src="src/modules/createsurvey/createsurvey.module.js"></script>
+    <script src="src/modules/createsurvey/controllers/createSurveyController.js"></script>
+    <script src="src/modules/createsurvey/services/createSurveyService.js"></script>
   </head>
   <body>
-  <div ng-include="'src/core/shared/templates/navbar.html'"></div>
+
     <ng-view></ng-view>
 
   </body>

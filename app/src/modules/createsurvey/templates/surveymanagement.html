@@ -1,0 +1,76 @@
+<div ng-include="'src/core/shared/templates/navbar.html'"></div>
+<div class="container-fluid" ng-controller="createSurveyCtrl">
+    <div ng-include="'src/modules/survey/templates/sidebar.html'"></div>
+    <div class="row page-content-wrap">
+        <section class="col-sm-12">
+            <section class="page-header">
+                <h1>Create Survey</h1>
+            </section>
+            <section class="page-body">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#/createsurvey" ng-click="openGeneralSection()">General Information</a></li>
+                    <li role="presentation"><a href="#/surveymanagement">Survey Management</a></li>
+                </ul>
+                <div class="add-category-header">
+                    <figure><img src=""></figure>
+                    <h2>Survey Name</h2>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Category</button>
+                        <button type="button" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+                <div class="add-category-body">
+                    <section class="category-block">
+                        <div class="text-right"><a class="delete-category btn btn-danger" href=""><i class="fa fa-trash"></i> Delete Category</a></div>
+                        <form>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Category Name:</label>
+                                        <textarea class="form-control" rows="4" placeholder="Category Name"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Description:</label>
+                                        <textarea class="form-control" rows="4" placeholder="Description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="question-block">
+                                <div class="text-right"><a class="delete-question btn btn-danger" href=""><i class="fa fa-trash"></i> Delete Question</a></div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Question:</label>
+                                            <textarea class="form-control" rows="4" placeholder="Question"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Description:</label>
+                                            <textarea class="form-control" rows="4" placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="answer-block">
+                                    <label>Answer:</label>
+                                    <div class="answer-row">
+                                        <label class="radio-inline"><input type="radio" name="optradio">Option 1</label>
+                                        <a class="btn btn-primary" href=""><i class="fa fa-plus"></i></a>
+                                        <a class="btn btn-danger" href=""><i class="fa fa-trash-o"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-right">
+                                    <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </section>
+        </section>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 angular.module('login', [])
-    .controller("loginController" , ['$scope' ,'loginService','$auth','$location', function ($scope, loginService, $auth, $location) {
+    .controller("loginController" , ['$scope' ,'loginService','$auth','$location','$rootScope', function ($scope, loginService, $auth, $location, $rootScope) {
         $scope.login = function (user, pwd) {
             var password = 'password';
             var client_secret = 'zweSbThZRtujlkrqA5uogn3Zn30Htzl6y9IDT1YM';
@@ -12,21 +12,20 @@ angular.module('login', [])
             }
 
             $scope.access = loginService.login(data).then(function(response){
-                if(response.data.success == false ){
-                    alert("Invalid username or password");
-                }
-                else if (response.data.status_code == 200 && response.data.success){
-                    if(response.data.data.userType == 'admin' ){
+                if (response.data.status_code == 200 && response.data.success){
                         localStorage.setItem("expiry_time",response.data.data.tokenDetails.expires_in);
                         localStorage.setItem('refresh_token',response.data.data.tokenDetails.refresh_token);
                         var expiry = JSON.parse(localStorage.getItem("expiry_time"));
                         $auth.removeToken();
                         $auth.setToken(response.data.data.tokenDetails.access_token);
                         setInterval(function(){refresh()},expiry * 1000);
+                        $rootScope.loggedInPersonName = response.data.data.userName;
+                    if(response.data.data.userType == 'admin' ){
                         $location.path('/userlist');
+                    } else if(response.data.data.userType == 'customer'){
+                        $location.path('/surveyoverview');
                     }
                 }
-
             });
 
             function refresh() {

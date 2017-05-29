@@ -14,5 +14,8 @@
     "bootstrap": "3.3.x",
     "jquery": "2.2.x",
     "components-font-awesome": "^4.7.0"
+  },
+  "devDependencies": {
+    "angular-inline-text-editor": "^0.3.23"
   }
 }

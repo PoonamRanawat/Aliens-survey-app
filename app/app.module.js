@@ -6,12 +6,14 @@ angular.module('aliensSurveyApp', [
   'ngRoute',
   'satellizer',
     'core',
-    'module'
+    'module',
+    'textAngular',
+    'naif.base64'
 ]);
 
 angular.module('aliensSurveyApp').run(function($http, $auth) {
     $http.defaults.headers.common.Authorization = $auth.getToken();
     $http.defaults.headers.common.Accept = 'application/json';
-    // $http.defaults.headers.common.Content-Type = 'application/x-www-form-urlencoded';
+    //$http.defaults.headers.common.Content-Type = 'application/x-www-form-urlencoded';
     console.log($http.defaults.headers.common.Authorization);
 });

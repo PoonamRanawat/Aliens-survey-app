@@ -1,3 +1,4 @@
+<div ng-include="'src/core/shared/templates/navbar.html'"></div>
 <div class="container-fluid" ng-controller="userController">
     <nav class="sidebar-wrap">
         <ul>
@@ -47,7 +48,7 @@
                         <td>{{data.company}}</td>
                         <td>{{data.noofsurvey}}</td>
                         <td>{{data.created_at | date:'MMMM dd, yyyy' }}</td>
-                        <td><span class="fa fa-pencil-square-o" data-toggle="modal" data-target="#editUserModal" ng-click="open(data)"> </span> &#124; <span class="fa fa-trash-o" data-toggle="modal" data-target="#myDeleteModal" ng-click="deleteUser(data)"></span></td>
+                        <td><span class="fa fa-pencil-square-o cursor-pointer" data-toggle="modal" data-target="#editUserModal" ng-click="open(data)"> </span> &#124; <span class="fa fa-trash-o cursor-pointer" data-toggle="modal" data-target="#myDeleteModal" ng-click="deleteUser(data)"></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -55,9 +56,9 @@
             </section>
         </section>
     </div>
-    <div ng-include="'src/modules/user/templates/modals/deleteuser.html'" ng-controller="userController"></div>
-    <div ng-include="'src/modules/user/templates/modals/adduser.html'" ng-controller="userController"></div>
-    <div ng-include="'src/modules/user/templates/modals/edituser.html'" ng-controller="userController"></div>
+    <div ng-include="'src/modules/user/templates/modals/deleteuser.html'"></div>
+    <div ng-include="'src/modules/user/templates/modals/adduser.html'"></div>
+    <div ng-include="'src/modules/user/templates/modals/edituser.html'"></div>
 </div>
 
 
