@@ -4,7 +4,8 @@ angular.module('survey')
             getSurveyData: getSurveyData,
             deleteItem: deleteItem,
             getParticipantData: getParticipantData,
-            addParticipant: addParticipant
+            addParticipant: addParticipant,
+            updateParticipant: updateParticipant
         }
 
 
@@ -83,6 +84,18 @@ angular.module('survey')
                 return response;
             }).error(function () {
                 console.log('XHR Failed for creating participant');
+            })
+        }
+
+        function updateParticipant(data){
+            return $http({
+                method: 'PUT',
+                url: 'http://aliens.dev.easternenterprise.com/api/participant/update?survey_id=' + data.id,
+                data: data
+            }).success(function (response) {
+                return response;
+            }).error(function () {
+                console.log('XHR Failed for updating participant');
             })
         }
 

@@ -31,7 +31,6 @@ angular.module('createsurvey', ['naif.base64'])
                 "message": msg
 
             }
-
             if(id){
                 //update call
                 request ['id'] =  id;
@@ -48,8 +47,6 @@ angular.module('createsurvey', ['naif.base64'])
                     }
                 });
             }
-
-
         }
 
     }]);

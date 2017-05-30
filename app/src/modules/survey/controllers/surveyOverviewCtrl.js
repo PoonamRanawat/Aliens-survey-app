@@ -60,7 +60,7 @@ angular.module('survey', [])
             });
         };
 
-        $scope.addParticipant = function (firstname, lastname, email, location) {
+        $scope.addParticipant = function (firstname, lastname, email, location, id) {
             var request = {
                 "first_name": firstname,
                 "last_name": lastname,
@@ -69,13 +69,23 @@ angular.module('survey', [])
                 "id": $rootScope.surveyId
             }
 
-            surveyOverviewservice.addParticipant(request).then(function (response) {
-                if(response.data.success){
-                    $location.path('/surveyoverview');
-                } else if(!response.data.success && response.data.message === 'email already exist email'){
-                    alert("Email already exist, Please use another email id")
-                }
-            })
+            if(id){
+                //update
+                surveyOverviewservice.updateParticipant(request).then(function (response) {
+                    if(response.data.success){
+                        $location.path('/surveyoverview');
+                    }
+                })
+            } else {
+                //create call
+                surveyOverviewservice.addParticipant(request).then(function (response) {
+                    if(response.data.success){
+                        $location.path('/surveyoverview');
+                    } else if(!response.data.success && response.data.message === 'email already exist email'){
+                        alert("Email already exist, Please use another email id")
+                    }
+                })
+            }
         };
 
         $scope.editParticipantData = function (data) {
