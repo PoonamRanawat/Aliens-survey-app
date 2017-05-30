@@ -23,10 +23,10 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="data in surveydata.SurveyList">
-                        <td><a href="#/participant" ng-click="storeSurveyData(data)">{{data.name}}</a></td>
+                        <td><a class="cursor-pointer" ng-click="storeSurveyData(data)">{{data.name}}</a></td>
                         <td>{{data.created_at}}</td>
-                        <td>{{data.noOfEntries}}</td>
-                        <td>{{data.noOfParticipants}}</td>
+                        <td>{{data.participant_count}}</td>
+                        <td>{{data.participant_count}}</td>
                         <td>{{data.noOfQuestions}}</td>
                         <td><span class="fa fa-pencil-square-o cursor-pointer" ng-click="editSurveyData(data)"> </span> &#124; <span class="fa fa-trash-o cursor-pointer" data-toggle="modal" data-target="#myDeleteItemModal" ng-click="deleteItem(data)"></span></td>
                     </tr>

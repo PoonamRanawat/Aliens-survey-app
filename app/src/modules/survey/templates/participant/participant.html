@@ -25,8 +25,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="data in participantData">
-                            <td>{{data.name}}</td>
+                        <tr ng-repeat="data in participantData.participantList">
+                            <td>{{data.first_name}} {{data.last_name}}</td>
                             <td>{{data.email}}</td>
                             <td>{{data.location}}</td>
                             <td>{{data.completedOn}}</td>

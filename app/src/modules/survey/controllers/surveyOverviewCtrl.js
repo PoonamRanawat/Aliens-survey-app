@@ -23,6 +23,7 @@ angular.module('survey', [])
                     $('#myDeleteItemModal').modal('hide');
                 }
                 surveyList();
+                surveyOverviewservice.getParticipantData();
                 return response.data;
             })
         };
@@ -39,28 +40,32 @@ angular.module('survey', [])
         };
 
 
-        
         $scope.storeSurveyData = function (data) {
             $rootScope.surveyName = data.name;
+            $rootScope.surveyId = data.id;
             $scope.data = surveyOverviewservice.getParticipantData(data.id).then(function (response) {
-                $scope.participantData = response.data.data;
+                $rootScope.participantData = response.data.data;
+                console.log($scope.participantData);
+                $location.path('/participant');
             });
+        };
 
-            $scope.addParticipant = function (firstname, lastname, email, location) {
-                var request = {
-                    "first_name": firstname,
-                    "last_name": lastname,
-                    "email": email,
-                    "location": location,
-                    "id": data.id
+        $scope.addParticipant = function (firstname, lastname, email, location) {
+            var request = {
+                "first_name": firstname,
+                "last_name": lastname,
+                "email": email,
+                "location": location,
+                "id": $rootScope.surveyId
+            }
+
+            surveyOverviewservice.addParticipant(request).then(function (response) {
+                if(response.data.success){
+                    $location.path('/surveyoverview');
+                } else if(!response.data.success && response.data.message === 'email already exist email'){
+                    alert("Email already exist, Please use another email id")
                 }
-
-                surveyOverviewservice.addParticipant(request).then(function (response) {
-                    if(response.data.success){
-                        $location.path('/surveyoverview');
-                    }
-                })
-            };
+            })
         };
 
         $scope.editParticipantData = function (data) {
@@ -70,9 +75,19 @@ angular.module('survey', [])
             $location.path('/addparticipant');
 
         };
+
+        if(CommonService.getFlag())
+        {
+            $scope.dataToEditParticipant='';
+        }else{
+            editData();
+            CommonService.setFlag(true);
+        }
+
         function editData() {
             $scope.dataToEditParticipant = CommonService.getData();
         }
+
 
         $scope.cancelParticipant = function () {
             $location.path('/participant');
@@ -82,4 +97,5 @@ angular.module('survey', [])
             $rootScope.dataToEditSurvey = jQuery.extend({}, data);
             $location.path('/createsurvey');
         }
+
     }]);

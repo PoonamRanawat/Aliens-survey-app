@@ -11,6 +11,10 @@ angular.module('createsurvey', ['naif.base64'])
             return text ? String(text).replace(/<[^>]+>/gm, '') : '';
         }
 
+        $scope.cancelsurvey = function () {
+            $location.path('/surveyoverview');
+        };
+
         $scope.createSurvey = function (file, name , desc , msg , id) {
             var request = {
                 "logo_path": file,

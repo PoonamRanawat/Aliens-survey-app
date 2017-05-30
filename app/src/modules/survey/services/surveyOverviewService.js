@@ -77,7 +77,8 @@ angular.module('survey')
         function addParticipant(data){
             return $http({
                 method: 'POST',
-                url: 'http://aliens.dev.easternenterprise.com/api/participant/create?survey_id=' + data
+                url: 'http://aliens.dev.easternenterprise.com/api/participant/create?survey_id=' + data.id,
+                data: data
             }).success(function (response) {
                 return response;
             }).error(function () {
