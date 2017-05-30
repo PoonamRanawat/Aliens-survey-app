@@ -97,14 +97,11 @@ angular.module('user', [])
         };
         //update data - end
 
-        //Function to filter name and city from listing - start
-        $scope.filterFunction = function (element) {
-            //alert("Hi inside filter");
-            if (element.name.match(new RegExp("(" + $scope.textsearch + ")", "i")) ? true : false || element.email.match(new RegExp("(" + $scope.textsearch + ")", "i")) ? true : false) {
-                return element;
-            };
-        };
-        //Function to filter name and city from listing - end
-
-
     }]);
+
+
+angualr.module('user', []).filter('filterFunction' , function (element) {
+    if (element.name.match(new RegExp("(" + $scope.textsearch + ")", "i")) ? true : false || element.email.match(new RegExp("(" + $scope.textsearch + ")", "i")) ? true : false) {
+        return element;
+    };
+});
