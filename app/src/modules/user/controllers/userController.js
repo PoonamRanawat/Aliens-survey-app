@@ -50,6 +50,7 @@ angular.module('user', [])
                 delete dataEntered.updated_at;
                 delete dataEntered.user_type;
                 delete dataEntered.status;
+                delete dataEntered.survey_count;
                 userService.updateUser(dataEntered).then(function (response) {
                     userlist();
                 });
