@@ -1,7 +1,17 @@
 angular.module('createsurvey', ['naif.base64'])
-    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location', function ($scope, $rootScope, createSurveyService, $location) {
-        function edit() {
-            $scope.edit = $rootScope.dataToEditSurvey;
+    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location','CommonService', function ($scope, $rootScope, createSurveyService, $location, CommonService) {
+        editSurveyData();
+
+        if(CommonService.getFlag())
+        {
+            $scope.dataToEditSurvey='';
+        }else{
+            editSurveyData();
+            CommonService.setFlag(true);
+        }
+
+        function editSurveyData() {
+            $scope.dataToEditSurvey = CommonService.getData();
         }
         $rootScope.activeCreateSurveyTab = true;
         $rootScope.activeSurveyTab = false;

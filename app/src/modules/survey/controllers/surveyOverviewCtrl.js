@@ -114,7 +114,8 @@ angular.module('survey', [])
         };
 
         $scope.editSurveyData = function (data) {
-            $rootScope.dataToEditSurvey = jQuery.extend({}, data);
+            CommonService.setData(data);
             $location.path('/createsurvey');
         }
+
     }]);
