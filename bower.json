@@ -13,7 +13,10 @@
     "angular-route": "1.5.x",
     "bootstrap": "3.3.x",
     "jquery": "2.2.x",
-    "components-font-awesome": "^4.7.0"
+    "components-font-awesome": "^4.7.0",
+    "satellizer": "^0.15.5",
+    "angular-base64-upload": "^0.1.22",
+    "textAngular": "^1.5.16"
   },
   "devDependencies": {
     "angular-inline-text-editor": "^0.3.23"

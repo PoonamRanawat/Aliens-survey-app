@@ -62,7 +62,7 @@ angular.module('survey', [])
                 })
             };
         };
-        
+
         $scope.editParticipantData = function (data) {
             CommonService.setData(data);
             //$rootScope.dataToEditParticipant = jQuery.extend({}, data);
