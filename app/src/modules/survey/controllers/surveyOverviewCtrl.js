@@ -3,6 +3,15 @@ angular.module('survey', [])
 
         $rootScope.activeSurveyTab = true;
         $rootScope.activeCreateSurveyTab = false;
+        $scope.activeParticipant = true;
+        if($location.path() == '/participant'){
+                $scope.activeParticipant = true;
+                $scope.activeaddparticipant = false;
+        }
+        if($location.path() == '/addparticipant'){
+                $scope.activeaddparticipant = true;
+                $scope.activeParticipant = false;
+        }
         function surveyList() {
             $scope.data = surveyOverviewservice.getSurveyData().then(function (response) {
                 $scope.surveydata = response.data.data;
@@ -41,8 +50,9 @@ angular.module('survey', [])
 
 
         $scope.storeSurveyData = function (data) {
-            $rootScope.surveyName = data.name;
+            $rootScope.surveyName = data.surveyName;
             $rootScope.surveyId = data.id;
+            console.log(data);
             $scope.data = surveyOverviewservice.getParticipantData(data.id).then(function (response) {
                 $rootScope.participantData = response.data.data;
                 console.log($scope.participantData);
@@ -97,5 +107,4 @@ angular.module('survey', [])
             $rootScope.dataToEditSurvey = jQuery.extend({}, data);
             $location.path('/createsurvey');
         }
-
     }]);

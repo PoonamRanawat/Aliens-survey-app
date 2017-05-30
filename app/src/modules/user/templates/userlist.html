@@ -47,7 +47,7 @@
                         <td>{{data.email}}</td>
                         <td>{{data.company}}</td>
                         <td>{{data.survey_count}}</td>
-                        <td>{{data.created_at | date:'MMMM dd, yyyy' }}</td>
+                        <td>{{data.created_at | date:'MM/dd/yyyy' }}</td>
                         <td><span class="fa fa-pencil-square-o cursor-pointer" data-toggle="modal" data-target="#editUserModal" ng-click="open(data)"> </span> &#124; <span class="fa fa-trash-o cursor-pointer" data-toggle="modal" data-target="#myDeleteModal" ng-click="deleteUser(data)"></span></td>
                     </tr>
                     </tbody>

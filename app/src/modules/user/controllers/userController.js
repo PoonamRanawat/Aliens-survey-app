@@ -1,5 +1,5 @@
 angular.module('user', [])
-    .controller("userController" , ['$scope','userService' ,'$rootScope', function ($scope, userService, $rootScope) {
+    .controller("userController" , ['$scope','userService' ,'$rootScope','CommonService', function ($scope, userService, $rootScope, CommonService) {
         $scope.textsearch = "";
         function userlist() {
             $scope.data = userService.getUserData().then(function (response) {
@@ -65,15 +65,30 @@ angular.module('user', [])
 
         //edit data - start
         $scope.open = function (data) {
-            $rootScope.dataToEdit = jQuery.extend({}, data);
+            CommonService.setData(data);
+            editData();
+           //$rootScope.dataToEdit = jQuery.extend({}, data);
         };
+
+        if(CommonService.getFlag())
+        {
+            $scope.dataToEdit='';
+        }else{
+            editData();
+            CommonService.setFlag(true);
+        }
+
+        function editData() {
+            $scope.dataToEdit = CommonService.getData();
+        }
+
+
         //edit data - end
         $scope.deleteUser = function (data) {
             $rootScope.userTodelete = data.id;
         }
         //delete user - start
         $scope.delete = function (data) {
-
             userService.deleteUser(data).then(function (response) {
                 if(response.data.success){
                     $('#myDeleteModal').modal('hide');

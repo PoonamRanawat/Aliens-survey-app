@@ -2,11 +2,19 @@ angular.module('createsurvey', ['naif.base64'])
     .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location', function ($scope, $rootScope, createSurveyService, $location) {
         function edit() {
             $scope.edit = $rootScope.dataToEditSurvey;
-            console.log(edit);
         }
         $rootScope.activeCreateSurveyTab = true;
         $rootScope.activeSurveyTab = false;
 
+        $scope.createSurveyTab = true;
+        if($location.path() == '/createsurvey'){
+            $scope.createSurveyTab = true;
+            $scope.generalInfoTab = false;
+        }
+        if($location.path() == '/surveymanagement'){
+            $scope.generalInfoTab = true;
+            $scope.createSurveyTab = false;
+        }
         function htmlToPlaintext(text) {
             return text ? String(text).replace(/<[^>]+>/gm, '') : '';
         }
@@ -29,14 +37,14 @@ angular.module('createsurvey', ['naif.base64'])
                 request ['id'] =  id;
                 createSurveyService.updateSurvey(request).then(function (response) {
                     if(response.data.success && response.data.status_code == 200){
-                        $location.path('/surveyoverview');
+                        $location.path('/surveymanagement');
                     }
                 })
             } else {
                 //create call
                 createSurveyService.createSurvey(request).then(function (response) {
                     if(response.data.success && response.data.status_code == 200){
-                        $location.path('/surveyoverview');
+                        $location.path('/surveymanagement');
                     }
                 });
             }

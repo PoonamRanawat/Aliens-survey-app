@@ -9,8 +9,8 @@
             </section>
             <section class="page-body">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active"><a href="#/participant">Participant List</a></li>
-                    <li role="presentation"><a href="#/addparticipant">Add Participant</a></li>
+                    <li role="presentation" ng-class="{'active': activeParticipant}"><a href="#/participant">Participant List</a></li>
+                    <li role="presentation" ng-class="{'active': activeaddparticipant}"><a href="#/addparticipant">Add Participant</a></li>
                 </ul>
                 <!--Add Participant View - start-->
                 <form class="form-horizontal" name="addPartcipantForm" style="padding-top: 10px;">
