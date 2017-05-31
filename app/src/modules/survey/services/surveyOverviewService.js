@@ -68,9 +68,6 @@ angular.module('survey')
                 return response;
             }).error(function (response) {
                 console.log('XHR Failed for creating participant');
-                $timeout(function () {
-                    dataGetService.errors(response.message, 1500);
-                },500);
             })
         }
 

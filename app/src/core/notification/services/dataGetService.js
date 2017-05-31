@@ -4,17 +4,16 @@ angular.module('notification')
 
     var data = this;
     data.success = function (msg,timeout) {
-        toaster.pop('success', "success", msg, timeout);
+        toaster.pop('success', "Success", msg, timeout);
     }
     data.errors = function (msg, timeout) {
-        toaster.pop('error', "error", msg, timeout);
+        toaster.pop('error', "Error", msg, timeout);
     }
     data.waiting = function (msg, timeout) {
-        toaster.pop('wait', "wait", msg, timeout);
+        toaster.pop('wait', "Wait", msg, timeout);
     }
 
     data.popups = function (data) {
-        console.log("data", data);
         toaster.pop(data.status, data.status, data.msg, data.timeout);
     }
 

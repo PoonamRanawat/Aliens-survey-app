@@ -83,7 +83,28 @@ angular.module('survey', ['notification'])
             });
         }
 
+       function validateParticipant(firstname, lastname, email, location) {
+            if (!firstname) {
+                $timeout(function () {
+                    dataGetService.errors('Please enter firstname', 1500);
+                },500);
+            } else if(!lastname){
+                $timeout(function () {
+                    dataGetService.errors('Please enter lastname', 1500);
+                },500);
+            } else if(!email){
+                $timeout(function () {
+                    dataGetService.errors('Please enter valid email', 1500);
+                },500);
+            } else if(!location){
+                $timeout(function () {
+                    dataGetService.errors('Please enter location', 1500);
+                },500);
+            }
+        };
+
         $scope.addParticipant = function (firstname, lastname, email, location, id) {
+            validateParticipant(firstname, lastname, email, location);
             var request = {
                 "first_name": firstname,
                 "last_name": lastname,

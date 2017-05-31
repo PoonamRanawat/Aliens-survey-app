@@ -111,7 +111,8 @@ angular.module('user', ['notification'])
         };
         //delete user - end
         //update data - start
-        $scope.updateEmployees = function (dataToEdit) {
+        $scope.updateEmployees = function (dataToEdit, password) {
+            console.log(password);
             if (dataToEdit == undefined || dataToEdit == "undefined" || dataToEdit == "null" || dataToEdit == null) {
                 $timeout(function () {
                     dataGetService.errors('Please enter data', 5000);
