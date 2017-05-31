@@ -37,11 +37,11 @@ angular.module('user', ['notification'])
                     dataGetService.errors('Please enter company', 1500);
                 },500);
             }
-            else if (!dataEntered.password) {
-                $timeout(function () {
-                    dataGetService.errors('Please enter password', 1500);
-                },500);
-            }
+            // else if (!dataEntered.password) {
+            //     $timeout(function () {
+            //         dataGetService.errors('Please enter password', 1500);
+            //     },500);
+            // }
             if(flag == true){
                 userService.addUser(dataEntered).then(function (response) {
                     if(response.data.success && response.data.status_code == 200){
@@ -68,9 +68,9 @@ angular.module('user', ['notification'])
             }
         }
         $scope.closeForm = function () {
-            $(".modal").on("hidden.bs.modal", function(){
-                $(".modal-body").find("input,textarea,select").val('').end();
-            });
+            // $(".modal").on("hidden.bs.modal", function(){
+            //     $(".modal-body").find("input,textarea,select").val('').end();
+            // });
             $('#addUserForm').modal('hide');
         };
 
