@@ -16,12 +16,12 @@ angular.module('user', ['notification'])
                     dataGetService.errors('Please enter data', 1500);
                 },500);
             } else {
-                validateDataEntered(dataEntered, true);
+                validateDataEntered(dataEntered, '', true);
             }
 
         };
 
-        function validateDataEntered(dataEntered, flag){
+        function validateDataEntered(dataEntered,newpassword ,flag){
             if (!dataEntered.name) {
                 $timeout(function () {
                     dataGetService.errors('Please enter Name', 1500);
@@ -37,10 +37,12 @@ angular.module('user', ['notification'])
                     dataGetService.errors('Please enter Company', 1500);
                 },500);
             }
-            else if (!dataEntered.password) {
-                $timeout(function () {
-                    dataGetService.errors('Please enter Password', 1500);
-                },500);
+            else if(flag == true){
+                if (!dataEntered.password) {
+                    $timeout(function () {
+                        dataGetService.errors('Please enter Password', 1500);
+                    },500);
+                }
             }
             if(flag == true){
                 userService.addUser(dataEntered).then(function (response) {
@@ -58,6 +60,11 @@ angular.module('user', ['notification'])
                 delete dataEntered.user_type;
                 delete dataEntered.status;
                 delete dataEntered.survey_count;
+                if(newpassword){
+                    dataEntered ['password'] = newpassword;
+                } else if($scope.dataToEdit.password == dataEntered.password ){
+                    dataEntered ['password'] = '';
+                }
                 userService.updateUser(dataEntered).then(function (response) {
                     $timeout(function () {
                         dataGetService.success('User updated successfully', 1500);
@@ -112,13 +119,12 @@ angular.module('user', ['notification'])
         //delete user - end
         //update data - start
         $scope.updateEmployees = function (dataToEdit, password) {
-            console.log(password);
             if (dataToEdit == undefined || dataToEdit == "undefined" || dataToEdit == "null" || dataToEdit == null) {
                 $timeout(function () {
                     dataGetService.errors('Please enter data', 5000);
                 },50);
             } else {
-                validateDataEntered(dataToEdit, false);
+                validateDataEntered(dataToEdit,password, false);
             }
             // $('#editUserModal').on('hidden.bs.modal', function () {
             //     $(this).find("input,textarea,select").val('').end();

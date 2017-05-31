@@ -88,6 +88,7 @@ angular.module('survey', ['notification'])
                 $timeout(function () {
                     dataGetService.errors('Please enter Firstname', 1500);
                 },500);
+                return false;
             } else if(!lastname){
                 $timeout(function () {
                     dataGetService.errors('Please enter Lastname', 1500);
@@ -101,42 +102,44 @@ angular.module('survey', ['notification'])
                     dataGetService.errors('Please enter Location', 1500);
                 },500);
             }
+            return true;
         };
 
         $scope.addParticipant = function (firstname, lastname, email, location, id) {
-            validateParticipant(firstname, lastname, email, location);
+            var validated = validateParticipant(firstname, lastname, email, location);
             var request = {
                 "first_name": firstname,
                 "last_name": lastname,
                 "email": email,
                 "location": location
             }
-
-            if(id){
-                //update
-                request ['id'] =  $rootScope.participantId
-                surveyOverviewservice.updateParticipant(request, $rootScope.participantId).then(function (response) {
-                    if(response.data.success){
-                        $timeout(function () {
-                            dataGetService.success('Paticipant updated successfully', 5000);
-                        },50);
-                        getPaticipantsData();
-                    }
-                })
-            } else {
-                //create call
-                request ['id'] =  $rootScope.surveyId
-                surveyOverviewservice.addParticipant(request).then(function (response) {
-                    if(response.data.success){
-                        $timeout(function () {
-                            dataGetService.success('Paticipant added successfully', 5000);
-                        },50);
-                        getPaticipantsData();
-                        //$location.path('/participant');
-                    } else if(!response.data.success && response.data.message === 'email already exist email'){
-                        alert("Email already exist, Please use another email id")
-                    }
-                })
+            if(validated){
+                if(id){
+                    //update
+                    request ['id'] =  $rootScope.participantId
+                    surveyOverviewservice.updateParticipant(request, $rootScope.participantId).then(function (response) {
+                        if(response.data.success){
+                            $timeout(function () {
+                                dataGetService.success('Paticipant updated successfully', 5000);
+                            },50);
+                            getPaticipantsData();
+                        }
+                    })
+                } else {
+                    //create call
+                    request ['id'] =  $rootScope.surveyId
+                    surveyOverviewservice.addParticipant(request).then(function (response) {
+                        if(response.data.success){
+                            $timeout(function () {
+                                dataGetService.success('Paticipant added successfully', 5000);
+                            },50);
+                            getPaticipantsData();
+                            //$location.path('/participant');
+                        } else if(!response.data.success && response.data.message === 'email already exist email'){
+                            alert("Email already exist, Please use another email id")
+                        }
+                    })
+                }
             }
         };
 
