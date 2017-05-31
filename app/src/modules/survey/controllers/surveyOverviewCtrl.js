@@ -1,5 +1,5 @@
 angular.module('survey', [])
-    .controller("surveyOverviewCtrl" , ['$scope','$rootScope','surveyOverviewservice','$location','CommonService', function ($scope, $rootScope,surveyOverviewservice, $location, CommonService) {
+    .controller("surveyOverviewCtrl" , ['$scope','$rootScope','surveyOverviewservice','$location','CommonService','dataGetService','$timeout', function ($scope, $rootScope,surveyOverviewservice, $location, CommonService, dataGetService, $timeout) {
 
         $rootScope.activeSurveyTab = true;
         $rootScope.activeCreateSurveyTab = false;
@@ -12,10 +12,12 @@ angular.module('survey', [])
                 $scope.activeaddparticipant = true;
                 $scope.activeParticipant = false;
         }
+
         function surveyList() {
             $scope.data = surveyOverviewservice.getSurveyData().then(function (response) {
                 $scope.surveydata = response.data.data;
                 console.log(response.data);
+
             });
         }
         surveyList();

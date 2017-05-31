@@ -1,5 +1,5 @@
 angular.module('login')
-    .factory("loginService" , ['$q','$http', function ($q,$http) {
+    .factory("loginService" , ['$q','$http','$timeout','dataGetService','$location', function ($q,$http, $timeout, dataGetService, $location) {
 
         return {
             login: login,
@@ -14,8 +14,13 @@ angular.module('login')
                 data: data
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for login');
+                if(!response.success){
+                    $timeout(function () {
+                        dataGetService.errors('Invalid username or password', 1500);
+                    },500);
+                }
             })
         }
 
@@ -26,8 +31,11 @@ angular.module('login')
                 data: data
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for refresh token');
+                if(!response.success){
+                    $location.path('/');
+                }
             })
         }
 
@@ -37,8 +45,11 @@ angular.module('login')
                 url: 'http://aliens.dev.easternenterprise.com/api/logout'
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for logout');
+                if(!response.success){
+                    $location.path('/');
+                }
             })
         }
 

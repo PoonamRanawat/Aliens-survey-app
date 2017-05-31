@@ -1,1 +1,1 @@
-angular.module('survey', []);
+angular.module('survey', ['notification']);

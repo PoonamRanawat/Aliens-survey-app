@@ -1,22 +1,11 @@
 angular.module('user')
-    .factory("userService" , ['$q','$http', function ($q,$http) {
+    .factory("userService" , ['$q','$http','dataGetService','$timeout', function ($q,$http, dataGetService, $timeout) {
         return {
             getUserData: getUserData,
             addUser: addUser,
             updateUser: updateUser,
             deleteUser: deleteUser
         };
-        
-        // function getUserData() {
-        //     var defer = $q.defer();
-        //     $http.get('src/modules/user/assets/userlist.json').then(function (data) {
-        //             defer.resolve(data);
-        //         }
-        //         , function () {
-        //             defer.reject('could not find users.json');
-        //         });
-        //     return defer.promise;
-        // }
 
         function getUserData() {
             return $http({
@@ -24,8 +13,11 @@ angular.module('user')
                 url: 'http://aliens.dev.easternenterprise.com/api/users/List',
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for getting list of users');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
             })
         }
 
@@ -36,8 +28,11 @@ angular.module('user')
                 data: data
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for adding new user');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
             })
         }
 
@@ -48,8 +43,11 @@ angular.module('user')
                 data: data
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for updating user');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
             })
         }
 
@@ -60,8 +58,11 @@ angular.module('user')
                // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for deleting user');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
             })
         }
     }]);

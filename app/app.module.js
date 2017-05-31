@@ -1,6 +1,6 @@
 'use strict';
 
-// Define the `phonecatApp` module
+// Define the `aliensSurveyApp` module
 angular.module('aliensSurveyApp', [
   'ngAnimate',
   'ngRoute',
@@ -8,7 +8,8 @@ angular.module('aliensSurveyApp', [
     'core',
     'module',
     'textAngular',
-    'naif.base64'
+    'naif.base64',
+    'toaster'
 ]);
 
 angular.module('aliensSurveyApp').run(function($http, $auth) {

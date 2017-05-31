@@ -1,47 +1,54 @@
-angular.module('user', [])
-    .controller("userController" , ['$scope','userService' ,'$rootScope','CommonService', function ($scope, userService, $rootScope, CommonService) {
+angular.module('user', ['notification'])
+    .controller("userController" , ['$scope','userService' ,'$rootScope','CommonService','dataGetService','$timeout', function ($scope, userService, $rootScope, CommonService, dataGetService, $timeout) {
         $scope.textsearch = "";
+
         function userlist() {
             $scope.data = userService.getUserData().then(function (response) {
                 $rootScope.listdata = response.data.data;
+
             });
         }
         userlist();
 
         $scope.addEmployees = function (dataEntered) {
             if (dataEntered == undefined || dataEntered == "undefined" || dataEntered == "null" || dataEntered == null) {
-                return alert("Please enter data");
+                $timeout(function () {
+                    dataGetService.errors('Please enter data', 1500);
+                },500);
             } else {
                 validateDataEntered(dataEntered, true);
             }
-            $('#addUserForm').modal('hide');
+
         };
 
         function validateDataEntered(dataEntered, flag){
             if (!dataEntered.name) {
-                alert("Please enter name");
-                return false;
+                $timeout(function () {
+                    dataGetService.errors('Please enter name', 1500);
+                },500);
             }
-            if (dataEntered.password) {
-                if (dataEntered.password.length < 8) {
-                    alert("Please enter more than 8 characters");
-                    return false;
-                }
-            } else {
-                alert("Please enter password");
-                return false;
+            else if (!dataEntered.email) {
+                $timeout(function () {
+                    dataGetService.errors('Please enter valid email', 1500);
+                },500);
             }
-            if (!dataEntered.company) {
-                alert("Please enter company");
-                return false;
+            else if (!dataEntered.company) {
+                $timeout(function () {
+                    dataGetService.errors('Please enter company', 1500);
+                },500);
             }
-            if (!dataEntered.email) {
-                alert("Please enter valid email");
-                return false;
+            else if (!dataEntered.password) {
+                $timeout(function () {
+                    dataGetService.errors('Please enter password', 1500);
+                },500);
             }
             if(flag == true){
                 userService.addUser(dataEntered).then(function (response) {
                     if(response.data.success && response.data.status_code == 200){
+                        $timeout(function () {
+                            dataGetService.success('User added successfully', 1500);
+                        },200);
+                        $('#addUserForm').modal('hide');
                         userlist();
                     }
                 });
@@ -52,15 +59,19 @@ angular.module('user', [])
                 delete dataEntered.status;
                 delete dataEntered.survey_count;
                 userService.updateUser(dataEntered).then(function (response) {
+                    $timeout(function () {
+                        dataGetService.success('User updated successfully', 1500);
+                    },200);
+                    $('#editUserModal').modal('hide');
                     userlist();
                 });
             }
             $scope.close = function () {
                 $modalInstance.dismiss('close');
             };
-            $('#addUserForm').on('hidden.bs.modal', function () {
-                $(this).find("input,textarea,select").val('').end();
-            });
+            // $('#addUserForm').on('hidden.bs.modal', function () {
+            //     $(this).find("input,textarea,select").val('').end();
+            // });
         }
 
         //edit data - start
@@ -89,6 +100,9 @@ angular.module('user', [])
         $scope.delete = function (data) {
             userService.deleteUser(data).then(function (response) {
                 if(response.data.success){
+                    $timeout(function () {
+                        dataGetService.success('User deleted successfully', 1500);
+                    },200);
                     $('#myDeleteModal').modal('hide');
                     userlist();
                 }
@@ -99,11 +113,12 @@ angular.module('user', [])
         //update data - start
         $scope.updateEmployees = function (dataToEdit) {
             if (dataToEdit == undefined || dataToEdit == "undefined" || dataToEdit == "null" || dataToEdit == null) {
-                return alert("Please enter data");
+                $timeout(function () {
+                    dataGetService.errors('Please enter data', 1500);
+                },500);
             } else {
                 validateDataEntered(dataToEdit, false);
             }
-            $('#editUserModal').modal('hide');
             // $('#editUserModal').on('hidden.bs.modal', function () {
             //     $(this).find("input,textarea,select").val('').end();
             // });

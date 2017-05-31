@@ -46,14 +46,14 @@ angular.module('createsurvey', ['naif.base64'])
                 request ['id'] =  id;
                 createSurveyService.updateSurvey(request).then(function (response) {
                     if(response.data.success && response.data.status_code == 200){
-                        $location.path('/surveymanagement');
+                        $location.path('/surveyoverview');
                     }
                 })
             } else {
                 //create call
                 createSurveyService.createSurvey(request).then(function (response) {
                     if(response.data.success && response.data.status_code == 200){
-                        $location.path('/surveymanagement');
+                        $location.path('/surveyoverview');
                     }
                 });
             }
