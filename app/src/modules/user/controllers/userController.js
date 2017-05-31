@@ -66,13 +66,13 @@ angular.module('user', ['notification'])
                     userlist();
                 });
             }
-            $scope.close = function () {
-                $modalInstance.dismiss('close');
-            };
-            // $('#addUserForm').on('hidden.bs.modal', function () {
-            //     $(this).find("input,textarea,select").val('').end();
-            // });
         }
+        $scope.closeForm = function () {
+            $(".modal").on("hidden.bs.modal", function(){
+                $(".modal-body").find("input,textarea,select").val('').end();
+            });
+            $('#addUserForm').modal('hide');
+        };
 
         //edit data - start
         $scope.open = function (data) {
