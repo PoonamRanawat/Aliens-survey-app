@@ -30,7 +30,7 @@ angular.module('createsurvey', ['naif.base64'])
         }
 
         $scope.cancelsurvey = function () {
-            $location.path('/surveyoverview');
+            $scope.dataToEditSurvey = '';
         };
 
         $scope.createSurvey = function (file, name , desc , msg , id) {
