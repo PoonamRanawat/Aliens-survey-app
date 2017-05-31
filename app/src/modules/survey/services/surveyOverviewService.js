@@ -1,35 +1,13 @@
 angular.module('survey')
-    .factory("surveyOverviewservice" , ['$q','$http', function ($q,$http) {
+    .factory("surveyOverviewservice" , ['$q','$http','dataGetService','$timeout', function ($q,$http, dataGetService, $timeout) {
         return {
             getSurveyData: getSurveyData,
             deleteItem: deleteItem,
             getParticipantData: getParticipantData,
             addParticipant: addParticipant,
-            updateParticipant: updateParticipant
+            updateParticipant: updateParticipant,
+            deleteParticipant: deleteParticipant
         }
-
-
-        // function getSurveyData() {
-        //     return $http({
-        //         method: 'GET',
-        //         url: 'http://aliens.dev.easternenterprise.com/api/users/List',
-        //     }).success(function (response) {
-        //         return response;
-        //     }).error(function () {
-        //         console.log('XHR Failed for getting list of users');
-        //     })
-        // }
-
-        // function getSurveyData(){
-        //     var defer = $q.defer();
-        //     $http.get('src/modules/survey/assets/surveydata.json').then(function (data) {
-        //             defer.resolve(data);
-        //         }
-        //         , function () {
-        //             defer.reject('could not find token.json');
-        //         });
-        //     return defer.promise;
-        // }
 
         function getSurveyData(){
             return $http({
@@ -48,21 +26,27 @@ angular.module('survey')
                 url: 'http://aliens.dev.easternenterprise.com/api/survey/delete?id=' + data
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for deleting survey');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
             })
         }
 
-        // function getParticipantData(){
-        //     var defer = $q.defer();
-        //     $http.get('src/modules/survey/assets/participantData.json').then(function (data) {
-        //             defer.resolve(data);
-        //         }
-        //         , function () {
-        //             defer.reject('could not find token.json');
-        //         });
-        //     return defer.promise;
-        // }
+        function deleteParticipant(data){
+            return $http({
+                method: 'DELETE',
+                url: 'http://aliens.dev.easternenterprise.com/api/participant/delete?id=' + data
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for deleting survey');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+            })
+        }
 
         function getParticipantData(data){
             return $http({
@@ -82,20 +66,26 @@ angular.module('survey')
                 data: data
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for creating participant');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
             })
         }
 
-        function updateParticipant(data){
+        function updateParticipant(data, id){
             return $http({
                 method: 'PUT',
-                url: 'http://aliens.dev.easternenterprise.com/api/participant/update?survey_id=' + data.id,
+                url: 'http://aliens.dev.easternenterprise.com/api/participant/update?id=' + id,
                 data: data
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for updating participant');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
             })
         }
 

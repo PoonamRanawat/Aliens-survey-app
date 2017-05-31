@@ -1,4 +1,4 @@
-angular.module('survey', [])
+angular.module('survey', ['notification'])
     .controller("surveyOverviewCtrl" , ['$scope','$rootScope','surveyOverviewservice','$location','CommonService','dataGetService','$timeout', function ($scope, $rootScope,surveyOverviewservice, $location, CommonService, dataGetService, $timeout) {
 
         $rootScope.activeSurveyTab = true;
@@ -28,15 +28,33 @@ angular.module('survey', [])
         }
 
         //delete user - start
-        $scope.delete = function (data) {
-            surveyOverviewservice.deleteItem(data).then(function (response) {
-                if(response.data.success){
-                    $('#myDeleteItemModal').modal('hide');
-                }
-                surveyList();
-                surveyOverviewservice.getParticipantData();
-                return response.data;
-            })
+        $scope.delete = function (data, flag) {
+            if(flag){
+                surveyOverviewservice.deleteParticipant(data).then(function (response) {
+                    if(response.data.success){
+                        $timeout(function () {
+                            dataGetService.success('Participant deleted successfully', 1500);
+                        },200);
+                        $('#myDeleteItemModal').modal('hide');
+                    }
+                    //surveyList();
+                    getPaticipantsData();
+                    //surveyOverviewservice.getParticipantData();
+                    return response.data;
+                })
+            } else{
+                surveyOverviewservice.deleteItem(data).then(function (response) {
+                    if(response.data.success){
+                        $timeout(function () {
+                            dataGetService.success('Survey deleted successfully', 1500);
+                        },200);
+                        $('#myDeleteItemModal').modal('hide');
+                    }
+                    surveyList();
+                    //surveyOverviewservice.getParticipantData();
+                    return response.data;
+                })
+            }
         };
         //delete user - end
         $scope.openParticipantView = true;
@@ -54,35 +72,46 @@ angular.module('survey', [])
         $scope.storeSurveyData = function (data) {
             $rootScope.surveyName = data.surveyName;
             $rootScope.surveyId = data.id;
-            console.log(data);
-            $scope.data = surveyOverviewservice.getParticipantData(data.id).then(function (response) {
+            getPaticipantsData();
+        };
+
+        function getPaticipantsData(){
+            $scope.data = surveyOverviewservice.getParticipantData($rootScope.surveyId).then(function (response) {
                 $rootScope.participantData = response.data.data;
                 console.log($scope.participantData);
                 $location.path('/participant');
             });
-        };
+        }
 
         $scope.addParticipant = function (firstname, lastname, email, location, id) {
             var request = {
                 "first_name": firstname,
                 "last_name": lastname,
                 "email": email,
-                "location": location,
-                "id": $rootScope.surveyId
+                "location": location
             }
 
             if(id){
                 //update
-                surveyOverviewservice.updateParticipant(request).then(function (response) {
+                request ['id'] =  $rootScope.participantId
+                surveyOverviewservice.updateParticipant(request, $rootScope.participantId).then(function (response) {
                     if(response.data.success){
-                        $location.path('/surveyoverview');
+                        $timeout(function () {
+                            dataGetService.success('Paticipant updated successfully', 5000);
+                        },50);
+                        getPaticipantsData();
                     }
                 })
             } else {
                 //create call
+                request ['id'] =  $rootScope.surveyId
                 surveyOverviewservice.addParticipant(request).then(function (response) {
                     if(response.data.success){
-                        $location.path('/surveyoverview');
+                        $timeout(function () {
+                            dataGetService.success('Paticipant added successfully', 5000);
+                        },50);
+                        getPaticipantsData();
+                        //$location.path('/participant');
                     } else if(!response.data.success && response.data.message === 'email already exist email'){
                         alert("Email already exist, Please use another email id")
                     }
@@ -108,6 +137,8 @@ angular.module('survey', [])
 
         function editData() {
             $scope.dataToEditParticipant = CommonService.getData();
+            $rootScope.participantId = $scope.dataToEditParticipant.id;
+
         }
 
 

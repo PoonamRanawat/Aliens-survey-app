@@ -18,8 +18,8 @@ angular.module('login')
                 console.log('XHR Failed for login');
                 if(!response.success){
                     $timeout(function () {
-                        dataGetService.errors('Invalid username or password', 1500);
-                    },500);
+                        dataGetService.errors('Invalid username or password', 5000);
+                    },50);
                 }
             })
         }

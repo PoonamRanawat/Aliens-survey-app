@@ -92,3 +92,12 @@
     color: #fff;
     background-color: #337ab7;
 }
+
+.text-editor .btn-toolbar{
+    margin-bottom:5px;
+}
+.text-editor .ta-editor.ta-html,
+.text-editor .ta-scroll-window.form-control,
+.text-editor .ta-scroll-window > .ta-bind {
+    min-height: 100px;
+}

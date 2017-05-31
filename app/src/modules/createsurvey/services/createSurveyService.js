@@ -1,5 +1,5 @@
 angular.module('createsurvey')
-    .factory("createSurveyService" , ['$q','$http', function ($q,$http) {
+    .factory("createSurveyService" , ['$q','$http','dataGetService','$timeout', function ($q,$http, dataGetService, $timeout) {
         return {
             createSurvey: createSurvey,
             updateSurvey: updateSurvey
@@ -12,8 +12,11 @@ angular.module('createsurvey')
                 data: data
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for creating survey');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
             })
         }
 
@@ -24,8 +27,11 @@ angular.module('createsurvey')
                 data: data
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for updating survey');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
             })
         }
 

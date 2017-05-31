@@ -114,8 +114,8 @@ angular.module('user', ['notification'])
         $scope.updateEmployees = function (dataToEdit) {
             if (dataToEdit == undefined || dataToEdit == "undefined" || dataToEdit == "null" || dataToEdit == null) {
                 $timeout(function () {
-                    dataGetService.errors('Please enter data', 1500);
-                },500);
+                    dataGetService.errors('Please enter data', 5000);
+                },50);
             } else {
                 validateDataEntered(dataToEdit, false);
             }

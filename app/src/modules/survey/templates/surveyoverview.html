@@ -22,7 +22,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="data in surveydata.SurveyList">
+                    <tr ng-repeat="data in surveydata.SurveyList | orderBy:'created_at':true">
                         <td><a class="cursor-pointer" ng-click="storeSurveyData(data)">{{data.surveyName}}</a></td>
                         <td>{{data.created_at}}</td>
                         <td>{{data.participant_count}}</td>
@@ -68,4 +68,5 @@
         </section>
     </div>
     <div ng-include="'src/modules/survey/templates/modals/deleteitem.html'"></div>
+    <div ng-include="'src/core/notification/popups.html'"></div>
 </div>
