@@ -24,22 +24,22 @@ angular.module('user', ['notification'])
         function validateDataEntered(dataEntered, flag){
             if (!dataEntered.name) {
                 $timeout(function () {
-                    dataGetService.errors('Please enter name', 1500);
+                    dataGetService.errors('Please enter Name', 1500);
                 },500);
             }
             else if (!dataEntered.email) {
                 $timeout(function () {
-                    dataGetService.errors('Please enter valid email', 1500);
+                    dataGetService.errors('Please enter valid Email', 1500);
                 },500);
             }
             else if (!dataEntered.company) {
                 $timeout(function () {
-                    dataGetService.errors('Please enter company', 1500);
+                    dataGetService.errors('Please enter Company', 1500);
                 },500);
             }
             else if (!dataEntered.password) {
                 $timeout(function () {
-                    dataGetService.errors('Please enter password', 1500);
+                    dataGetService.errors('Please enter Password', 1500);
                 },500);
             }
             if(flag == true){
