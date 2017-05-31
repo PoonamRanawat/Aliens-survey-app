@@ -67,7 +67,6 @@ angular.module('user', [])
         $scope.open = function (data) {
             CommonService.setData(data);
             editData();
-           //$rootScope.dataToEdit = jQuery.extend({}, data);
         };
 
         if(CommonService.getFlag())
@@ -81,7 +80,6 @@ angular.module('user', [])
         function editData() {
             $scope.dataToEdit = CommonService.getData();
         }
-
 
         //edit data - end
         $scope.deleteUser = function (data) {
@@ -106,9 +104,9 @@ angular.module('user', [])
                 validateDataEntered(dataToEdit, false);
             }
             $('#editUserModal').modal('hide');
-            $('#editUserModal').on('hidden.bs.modal', function () {
-                $(this).find("input,textarea,select").val('').end();
-            });
+            // $('#editUserModal').on('hidden.bs.modal', function () {
+            //     $(this).find("input,textarea,select").val('').end();
+            // });
         };
         //update data - end
 
