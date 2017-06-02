@@ -34,6 +34,9 @@ angular.module('survey')
                 $timeout(function () {
                     dataGetService.errors(response.message, 1500);
                 },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
 
@@ -48,6 +51,9 @@ angular.module('survey')
                 $timeout(function () {
                     dataGetService.errors(response.message, 1500);
                 },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
 
@@ -74,6 +80,9 @@ angular.module('survey')
                 return response;
             }).error(function (response) {
                 console.log('XHR Failed for creating participant');
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
 
@@ -89,6 +98,9 @@ angular.module('survey')
                 $timeout(function () {
                     dataGetService.errors(response.message, 1500);
                 },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
 

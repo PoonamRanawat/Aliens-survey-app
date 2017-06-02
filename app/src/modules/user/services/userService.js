@@ -18,6 +18,9 @@ angular.module('user')
                 $timeout(function () {
                     dataGetService.errors(response.message, 1500);
                 },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
 
@@ -30,9 +33,12 @@ angular.module('user')
                 return response;
             }).error(function (response) {
                 console.log('XHR Failed for adding new user');
-                // $timeout(function () {
-                //     dataGetService.errors(response.message, 1500);
-                // },500);
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
 
@@ -45,9 +51,12 @@ angular.module('user')
                 return response;
             }).error(function (response) {
                 console.log('XHR Failed for updating user');
-                // $timeout(function () {
-                //     dataGetService.errors(response.message, 1500);
-                // },500);
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
 
@@ -63,6 +72,9 @@ angular.module('user')
                 $timeout(function () {
                     dataGetService.errors(response.message, 1500);
                 },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
     }]);
