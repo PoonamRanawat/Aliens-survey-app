@@ -1,5 +1,5 @@
 angular.module('survey')
-    .factory("surveyOverviewservice" , ['$q','$http','dataGetService','$timeout', function ($q,$http, dataGetService, $timeout) {
+    .factory("surveyOverviewservice" , ['$q','$http','dataGetService','$timeout','$location', function ($q,$http, dataGetService, $timeout,$location) {
         return {
             getSurveyData: getSurveyData,
             deleteItem: deleteItem,
@@ -15,8 +15,11 @@ angular.module('survey')
                 url: 'http://aliens.dev.easternenterprise.com/api/survey/List'
             }).success(function (response) {
                 return response;
-            }).error(function () {
+            }).error(function (response) {
                 console.log('XHR Failed for getting survey list');
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
 
@@ -41,7 +44,7 @@ angular.module('survey')
             }).success(function (response) {
                 return response;
             }).error(function (response) {
-                console.log('XHR Failed for deleting survey');
+                console.log('XHR Failed for deleting participant');
                 $timeout(function () {
                     dataGetService.errors(response.message, 1500);
                 },500);
@@ -54,8 +57,11 @@ angular.module('survey')
                 url: 'http://aliens.dev.easternenterprise.com/api/participants/List?survey_id=' + data
             }).success(function (response) {
                 return response;
-            }).error(function () {
-                console.log('XHR Failed for deleting survey');
+            }).error(function (response) {
+                console.log('XHR Failed for getting participant data');
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
             })
         }
 

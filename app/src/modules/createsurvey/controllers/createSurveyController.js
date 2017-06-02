@@ -25,10 +25,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             $scope.generalInfoTab = true;
             $scope.createSurveyTab = false;
         }
-        function htmlToPlaintext(text) {
-            return text ? String(text).replace(/<[^>]+>/gm, '') : '';
-        }
-
         $scope.cancelsurvey = function () {
             $scope.dataToEditSurvey = '';
         };
@@ -47,9 +43,9 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 createSurveyService.updateSurvey(request).then(function (response) {
                     if(response.data.success && response.data.status_code == 200){
                         $timeout(function () {
-                            dataGetService.success('Survey updated successfully', 1500);
-                        },200);
-                        $location.path('/surveyoverview');
+                            dataGetService.success('Survey updated successfully', 5000);
+                        },50);
+                        $location.path('/surveymanagement');
                     }
                 })
             } else {
@@ -57,12 +53,47 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 createSurveyService.createSurvey(request).then(function (response) {
                     if(response.data.success && response.data.status_code == 200){
                         $timeout(function () {
-                            dataGetService.success('Survey created successfully', 1500);
-                        },200);
-                        $location.path('/surveyoverview');
+                            dataGetService.success('Survey created successfully', 5000);
+                        },50);
+                        $rootScope.createdSurvey = response.data.data;
+                        $location.path('/surveymanagement');
                     }
                 });
             }
         }
 
+        $scope.saveSurvey = function (data) {
+            var request = [{
+                "category_name": data.category_name,
+                "cat_desc": data.cat_desc,
+                "questions": [{
+                    "question_title": data.question_title,
+                    "question_desc": data.question_desc,
+                    "options" : "great",
+                    "correct_answer": "great"
+                    }
+                ]
+            }]
+            // createSurveyService.saveSurvey(request).then(function (response) {
+            //     if(response.data.success && response.data.status_code == 200){
+            //         $timeout(function () {
+            //             dataGetService.success('Survey saved successfully', 5000);
+            //         },50);
+            //         $location.path('/surveyoverview');
+            //     }
+            // });
+        };
+        $scope.addCategory = function () {
+            var count = $(".add-category-body");
+            var cnt = count.length + 1;
+            $('.add-category-body:last-child').clone({withDataAndEvents: true}).insertAfter("div.add-category-body:last").find("form").attr("id", "form" + cnt);
+        };
+        
+        $scope.deleteCategory = function (myparent) {
+            myparent = $(event.target).parent().parent();
+            // var formToDelete = (myparent[0].id);
+            // var formToDelete = formToDelete.replace(/"/g, "");
+            // $("#formToDelete").remove();
+            //$("form").remove("#formToDelete");
+        };
     }]);

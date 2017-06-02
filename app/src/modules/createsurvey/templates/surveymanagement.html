@@ -12,28 +12,30 @@
                     <li role="presentation" ng-class="{'active': generalInfoTab}"><a href="#/surveymanagement">Survey Management</a></li>
                 </ul>
                 <div class="add-category-header">
-                    <figure><img src=""></figure>
-                    <h2>Survey Name</h2>
+                    <figure><img src="{{createdSurvey.logo_path}}"></figure>
+                    <h2>{{createdSurvey.name}}</h2>
                     <div class="button-group">
-                        <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Category</button>
-                        <button type="button" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-primary" ng-click="addCategory()"><i class="fa fa-plus"></i> Add Category</button>
+                        <button type="button" class="btn btn-success" ng-click="saveSurvey(dataToEditSurvey)">Save</button>
                     </div>
                 </div>
-                <div class="add-category-body">
+                <div class="add-category-body" id="add-category-body">
                     <section class="category-block">
-                        <div class="text-right"><a class="delete-category btn btn-danger" href=""><i class="fa fa-trash"></i> Delete Category</a></div>
-                        <form>
+                        <form id="form1">
+                            <div class="text-right"><a class="delete-category btn btn-danger" href="" ng-click="deleteCategory(event)"><i class="fa fa-trash"></i> Delete Category</a></div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Category Name:</label>
-                                        <textarea class="form-control" rows="4" placeholder="Category Name"></textarea>
+                                        <div class="text-editor">
+                                            <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.category_name"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Description:</label>
-                                        <textarea class="form-control" rows="4" placeholder="Description"></textarea>
+                                        <textarea class="form-control" rows="4" placeholder="Description" ng-model="dataToEditSurvey.cat_desc"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -43,20 +45,22 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Question:</label>
-                                            <textarea class="form-control" rows="4" placeholder="Question"></textarea>
+                                            <div class="text-editor">
+                                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.question_title"></div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Description:</label>
-                                            <textarea class="form-control" rows="4" placeholder="Description"></textarea>
+                                            <textarea class="form-control" rows="4" placeholder="Description" ng-model="dataToEditSurvey.question_desc"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="answer-block">
                                     <label>Answer:</label>
                                     <div class="answer-row">
-                                        <label class="radio-inline"><input type="radio" name="optradio">Option 1</label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" ng-model="dataToEditSurvey.optradio"><input type="text" ng-model="dataToEditSurvey.option1"></label>
                                         <a class="btn btn-primary" href=""><i class="fa fa-plus"></i></a>
                                         <a class="btn btn-danger" href=""><i class="fa fa-trash-o"></i></a>
                                     </div>
