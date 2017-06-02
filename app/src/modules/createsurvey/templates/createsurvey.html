@@ -8,7 +8,7 @@
             </section>
             <section class="page-body">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" ng-class="{'active': createSurveyTab}"><a href="#/createsurvey" ng-click="openGeneralSection()">General Information</a></li>
+                    <li role="presentation" ng-class="{'active': createSurveyTab}"><a href="#/createsurvey">General Information</a></li>
                     <li role="presentation" ng-class="{'active': generalInfoTab}"><a href="#/surveymanagement">Survey Management</a></li>
                 </ul>
                 <!-- Create Survey Form -->
@@ -16,15 +16,15 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">Logo:</label>
                         <div class="col-sm-4">
-                            <input type='file' ng-model='dataToEditSurvey.yourModel' class="form-control"  placeholder="Upload logo" value="fileupload" id="fileUpload" accept="image/jpg, image/png" maxsize="5000" base-sixty-four-input>
-                            <span ng-show="dataToEditSurvey.yourModel.$error.maxsize">Files must not exceed 5000 KB</span>
+                            <input type='file' ng-model='surveyData.logo_path' class="form-control"  placeholder="Upload logo" value="fileupload" id="fileUpload" accept="image/jpg, image/png" maxsize="5000" base-sixty-four-input>
+                            <span ng-show="surveyData.logo_path.$error.maxsize">Files must not exceed 5000 KB</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2">Name of survey:</label>
                         <div class="col-sm-10">
                             <div class="text-editor">
-                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.name"></div>
+                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="surveyData.name"></div>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                         <label class="control-label col-sm-2">Description:</label>
                         <div class="col-sm-10">
                             <div class="text-editor">
-                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.description"></div>
+                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="surveyData.description"></div>
                             </div>
                         </div>
                     </div>
@@ -40,13 +40,13 @@
                         <label class="control-label col-sm-2">Message:</label>
                         <div class="col-sm-10">
                             <div class="text-editor">
-                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.message"></div>
+                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="surveyData.message"></div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
-                            <button type="submit" class="btn btn-success" ng-click="createSurvey(dataToEditSurvey.yourModel, dataToEditSurvey.name, dataToEditSurvey.description, dataToEditSurvey.message, dataToEditSurvey.id)">Create</button>
+                            <button type="submit" class="btn btn-success" ng-click="createNewSurvey()">Create</button>
                             <button type="submit" class="btn btn-danger" ng-click="cancelsurvey()">Cancel</button>
                         </div>
                     </div>

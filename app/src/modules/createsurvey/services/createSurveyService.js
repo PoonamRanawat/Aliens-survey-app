@@ -3,7 +3,8 @@ angular.module('createsurvey')
         return {
             createSurvey: createSurvey,
             updateSurvey: updateSurvey,
-            saveSurvey: saveSurvey
+            saveSurvey: saveSurvey,
+            getSurveyDetail : getSurveyDetail
         }
 
         function createSurvey(data) {
@@ -51,6 +52,24 @@ angular.module('createsurvey')
                 return response;
             }).error(function (response) {
                 console.log('XHR Failed for saving survey');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
+            })
+        }
+
+        function getSurveyDetail(surveyId) {
+            console.log("surveyId is " +surveyId);
+            return $http({
+                method: 'GET',
+                url: 'http://aliens.dev.easternenterprise.com/api/survey-detail/?survey_id='+surveyId,
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for creating survey');
                 $timeout(function () {
                     dataGetService.errors(response.message, 1500);
                 },500);
