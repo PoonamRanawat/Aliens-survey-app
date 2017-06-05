@@ -204,6 +204,10 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 toaster.error(error);
             });
         };
+        
+        $scope.deleteQuestionResponseList = function (parentQuestionId, indexNumber, responseId) {
+            
+        };
 
         init();
     }]);
