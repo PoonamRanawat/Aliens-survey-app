@@ -9,7 +9,7 @@
             <section class="page-body">
                 <ul class="nav nav-tabs">
                     <li id="generalInfoTab" class="active"><a data-toggle="tab" data-target="#generalInfoContent">General Information</a></li>
-                    <li id="surveyManageTab" class="disabled-tab" ><a data-toggle="tab" data-target="#surveyManageContent">Survey Management</a></li>
+                    <li id="surveyManageTab"><a data-toggle="tab" data-target="#surveyManageContent">Survey Management</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -47,9 +47,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group" ng-if="surveyId ==null">
+                            <div class="form-group" >
                                 <div class="col-sm-12 text-right">
-                                    <button type="submit" class="btn btn-success" ng-click="createNewSurvey()">Create</button>
+                                    <button ng-if="surveyId ==null" type="submit" class="btn btn-success" ng-click="createNewSurvey()">Create</button>
+                                    <button ng-if="surveyId !=null" type="submit" class="btn btn-success" ng-click="createNewSurvey()">Update</button>
                                     <button type="submit" class="btn btn-danger" ng-click="cancelsurvey()">Cancel</button>
                                 </div>
                             </div>
@@ -60,7 +61,8 @@
                     <!----Survey Management Content----->
                     <div id="surveyManageContent" class="tab-pane fade">
                         <div class="add-category-header">
-                            <figure ng-if="surveyData.logo_path.base64"><img data-ng-src="data:image/gif;base64,{{surveyData.logo_path.base64}}"></figure>
+                            <figure ng-if="surveyData.logo_path.base64 && isUpdate != true"><img data-ng-src="data:image/gif;base64,{{surveyData.logo_path.base64}}"></figure>
+                            <figure ng-if="surveyData.logo_path.base64 && isUpdate == true"><img src="{{surveyData.logo_path.base64}}"></figure>
                             <h2 ng-if="surveyData.name">{{surveyData.name}}</h2>
                             <div class="button-group">
                                 <button type="button" class="btn btn-primary" ng-click="addCategory()"><i class="fa fa-plus"></i> Add Category</button>
@@ -159,7 +161,10 @@
 
                             <!-----Category Listing Block---->
                             <section class="category-block" ng-repeat="categoryObjDetail in categoryList track by $index">
-                                <div class="text-right"><a class="delete-question btn btn-danger" href="" ng-click="deleteCategory($index)"><i class="fa fa-trash"></i> Delete Category</a></div>
+                                <div class="button-group text-right">
+                                    <!--<a class="delete-question btn btn-primary" href="" ng-click="editCategory(categoryObjDetail, $index)"><i class="fa fa-trash"></i> Edit Category</a>-->
+                                    <a class="delete-question btn btn-danger" href="" ng-click="deleteCategory($index, categoryObjDetail)"><i class="fa fa-trash"></i> Delete Category</a>
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">

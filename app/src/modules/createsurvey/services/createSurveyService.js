@@ -5,7 +5,9 @@ angular.module('createsurvey')
             updateSurvey: updateSurvey,
             saveSurvey: saveSurvey,
             getSurveyDetail : getSurveyDetail,
-            saveSurveyInfo : saveSurveyInfo
+            saveSurveyInfo : saveSurveyInfo,
+            updateSurveyInfo : updateSurveyInfo,
+            deleteCategory : deleteCategory
         }
 
         function createSurvey(data) {
@@ -28,7 +30,7 @@ angular.module('createsurvey')
 
         function updateSurvey(data) {
             return $http({
-                method: 'POST',
+                method: 'PUT',
                 url: 'http://aliens.dev.easternenterprise.com/api/survey/update',
                 data: data
             }).success(function (response) {
@@ -96,5 +98,40 @@ angular.module('createsurvey')
                 }
             })
         };
+        
+        function updateSurveyInfo(data, surveyId) {
+            return $http({
+                method: 'PUT',
+                url: 'http://aliens.dev.easternenterprise.com/api/question/update?survey_id=' + surveyId,
+                data: data
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for saving survey');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
+            })
+        };
+        
+        function deleteCategory(surveyId) {
+            return $http({
+                method: 'DELETE',
+                url: 'http://aliens.dev.easternenterprise.com/api/category/delete?cat_id=' + surveyId
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for saving survey');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
+            })
+        }
 
     }]);

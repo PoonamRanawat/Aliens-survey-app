@@ -11,7 +11,27 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             $("#surveyManageContent").addClass("in active");
         };
         
+        function getSurveyDetail(surveyId) {
+            createSurveyService.getSurveyDetail(surveyId).then(function (response) {
+                var surveyData = response.data.data[0];
+                $scope.categoryList = surveyData.category;
+                $scope.surveyData = {
+                    id : surveyData.id,
+                    logo_path : {
+                        base64 : surveyData.logo_path
+                    },
+                    name : surveyData.name,
+                    description : surveyData.description,
+                    message : surveyData.message
+                };
+            }).catch(function (error) {
+                toaster.clear();
+                toaster.error(error);
+            });
+        }
+        
         function init() {
+            $scope.isUpdate = false;
             $scope.surveyId = null;
             $scope.surveyData = {};
             $scope.createSurveyTab = true;
@@ -31,9 +51,19 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             $scope.categoryList = [];
             $scope.createSurveyTab = false;
             $scope.generalInfoTab = true;
-        };
 
-        $scope.createNewSurvey = function () {
+            if($location.path() == '/edit-survey') {
+                if(typeof $rootScope.editSurveyId == 'undefined') {
+                    $location.path('/surveyoverview');
+                }
+                $scope.isUpdate = true;
+                $scope.surveyId = $rootScope.editSurveyId;
+                getSurveyDetail($scope.surveyId);
+            }
+
+        };
+        
+        function createSurveyDetail() {
             createSurveyService.createSurvey($scope.surveyData).then(function (response) {
                 if(response.data.success && response.data.status_code == 200){
                     $timeout(function () {
@@ -46,6 +76,29 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 toaster.clear();
                 toaster.error(error);
             });
+        };
+
+        function updateSurveyDetail() {
+            createSurveyService.updateSurveyInfo($scope.surveyData, $scope.surveyId).then(function (response) {
+                if(response.data.success && response.data.status_code == 200){
+                    $timeout(function () {
+                        dataGetService.success('Survey updated successfully', 5000);
+                    },50);
+                    goToSurveyManageTab();
+                }
+            }).catch(function (error) {
+                toaster.clear();
+                toaster.error(error);
+            });
+        };
+
+        $scope.createNewSurvey = function () {
+            if($scope.isUpdate) {
+                updateSurveyDetail();
+            } else {
+                createSurveyDetail();
+            }
+
         };
         
         $scope.addQuestionResponse = function () {
@@ -99,17 +152,32 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             console.log($scope.categoryList);
         };
         
-        $scope.deleteCategory = function (indexNumber) {
-            $scope.categoryList.splice(indexNumber, 1);
-            toaster.success("Category detail removed successfully.");
+        $scope.deleteCategory = function (indexNumber, categoryObjDetail) {
+            if(typeof categoryObjDetail.id != 'undefined') {
+                createSurveyService.deleteCategory(categoryObjDetail.id).then(function (response) {
+                    $scope.categoryList.splice(indexNumber, 1);
+                    toaster.success("Category detail removed successfully.");
+                }).catch(function (error) {
+                    toaster.clear();
+                    toaster.error(error);
+                });
+            } else {
+                $scope.categoryList.splice(indexNumber, 1);
+                toaster.success("Category detail removed successfully.");
+            }
         };
         
         $scope.saveSurveyDetail = function () {
-            console.log($scope.categoryList);
+            if($scope.surveyId == null) {
+                toaster.clear();
+                toaster.error("Please create survey first.");
+                return false;
+            }
             createSurveyService.saveSurveyInfo($scope.categoryList, $scope.surveyId).then(function (response) {
                 if(response.data.success && response.data.status_code == 200){
                     $timeout(function () {
                         dataGetService.success('Survey Category saved successfully', 5000);
+                        $location.path("/surveyoverview");
                     },50);
                 }
             }).catch(function (error) {
@@ -117,6 +185,9 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 toaster.error(error);
             });
         };
-
+        
+        $scope.editCategory = function (categoryDetail, indexNumber) {
+            $scope.categoryDetail = categoryDetail;
+        };
         init();
     }]);
