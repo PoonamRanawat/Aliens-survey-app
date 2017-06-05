@@ -1,40 +1,36 @@
 angular.module('createsurvey', ['naif.base64', 'notification'])
-    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location','CommonService','$timeout','dataGetService', '$routeParams','$filter',
-        function ($scope, $rootScope, createSurveyService, $location, CommonService, $timeout, dataGetService, $routeParams, $filter) {
-        function getSurveyDetailById(surveyId) {
-            createSurveyService.getSurveyDetail(surveyId).then(function (response) {
-                $scope.surveyDetails = response.data.data[0];
-            }).catch(function (response) {
-                console.log(response);
-            });
+    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location','CommonService','$timeout','dataGetService', '$routeParams','toaster',
+        function ($scope, $rootScope, createSurveyService, $location, CommonService, $timeout, dataGetService, $routeParams, toaster) {
+
+        function goToSurveyManageTab() {
+            $("#surveyManageTab").removeClass("disabled-tab").off('click');
+            $("#generalInfoTab").removeClass("active");
+            $("#surveyManageTab").addClass("active");
+
+            $("#generalInfoContent").removeClass("in active");
+            $("#surveyManageContent").addClass("in active");
         };
         
         function init() {
-            if($location.path() == '/createsurvey') {
-                $scope.surveyData = {};
-                $scope.createSurveyTab = true;
-                $scope.generalInfoTab = false;
-            }
+            $scope.surveyId = null;
+            $scope.surveyData = {};
+            $scope.createSurveyTab = true;
+            $scope.generalInfoTab = false;
+            $scope.categoryDetail = {
+                name : '',
+                description : '',
+                question : []
+            };
 
-            if($routeParams.survey_id || $location.path() == '/surveymanagement'){
-                $scope.categoryDetail = {
-                    name : '',
-                    description : '',
-                    questions : []
-                };
+            $scope.questionDetail = {
+                question_title : null,
+                description : null,
+                option : []
+            };
 
-                $scope.questionDetail = {
-                    question_title : null,
-                    description : null,
-                    options : []
-                };
-
-                $scope.categoryList = [];
-                $scope.createSurveyTab = false;
-                $scope.generalInfoTab = true;
-                //getSurveyDetailById($routeParams.survey_id);
-                getSurveyDetailById($routeParams.survey_id);
-            }
+            $scope.categoryList = [];
+            $scope.createSurveyTab = false;
+            $scope.generalInfoTab = true;
         };
 
         $scope.createNewSurvey = function () {
@@ -43,66 +39,83 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                     $timeout(function () {
                         dataGetService.success('Survey created successfully', 5000);
                     },50);
-                    $rootScope.surveyId = response.data.data.id;
-                    $location.path('/surveymanagement').search({'survey_id' : response.data.data.id});
+                    $scope.surveyId = response.data.data.id;
+                    goToSurveyManageTab();
                 }
             }).catch(function (error) {
-                console.log(error);
+                toaster.clear();
+                toaster.error(error);
             });
         };
         
         $scope.addQuestionResponse = function () {
+            toaster.clear();
             if($scope.optionDetail == '') {
-                console.log("Please enter options");
+                toaster.error("Please enter response.");
                 return false;
             }
-            $scope.questionDetail.options.push({response : $scope.optionDetail});
+            $scope.questionDetail.option.push({id : null, option : $scope.optionDetail});
             $scope.optionDetail = '';
         };
 
         $scope.deleteQuestionResponse = function (indexNumber) {
-            $scope.questionDetail.options.splice(indexNumber, 1);
+            $scope.questionDetail.option.splice(indexNumber, 1);
         };
         
         $scope.addQuestion = function () {
+            toaster.clear();
             if($scope.questionDetail.question_title == '' || $scope.questionDetail.description == '' ||
-                $scope.questionDetail.options.length == 0) {
-                console.log("Please enter question detail");
+                $scope.questionDetail.option.length == 0) {
+                toaster.error("Question title, description, response are required field.");
                 return false;
             }
-            $scope.categoryDetail.questions.push($scope.questionDetail);
+            $scope.categoryDetail.question.push($scope.questionDetail);
+            toaster.success("Question added to category successfully.");
             $scope.questionDetail = {
                 question_title : null,
                 description : null,
-                options : []
+                option : []
             };
         };
         
         $scope.deleteQuestion = function (indexNumber) {
-            $scope.categoryDetail.questions.splice(indexNumber, 1);
+            $scope.categoryDetail.question.splice(indexNumber, 1);
+            toaster.success("Question removed from category successfully.");
         };
 
         $scope.addCategory = function () {
-            if($scope.categoryDetail.name == '' || $scope.categoryDetail.description =='' || $scope.categoryDetail.questions.length == 0) {
-                console.log("Please fill all detail for category.");
+            toaster.clear();
+            if($scope.categoryDetail.name == '' || $scope.categoryDetail.description =='' || $scope.categoryDetail.question.length == 0) {
+                toaster.clear();
+                toaster.error("Name, Description, questions are required field.");
                 return false;
             }
             $scope.categoryList.push($scope.categoryDetail);
             $scope.categoryDetail = {
                 name : '',
                 description : '',
-                questions : []
+                question : []
             };
             console.log($scope.categoryList);
         };
         
         $scope.deleteCategory = function (indexNumber) {
-            console.log(indexNumber);
             $scope.categoryList.splice(indexNumber, 1);
+            toaster.success("Category detail removed successfully.");
         };
         
         $scope.saveSurveyDetail = function () {
             console.log($scope.categoryList);
+            createSurveyService.saveSurveyInfo($scope.categoryList, $scope.surveyId).then(function (response) {
+                if(response.data.success && response.data.status_code == 200){
+                    $timeout(function () {
+                        dataGetService.success('Survey Category saved successfully', 5000);
+                    },50);
+                }
+            }).catch(function (error) {
+                toaster.clear();
+                toaster.error(error);
+            });
         };
 
         init();

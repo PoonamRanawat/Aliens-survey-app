@@ -4,7 +4,8 @@ angular.module('createsurvey')
             createSurvey: createSurvey,
             updateSurvey: updateSurvey,
             saveSurvey: saveSurvey,
-            getSurveyDetail : getSurveyDetail
+            getSurveyDetail : getSurveyDetail,
+            saveSurveyInfo : saveSurveyInfo
         }
 
         function createSurvey(data) {
@@ -62,7 +63,6 @@ angular.module('createsurvey')
         }
 
         function getSurveyDetail(surveyId) {
-            console.log("surveyId is " +surveyId);
             return $http({
                 method: 'GET',
                 url: 'http://aliens.dev.easternenterprise.com/api/survey-detail/?survey_id='+surveyId,
@@ -78,5 +78,23 @@ angular.module('createsurvey')
                 }
             })
         }
+        
+        function saveSurveyInfo(data, surveyId) {
+            return $http({
+                method: 'POST',
+                url: 'http://aliens.dev.easternenterprise.com/api/question/create?survey_id=' + surveyId,
+                data: data
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for saving survey');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
+            })
+        };
 
     }]);
