@@ -1,6 +1,6 @@
 angular.module('createsurvey', ['naif.base64', 'notification'])
-    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location','CommonService','$timeout','dataGetService', '$routeParams','toaster',
-        function ($scope, $rootScope, createSurveyService, $location, CommonService, $timeout, dataGetService, $routeParams, toaster) {
+    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location','CommonService','$timeout','dataGetService', '$routeParams','toaster', '$filter',
+        function ($scope, $rootScope, createSurveyService, $location, CommonService, $timeout, dataGetService, $routeParams, toaster, $filter) {
 
         function goToSurveyManageTab() {
             $("#surveyManageTab").removeClass("disabled-tab").off('click');
@@ -114,7 +114,11 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
         $scope.deleteQuestionResponse = function (indexNumber) {
             $scope.questionDetail.option.splice(indexNumber, 1);
         };
-        
+
+            $scope.showQuestion = false;
+        $scope.showQuestionDiv = function () {
+            $scope.showQuestion = true;
+        };
         $scope.addQuestion = function () {
             toaster.clear();
             if($scope.questionDetail.question_title == '' || $scope.questionDetail.description == '' ||
@@ -129,6 +133,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 description : null,
                 option : []
             };
+            $scope.showQuestion = false;
         };
         
         $scope.deleteQuestion = function (indexNumber) {
@@ -143,6 +148,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 toaster.error("Name, Description, questions are required field.");
                 return false;
             }
+            console.log($scope.categoryDetail);
             $scope.categoryList.push($scope.categoryDetail);
             $scope.categoryDetail = {
                 name : '',
@@ -189,5 +195,15 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
         $scope.editCategory = function (categoryDetail, indexNumber) {
             $scope.categoryDetail = categoryDetail;
         };
+        
+        $scope.deleteQuestionFromAPI = function (categoryId, indexNumber, questionId) {
+            createSurveyService.deleteCategory(questionId).then(function (response) {
+                $filter('filter')($scope.categoryList, {id: parseInt(categoryId)}, true)[0].question.splice(indexNumber, 1);
+            }).catch(function (error) {
+                toaster.clear();
+                toaster.error(error);
+            });
+        };
+
         init();
     }]);

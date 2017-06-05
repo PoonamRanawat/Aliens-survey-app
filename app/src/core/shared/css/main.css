@@ -51,6 +51,7 @@
     position: relative;
     padding: 5px;
     margin-bottom: 30px;
+    min-height:62px;
 }
 .add-category-header > figure{
     position: absolute;
@@ -72,18 +73,19 @@
     top:13px;
 }
 .category-block{
-    border: 1px solid #e7e7e7;
+    border: 1px solid #c0c0c0;
     padding: 20px;
     margin-bottom: 20px;
+    background-color: #e0e0e0;
 }
 .question-block{
     background: #f0f0f0;
     padding: 15px;
     margin-bottom: 15px;
-    border: 1px solid #e7e7e7;
+    border: 1px solid #c0c0c0;
 }
 .answer-row > *:first-child {
-    width: calc(50% - 100px);
+    width: calc(50% - 15px);
 }
 
 .nav-tabs > li.active > a,

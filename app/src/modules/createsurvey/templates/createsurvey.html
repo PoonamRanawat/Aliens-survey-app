@@ -69,11 +69,12 @@
                                 <button type="button" class="btn btn-success" ng-click="saveSurveyDetail()">Save</button>
                             </div>
                         </div>
+
                         <div class="add-category-body" id="add-category-body">
                             <section class="category-block">
                                 <form id="form1">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Category Name:</label>
                                                 <div class="text-editor">
@@ -81,21 +82,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Description:</label>
                                                 <textarea class="form-control" rows="4" placeholder="Description" ng-model="categoryDetail.description"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="question-block">
+
+
+                                    <div class="question-block" ng-show="showQuestion">
                                         <div class="row">
-                                            <div class="col-sm-12 text-right">
-                                                <button type="button" ng-click="addQuestion()" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</button>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Question:</label>
                                                     <div class="text-editor">
@@ -103,7 +101,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Description:</label>
                                                     <textarea class="form-control" rows="4" placeholder="Description" ng-model="questionDetail.description"></textarea>
@@ -113,101 +111,119 @@
                                         <div class="answer-block">
                                             <label>Answer:</label>
                                             <div class="answer-row">
-                                                <label class="radio-inline">
-                                                    <input type="text" ng-model="optionDetail">
-                                                </label>
-                                                <a class="btn btn-primary" ng-click="addQuestionResponse()"><i class="fa fa-plus"></i></a>
+                                                <div class="form-group">
+                                                <div class="input-group">
+                                                    <input ng-model="optionDetail" type="text" class="form-control">
+                                                    <span class="input-group-addon" ng-click="addQuestionResponse()"><i class="fa fa-plus"></i></span>
+                                                </div>
+                                                </div>
                                             </div>
-
                                             <div class="answer-row" ng-repeat="options in questionDetail.option track by $index">
-                                                <label class="radio-inline">
-                                                    <input type="text" ng-model="options.option">
-                                                </label>
-                                                <a class="btn btn-danger" href="" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></a>
+                                                <div class="form-group">
+                                                <div class="input-group">
+                                                    <input ng-model="options.option" type="text" class="form-control">
+                                                    <span class="input-group-addon" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></span>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 text-right">
+                                                <button type="button" ng-click="addQuestion()" class="btn btn-success">Save Question</button>
                                             </div>
                                         </div>
                                     </div>
 
-
+                                    <!-----Question Listing Block start---->
                                     <div class="question-block" ng-repeat="question in categoryDetail.question track by $index">
-                                        <div class="text-right" ng-click="deleteQuestion($index)"><a class="delete-question btn btn-danger" href=""><i class="fa fa-trash"></i> Delete Question</a></div>
+                                        <div class="text-right" ng-click="deleteQuestion($index)"><a  href=""><i class="fa fa-trash"></i></a></div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Question:</label>
                                                     <div class="text-editor">
-                                                        <textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.question_title"></textarea>
+                                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.question_title"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Description:</label>
-                                                    <textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.description"></textarea>
+                                                    <textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="answer-block">
-                                            <label>Answer:</label>
-                                            <div class="answer-row" ng-repeat="response in question.option track by $index">
-                                                <label class="radio-inline">
-                                                    <input type="text" ng-model="response.option" ng-disabled="true">
-                                                </label>
+                                        <div class="answer-row" ng-repeat="options in question.option track by $index">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input ng-model="options.option" type="text" class="form-control">
+                                                    <span class="input-group-addon" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row" ng-show="!showQuestion">
+                                        <div class="col-sm-12 text-right">
+                                            <button type="button" ng-click="showQuestionDiv()" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</button>
+                                        </div>
+                                    </div>
+                                    <!-----Question Listing Block end---->
+
                                 </form>
                             </section>
 
-                            <!-----Category Listing Block---->
-                            <section class="category-block" ng-repeat="categoryObjDetail in categoryList track by $index">
+                            <!-----Category Listing Block start---->
+                            <section class="category-block" ng-repeat="categoryListing in categoryList track by $index">
                                 <div class="button-group text-right">
-                                    <!--<a class="delete-question btn btn-primary" href="" ng-click="editCategory(categoryObjDetail, $index)"><i class="fa fa-trash"></i> Edit Category</a>-->
-                                    <a class="delete-question btn btn-danger" href="" ng-click="deleteCategory($index, categoryObjDetail)"><i class="fa fa-trash"></i> Delete Category</a>
+                                    <a class="delete-question" href="" ng-click="deleteCategory($index, categoryListing)"><i class="fa fa-trash"></i></a>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Category Name:</label>
                                             <div class="text-editor">
-                                                <textarea ng-disabled="true" class="form-control" rows="4" placeholder="Description" ng-model="categoryObjDetail.name"></textarea>
+                                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="categoryListing.name"></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Description:</label>
-                                            <textarea  ng-disabled="true" class="form-control" rows="4" placeholder="Description" ng-model="categoryObjDetail.description"></textarea>
+                                            <textarea class="form-control" rows="4" placeholder="Description" ng-model="categoryListing.description"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="question-block" ng-repeat="question in categoryObjDetail.question track by $index">
+                                <div class="question-block" ng-repeat="question in categoryListing.question track by $index">
+                                    <div class="button-group text-right">
+                                        <a href="" ng-click="deleteQuestionFromAPI(categoryListing.id, $index, question.id)"><i class="fa fa-trash"></i></a>
+                                    </div>
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Question:</label>
                                                 <div class="text-editor">
-                                                    <textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.question_title"></textarea>
+                                                    <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.question_title"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Description:</label>
-                                                <textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.description"></textarea>
+                                                <textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="answer-block">
-                                        <label>Answer:</label>
-                                        <div class="answer-row" ng-repeat="response in question.option track by $index">
-                                            <label class="radio-inline">
-                                                <input type="text" ng-model="response.option" ng-disabled="true">
-                                            </label>
+                                    <div class="answer-row" ng-repeat="options in question.option track by $index">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input ng-model="options.option" type="text" class="form-control">
+                                                <span class="input-group-addon" ><i class="fa fa-trash-o"></i></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </section>
+                            <!-----Category Listing Block End---->
                         </div>
                     </div>
                 </div>
