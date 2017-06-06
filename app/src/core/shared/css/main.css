@@ -101,3 +101,7 @@
 .text-editor .ta-scroll-window > .ta-bind {
     min-height: 100px;
 }
+
+.padding {
+    padding: 8px;
+}

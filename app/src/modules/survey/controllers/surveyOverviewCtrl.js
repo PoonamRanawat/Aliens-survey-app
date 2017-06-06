@@ -3,6 +3,7 @@ angular.module('survey', ['notification'])
 
         $rootScope.activeSurveyTab = true;
         $rootScope.activeCreateSurveyTab = false;
+        $rootScope.activeResultsTab = false;
         $scope.activeParticipant = true;
         if($location.path() == '/participant'){
                 $scope.activeParticipant = true;

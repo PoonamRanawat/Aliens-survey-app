@@ -1,1 +1,1 @@
-angular.module('module', ['user', 'survey', 'createsurvey', 'notification']);
+angular.module('module', ['user', 'survey', 'createsurvey', 'results','viewsurvey','notification','ngMaterial', 'ngMessages']);

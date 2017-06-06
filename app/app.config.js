@@ -19,6 +19,10 @@ angular.
           templateUrl : 'src/modules/createsurvey/templates/createsurvey.html'
         }).when('/surveymanagement',{
           templateUrl : 'src/modules/createsurvey/templates/surveymanagement.html'
+        }).when('/results',{
+            templateUrl : 'src/modules/results/templates/results.html'
+        }).when('/viewsurvey',{
+          templateUrl : 'src/modules/viewsurvey/templates/survey.html'
         }).otherwise({
             templateUrl : 'src/core/login/templates/login.html'
         })

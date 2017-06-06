@@ -1,0 +1,178 @@
+{
+  "success": true,
+  "message": "Survey List",
+  "status_code": 200,
+  "data": {
+    "0": {
+      "id": 1,
+      "name": "<p><strong>Customer Satisfaction Survey</strong></p>",
+      "description": "This is survey description",
+      "message": "",
+      "logo_path": null,
+      "user_id": 6,
+      "created_at": "2017-06-01 06:29:31",
+      "updated_at": "2017-06-01 06:29:31",
+      "category": [
+        {
+          "id": 92,
+          "name": "Performance",
+          "description": "This category is regarding performance of company",
+          "survey_id": 1,
+          "created_at": "2017-06-05 04:20:47",
+          "updated_at": "2017-06-05 04:27:53",
+          "question": [
+            {
+              "id": 76,
+              "question_title": "How do you rate performance of company",
+              "description": "rating company performance",
+              "cat_id": 92,
+              "created_at": "2017-06-05 04:20:47",
+              "updated_at": "2017-06-05 04:27:53",
+              "option": [
+                {
+                  "id": 1,
+                  "option": "Good",
+                  "question_id": 76,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:27:53"
+                },
+                {
+                  "id": 2,
+                  "option": "Excellent",
+                  "question_id": 76,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:27:53"
+                },
+                {
+                  "id": 3,
+                  "option": "Satisfactory",
+                  "question_id": 76,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                },
+                {
+                  "id": 13,
+                  "option": "Needs improvement",
+                  "question_id": 76,
+                  "created_at": "2017-06-05 04:27:53",
+                  "updated_at": "2017-06-05 04:27:53"
+                }
+              ]
+            },
+            {
+              "id": 77,
+              "question_title": "Customer satisfaction",
+              "description": "This is question is to judge customer satisfaction",
+              "cat_id": 92,
+              "created_at": "2017-06-05 04:20:47",
+              "updated_at": "2017-06-05 04:27:53",
+              "option": [
+                {
+                  "id": 4,
+                  "option": "Good",
+                  "question_id": 77,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                },
+                {
+                  "id": 5,
+                  "option": "Excellent",
+                  "question_id": 77,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                },
+                {
+                  "id": 6,
+                  "option": "Satisfactory",
+                  "question_id": 77,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                },
+                {
+                  "id": 14,
+                  "option": "Needs improvement",
+                  "question_id": 77,
+                  "created_at": "2017-06-05 04:27:53",
+                  "updated_at": "2017-06-05 04:27:53"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 93,
+          "name": "Performance",
+          "description": "This category is regarding performance of company",
+          "survey_id": 1,
+          "created_at": "2017-06-05 04:20:47",
+          "updated_at": "2017-06-05 04:20:47",
+          "question": [
+            {
+              "id": 78,
+              "question_title": "Durability",
+              "description": "To check durability",
+              "cat_id": 93,
+              "created_at": "2017-06-05 04:20:47",
+              "updated_at": "2017-06-05 04:20:47",
+              "option": [
+                {
+                  "id": 7,
+                  "option": "Good",
+                  "question_id": 78,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                },
+                {
+                  "id": 8,
+                  "option": "Excellent",
+                  "question_id": 78,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                },
+                {
+                  "id": 9,
+                  "option": "Satisfactory",
+                  "question_id": 78,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                }
+              ]
+            },
+            {
+              "id": 79,
+              "question_title": "Would you like to refer our company to friends and family",
+              "description": "refer",
+              "cat_id": 93,
+              "created_at": "2017-06-05 04:20:47",
+              "updated_at": "2017-06-05 04:20:47",
+              "option": [
+                {
+                  "id": 10,
+                  "option": "Yes",
+                  "question_id": 79,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                },
+                {
+                  "id": 11,
+                  "option": "No",
+                  "question_id": 79,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                },
+                {
+                  "id": 12,
+                  "option": "May be",
+                  "question_id": 79,
+                  "created_at": "2017-06-05 04:20:47",
+                  "updated_at": "2017-06-05 04:20:47"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "errors": []
+}

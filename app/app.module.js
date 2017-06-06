@@ -9,7 +9,8 @@ angular.module('aliensSurveyApp', [
     'module',
     'textAngular',
     'naif.base64',
-    'toaster'
+    'toaster',
+    'chart.js'
 ]);
 
 angular.module('aliensSurveyApp').run(function($http, $auth) {

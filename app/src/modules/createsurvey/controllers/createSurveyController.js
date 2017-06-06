@@ -15,6 +15,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
         }
         $rootScope.activeCreateSurveyTab = true;
         $rootScope.activeSurveyTab = false;
+        $rootScope.activeResultsTab = false;
 
         $scope.createSurveyTab = true;
         if($location.path() == '/createsurvey'){
