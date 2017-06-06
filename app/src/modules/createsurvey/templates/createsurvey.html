@@ -8,52 +8,234 @@
             </section>
             <section class="page-body">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" ng-class="{'active': createSurveyTab}"><a href="#/createsurvey" ng-click="openGeneralSection()">General Information</a></li>
-                    <li role="presentation" ng-class="{'active': generalInfoTab}"><a href="#/surveymanagement">Survey Management</a></li>
+                    <li id="generalInfoTab" class="active"><a data-toggle="tab" data-target="#generalInfoContent">General Information</a></li>
+                    <li id="surveyManageTab"><a data-toggle="tab" data-target="#surveyManageContent">Survey Management</a></li>
                 </ul>
-                <!-- Create Survey Form -->
-                <form class="form-horizontal" style="padding-top: 10px;" name="creaSurvey">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Logo:</label>
-                        <div class="col-sm-4">
-                            <input type='file' ng-model='dataToEditSurvey.yourModel' class="form-control"  placeholder="Upload logo" value="fileupload" id="fileUpload" accept="image/jpg, image/png" maxsize="5000" base-sixty-four-input>
-                            <span ng-show="dataToEditSurvey.yourModel.$error.maxsize">Files must not exceed 5000 KB</span>
-                        </div>
+
+                <div class="tab-content">
+                    <!----General Information Content----->
+                    <div id="generalInfoContent" class="tab-pane fade in active">
+                        <form class="form-horizontal" style="padding-top: 10px;" name="creaSurvey">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Logo:</label>
+                                <div class="col-sm-4">
+                                    <input type='file' ng-model='surveyData.logo_path' class="form-control"  placeholder="Upload logo" value="fileupload" id="fileUpload" accept="image/jpg, image/png" maxsize="5000" base-sixty-four-input>
+                                    <span ng-show="surveyData.logo_path.$error.maxsize">Files must not exceed 5000 KB</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Name of survey:</label>
+                                <div class="col-sm-10">
+                                    <div class="text-editor">
+                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="surveyData.name"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Description:</label>
+                                <div class="col-sm-10">
+                                    <div class="text-editor">
+                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="surveyData.description"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Message:</label>
+                                <div class="col-sm-10">
+                                    <div class="text-editor">
+                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="surveyData.message"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" >
+                                <div class="col-sm-12 text-right">
+                                    <button ng-if="surveyId ==null" type="submit" class="btn btn-success" ng-click="createNewSurvey()">Create</button>
+                                    <button ng-if="surveyId !=null" type="submit" class="btn btn-success" ng-click="createNewSurvey()">Update</button>
+                                    <button type="submit" class="btn btn-danger" ng-click="cancelsurvey()">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Name of survey:</label>
-                        <div class="col-sm-10">
-                            <div class="text-editor">
-                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.name"></div>
+
+
+                    <!----Survey Management Content----->
+                    <div id="surveyManageContent" class="tab-pane fade">
+                        <div class="add-category-header">
+                            <figure ng-if="surveyData.logo_path.base64 && isUpdate != true"><img data-ng-src="data:image/gif;base64,{{surveyData.logo_path.base64}}"></figure>
+                            <figure ng-if="surveyData.logo_path.base64 && isUpdate == true"><img src="{{surveyData.logo_path.base64}}"></figure>
+                            <h2 ng-if="surveyData.name">{{surveyData.name}}</h2>
+                            <div class="button-group">
+                                <button type="button" class="btn btn-primary" ng-click="addCategory()"><i class="fa fa-plus"></i> Add Category</button>
+                                <button type="button" class="btn btn-success" ng-click="saveSurveyDetail()">Save</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Description:</label>
-                        <div class="col-sm-10">
-                            <div class="text-editor">
-                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.description"></div>
-                            </div>
+
+                        <div class="add-category-body" id="add-category-body">
+                            <section class="category-block">
+                                <form id="form1">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Category Name:</label>
+                                                <div class="text-editor">
+                                                    <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="categoryDetail.name"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Description:</label>
+                                                <textarea class="form-control" rows="4" placeholder="Description" ng-model="categoryDetail.description"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <!-----Question Listing Block start---->
+                                    <div class="question-block" ng-repeat="question in categoryDetail.question track by $index">
+                                        <div class="text-right" ng-click="deleteQuestion($index)"><a  href=""><i class="fa fa-trash"></i></a></div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Question:</label>
+                                                    <div class="text-editor">
+                                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.question_title"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Description:</label>
+                                                    <textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="answer-row" ng-repeat="options in question.option track by $index">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input ng-model="options.option" type="text" class="form-control">
+                                                    <span class="input-group-addon"><i class="fa fa-check-square-o"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="question-block" ng-show="showQuestion">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Question:</label>
+                                                    <div class="text-editor">
+                                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="questionDetail.question_title"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Description:</label>
+                                                    <textarea class="form-control" rows="4" placeholder="Description" ng-model="questionDetail.description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="answer-block">
+                                            <label>Answer:</label>
+                                            <div class="answer-row">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input ng-model="optionDetail" type="text" class="form-control">
+                                                        <span class="input-group-addon" ng-click="addQuestionResponse()"><i class="fa fa-plus"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="answer-row" ng-repeat="options in questionDetail.option track by $index">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input ng-model="options.option" type="text" class="form-control">
+                                                        <span class="input-group-addon" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 text-right">
+                                                <button type="button" ng-click="addQuestion()" class="btn btn-success">Save Question</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="!showQuestion">
+                                        <div class="col-sm-12 text-right">
+                                            <button type="button" ng-click="showQuestionDiv()" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</button>
+                                        </div>
+                                    </div>
+                                    <!-----Question Listing Block end---->
+                                </form>
+                            </section>
+
+                            <!-----Category Listing Block start---->
+                            <section class="category-block" ng-repeat="categoryListing in categoryList track by $index">
+                                <div class="button-group text-right">
+                                    <a class="delete-question" href="" ng-click="deleteCategory($index, categoryListing)"><i class="fa fa-trash"></i></a>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Category Name:</label>
+                                            <div class="text-editor">
+                                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="categoryListing.name"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Description:</label>
+                                            <textarea class="form-control" rows="4" placeholder="Description" ng-model="categoryListing.description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="question-block" ng-repeat="question in categoryListing.question track by $index">
+                                    <div class="button-group text-right">
+                                        <a href="" ng-click="deleteQuestionFromAPI(categoryListing.id, $index, question.id)"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Question:</label>
+                                                <div class="text-editor">
+                                                    <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.question_title"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Description:</label>
+                                                <textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="answer-row" ng-repeat="options in question.option track by $index">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input ng-model="options.option" type="text" class="form-control">
+                                                <span class="input-group-addon" ><i class="fa fa-check-square-o"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-----Category Listing Block End---->
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Message:</label>
-                        <div class="col-sm-10">
-                            <div class="text-editor">
-                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="dataToEditSurvey.message"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12 text-right">
-                            <button type="submit" class="btn btn-success" ng-click="createSurvey(dataToEditSurvey.yourModel, dataToEditSurvey.name, dataToEditSurvey.description, dataToEditSurvey.message, dataToEditSurvey.id)">Create</button>
-                            <button type="submit" class="btn btn-danger" ng-click="cancelsurvey()">Cancel</button>
-                        </div>
-                    </div>
-                </form>
-                <!-- From End -->
+                </div>
             </section>
         </section>
     </div>
     <div ng-include="'src/core/notification/popups.html'"></div>
 </div>
+<script>
+    $(".disabled-tab").click(function (e) {
+        e.preventDefault();
+        return false;
+    });
+</script>

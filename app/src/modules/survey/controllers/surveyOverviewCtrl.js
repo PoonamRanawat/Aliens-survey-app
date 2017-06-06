@@ -169,8 +169,8 @@ angular.module('survey', ['notification'])
         };
 
         $scope.editSurveyData = function (data) {
-            CommonService.setData(data);
-            $location.path('/createsurvey');
+            $rootScope.editSurveyId = data.id;
+            $location.path('/edit-survey');
         }
 
     }]);
