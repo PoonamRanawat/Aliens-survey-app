@@ -17,7 +17,7 @@ angular.
           templateUrl : 'src/modules/survey/templates/participant/addparticipant.html'
         }).when('/createsurvey',{
           templateUrl : 'src/modules/createsurvey/templates/createsurvey.html'
-        }).when('/edit-survey',{
+        }).when('/edit-survey/:id',{
           templateUrl : 'src/modules/createsurvey/templates/createsurvey.html'
         }).when('/surveymanagement',{
           templateUrl : 'src/modules/createsurvey/templates/surveymanagement.html'

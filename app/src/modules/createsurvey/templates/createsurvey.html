@@ -94,13 +94,18 @@
                                         </div>
                                     </div>
 
-
-
-
                                     <!-----Question Listing Block start---->
                                     <div class="question-block" ng-repeat="question in categoryDetail.question track by $index">
-                                        <div class="text-right" ng-click="deleteQuestion($index)"><a  href=""><i class="fa fa-trash"></i></a></div>
-                                        <div class="row">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a class="panel-title-link collapsed" data-toggle="collapse" data-target="#collapseQuestion{{$index}}" ng-bind-html="question.question_title"></a>
+                                                <a class="delete-block" href="" ng-click="deleteQuestion($index)"><i class="fa fa-trash"></i></a>
+                                            </h4>
+                                        </div>
+
+                                        <!--<div class="text-right" ng-click="deleteQuestion($index)"><a  href=""><i class="fa fa-trash"></i></a></div>-->
+                                        <div id="collapseQuestion{{$index}}" class="panel-collapse collapse">
+                                            <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Question:</label>
@@ -116,7 +121,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="answer-block">
+                                            <div class="answer-block">
                                             <label>Answer:</label>
                                             <div class="answer-row">
                                                 <div class="form-group">
@@ -135,11 +140,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        </div>
                                     </div>
                                     <!-----Question Listing Block end---->
 
                                     <!-----Question Add Block start---->
                                     <div class="question-block" ng-show="showQuestion">
+                                        <div class="panel-collapse">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
@@ -180,6 +187,7 @@
                                                 <button type="button" ng-click="addQuestion()" class="btn btn-success">Add Question</button>
                                             </div>
                                         </div>
+                                        </div>
                                     </div>
                                     <div class="row" ng-show="!showQuestion">
                                         <div class="col-sm-12 text-right">
@@ -214,39 +222,46 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="question-block" ng-repeat="question in categoryListing.question track by $index">
-                                    <div class="button-group text-right">
-                                        <a href="" ng-click="deleteQuestionFromAPI(categoryListing.id, $index, question.id)"><i class="fa fa-trash"></i></a>
+
+                                <div  class="question-block panel-group" ng-repeat="question in categoryListing.question track by $index">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="panel-title-link collapsed" data-toggle="collapse" data-target="#collapse{{$index}}" ng-bind-html="question.question_title"></a>
+                                            <a class="delete-block" href="" ng-click="deleteQuestionFromAPI(categoryListing.id, $index, question.id)"><i class="fa fa-trash"></i></a>
+                                        </h4>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label>Question:</label>
-                                                <div class="text-editor">
-                                                    <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.question_title"></div>
+
+                                    <div id="collapse{{$index}}" class="panel-collapse collapse">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Question:</label>
+                                                    <div class="text-editor">
+                                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.question_title"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Description:</label>
+                                                    <textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+                                        <div class="answer-row">
                                             <div class="form-group">
-                                                <label>Description:</label>
-                                                <textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>
+                                                <div class="input-group">
+                                                    <input ng-model="questionResponse" type="text" class="form-control responseModel">
+                                                    <span class="input-group-addon" ng-click="addResponseFromCategoryListing(questionResponse, $index, $parent.$index)"><i class="fa fa-plus"></i></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="answer-row">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input ng-model="questionResponse" type="text" class="form-control responseModel">
-                                                <span class="input-group-addon" ng-click="addResponseFromCategoryListing(questionResponse, $index, $parent.$index)"><i class="fa fa-plus"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="answer-row" ng-repeat="options in question.option track by $index">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input ng-model="options.option" type="text" class="form-control">
-                                                <span class="input-group-addon" ng-click="removeResponseFromList($index, $parent.$index, $parent.$parent.$index)"><i class="fa fa-trash-o"></i></span>
+                                        <div class="answer-row" ng-repeat="options in question.option track by $index">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input ng-model="options.option" type="text" class="form-control">
+                                                    <span class="input-group-addon" ng-click="removeResponseFromList($index, $parent.$index, $parent.$parent.$index)"><i class="fa fa-trash-o"></i></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -259,6 +274,7 @@
                                     </div>
                                 </div>
                                 <div class="question-block" id="questionBlock{{$index}}" style="display:none">
+                                    <div class="panel-collapse">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
@@ -299,6 +315,7 @@
                                             <button type="button" ng-click="saveQuestionInListing($index)" class="btn btn-success">Save Question</button>
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                                 <!--Question Add block inside category Listing End here-->
                             </section>

@@ -13,12 +13,12 @@ angular.module('viewsurvey')
                 return response;
             }).error(function (response) {
                 console.log('XHR Failed for getting survey details');
-                $timeout(function () {
-                    dataGetService.errors(response.message, 1500);
-                },500);
-                // if(response.message == 'Unathenticated'){
-                //     $location.path('/');
-                // }
+
+                if(response.message == 'Link is Disabled'){
+                    $timeout(function () {
+                        dataGetService.errors("You have already filled the survey", 1500);
+                    },500);
+                }
             })
         };
 

@@ -1,6 +1,6 @@
 angular.module('createsurvey', ['naif.base64', 'notification'])
-    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location','CommonService','$timeout','dataGetService', '$routeParams','toaster', '$filter',
-        function ($scope, $rootScope, createSurveyService, $location, CommonService, $timeout, dataGetService, $routeParams, toaster, $filter) {
+    .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location','CommonService','$timeout','dataGetService', '$routeParams','toaster', '$filter','$route',
+        function ($scope, $rootScope, createSurveyService, $location, CommonService, $timeout, dataGetService, $routeParams, toaster, $filter, $route) {
 
             function goToSurveyManageTab() {
                 $("#surveyManageTab").removeClass("disabled-tab").off('click');
@@ -12,7 +12,12 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             };
 
             function getSurveyDetail(surveyId) {
+                toaster.clear();
                 createSurveyService.getSurveyDetail(surveyId).then(function (response) {
+                    if(response.success == false) {
+                        toaster.error(response.message);
+                        return;
+                    }
                     var surveyData = response.data.data[0];
                     $scope.categoryList = surveyData.category;
                     $scope.surveyData = {
@@ -24,7 +29,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                         message : surveyData.message
                     };
                 }).catch(function (error) {
-                    toaster.clear();
                     toaster.error(error);
                 });
             }
@@ -53,13 +57,9 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 };
 
                 $scope.categoryList = [];
-
-                if($location.path() == '/edit-survey') {
-                    if(typeof $rootScope.editSurveyId == 'undefined') {
-                        $location.path('/surveyoverview');
-                    }
+                if($location.path() == '/edit-survey/'+$route.current.params.id) {
                     $scope.isUpdate = true;
-                    $scope.surveyId = $rootScope.editSurveyId;
+                    $scope.surveyId = $route.current.params.id;
                     getSurveyDetail($scope.surveyId);
                 }
 
