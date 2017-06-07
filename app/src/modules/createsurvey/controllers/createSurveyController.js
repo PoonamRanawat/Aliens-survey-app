@@ -108,6 +108,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 }
                 $scope.questionDetail.option.push({id : null, option : response});
                 angular.element(".responseData").val('');
+                $scope.optionDetail = '';
             };
 
             $scope.deleteQuestionResponse = function (indexNumber) {
@@ -207,7 +208,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             };
 
             $scope.deleteQuestionFromAPI = function (categoryId, indexNumber, questionId) {
-                createSurveyService.deleteCategory(questionId).then(function (response) {
+                createSurveyService.deleteQuestion(questionId).then(function (response) {
                     $filter('filter')($scope.categoryList, {id: parseInt(categoryId)}, true)[0].question.splice(indexNumber, 1);
                 }).catch(function (error) {
                     toaster.clear();
@@ -275,6 +276,21 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 angular.element("#questionBlock"+categoryIndex).hide();
                 angular.element("#questionButtonDiv"+categoryIndex).show();
             };
+            
+            $scope.deleteQuestionResponseFromList = function (optionIndex, questionIndex) {
+                $scope.categoryDetail.question[questionIndex].option.splice(optionIndex, 1);
+            };
+            
+            $scope.addQuestionResponseList = function (optionDetail, questionIndex) {
+                toaster.clear();
+                if(optionDetail == '') {
+                    toaster.error("Please enter response.");
+                    return false;
+                }
+                $scope.categoryDetail.question[questionIndex].option.push({id : null, option : optionDetail});
+                angular.element(".responseData").val("");
+                $scope.optionDetail = '';
+            }
 
             init();
         }]);

@@ -116,11 +116,22 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="answer-row" ng-repeat="options in question.option track by $index">
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <input ng-model="options.option" type="text" class="form-control">
-                                                    <span class="input-group-addon"><i class="fa fa-check-square-o"></i></span>
+                                        <div class="answer-block">
+                                            <label>Answer:</label>
+                                            <div class="answer-row">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input ng-model="optionDetail" type="text" class="form-control responseData">
+                                                        <span class="input-group-addon" ng-click="addQuestionResponseList(optionDetail, $index)"><i class="fa fa-plus"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="answer-row" ng-repeat="options in question.option track by $index">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input ng-model="options.option" type="text" class="form-control">
+                                                        <span class="input-group-addon" ng-click="deleteQuestionResponseFromList($index, $parent.$index)"><i class="fa fa-trash-o"></i></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
