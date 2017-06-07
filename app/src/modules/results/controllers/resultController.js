@@ -30,7 +30,7 @@ angular.module('results', ['notification', 'chart.js'])
                         $scope.sumOfEntries = sumOfEntries;
                         $scope.sumOfParticipants = sumOfParticipants;
 
-                        //$scope.totalResponse = $scop
+                        //$scope.totalResponse = $scope
                     });
                 };
             });
@@ -70,7 +70,7 @@ angular.module('results', ['notification', 'chart.js'])
         };
 
         $scope.showBarGraphParticipant = function (data) {
-            $scope.surveyName = data.name;
+            $scope.surveyName = data.survey_name;
             $scope.data = [data.total_no_of_question];
             $scope.series = ['No of questions', 'No of answers'];
             $scope.labels = [ data.total_no_of_answer ];
