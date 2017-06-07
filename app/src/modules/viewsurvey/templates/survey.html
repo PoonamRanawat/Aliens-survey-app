@@ -2,7 +2,7 @@
     <div class="row">
         <section class="col-sm-12">
             <form name="questionsForm" ng-submit="submitAnswers()">
-                <div class="text-right">
+                <div class="text-right" ng-hide="disabledButton">
                     <input type="submit" class="btn btn-success" value="Submit" />
                 </div>
                 <div class="survey-view-header">

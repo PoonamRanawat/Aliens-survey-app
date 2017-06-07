@@ -2,6 +2,8 @@ angular.module('viewsurvey', ['notification'])
     .controller("viewSurveyController" , ['$scope','viewSurveyService','$location','$routeParams','dataGetService','$timeout', function ($scope, viewSurveyService,$location, $routeParams, dataGetService,$timeout) {
         $scope.resultdata = [];
         $scope.category = [];
+        $scope.disabledButton = false;
+        console.log($scope.disabledButton);
         function resultView() {
            viewSurveyService.getSurveyDetails($routeParams.survey_id, $routeParams.participantid).then( function (response) {
                if(response.data.success && response.data.status_code == 200){
@@ -16,7 +18,9 @@ angular.module('viewsurvey', ['notification'])
                        }
                    }
                };
-            });
+            }).catch(function (error) {
+               $scope.disabledButton = true;
+           });
         };
 
         resultView();
