@@ -17,9 +17,8 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                     $scope.categoryList = surveyData.category;
                     $scope.surveyData = {
                         id : surveyData.id,
-                        logo_path : {
-                            base64 : surveyData.logo_path
-                        },
+                        logo_path : null,
+                        logo_path_url : surveyData.logo_path,
                         name : surveyData.name,
                         description : surveyData.description,
                         message : surveyData.message
@@ -31,11 +30,13 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             }
 
             function init() {
+                $rootScope.activeCreateSurveyTab = true;
+                $rootScope.activeSurveyTab = false;
+                $rootScope.activeResultsTab = false;
+
                 $scope.isUpdate = false;
                 $scope.surveyId = null;
                 $scope.surveyData = {};
-                //$scope.createSurveyTab = true;
-                //$scope.generalInfoTab = false;
                 $scope.categoryDetail = {
                     name : '',
                     description : '',
@@ -49,8 +50,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 };
 
                 $scope.categoryList = [];
-                //$scope.createSurveyTab = false;
-                //$scope.generalInfoTab = true;
 
                 if($location.path() == '/edit-survey') {
                     if(typeof $rootScope.editSurveyId == 'undefined') {
@@ -101,14 +100,14 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
 
             };
 
-            $scope.addQuestionResponse = function () {
+            $scope.addQuestionResponse = function (response) {
                 toaster.clear();
-                if($scope.optionDetail == '') {
+                if(response == '') {
                     toaster.error("Please enter response.");
                     return false;
                 }
-                $scope.questionDetail.option.push({id : null, option : $scope.optionDetail});
-                $scope.optionDetail = '';
+                $scope.questionDetail.option.push({id : null, option : response});
+                angular.element(".responseData").val('');
             };
 
             $scope.deleteQuestionResponse = function (indexNumber) {
@@ -117,6 +116,11 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
 
             $scope.showQuestion = false;
             $scope.showQuestionDiv = function () {
+                $scope.questionDetail = {
+                    question_title : null,
+                    description : null,
+                    option : []
+                };
                 $scope.showQuestion = true;
             };
             $scope.addQuestion = function () {
@@ -159,12 +163,12 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             };
 
             $scope.deleteCategory = function (indexNumber, categoryObjDetail) {
+                toaster.clear();
                 if(typeof categoryObjDetail.id != 'undefined') {
                     createSurveyService.deleteCategory(categoryObjDetail.id).then(function (response) {
                         $scope.categoryList.splice(indexNumber, 1);
                         toaster.success("Category detail removed successfully.");
                     }).catch(function (error) {
-                        toaster.clear();
                         toaster.error(error);
                     });
                 } else {
@@ -211,8 +215,65 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 });
             };
 
-            $scope.deleteQuestionResponseList = function (parentQuestionId, indexNumber, responseId) {
+            //Remove category option from category Listing.
+            $scope.removeResponseFromList = function (optionIndex, questionIndex, categoryIndex) {
+                var optionId = $scope.categoryList[categoryIndex].question[questionIndex].option[optionIndex].id;
+                if(optionId == null) {
+                    $scope.categoryList[categoryIndex].question[questionIndex].option.splice(optionIndex, 1)
+                    toaster.clear();
+                    toaster.success("Option deleted successfully.");
+                    return true;
+                }
 
+                createSurveyService.deleteQuestionOption(optionId).then(function (response) {
+                    $scope.categoryList[categoryIndex].question[questionIndex].option.splice(optionIndex, 1)
+                    toaster.clear();
+                    toaster.success("Option deleted successfully.");
+                }).catch(function (error) {
+                    toaster.clear();
+                    toaster.error(error);
+                });
+            };
+
+            //Add category option from category Listing.
+            $scope.addResponseFromCategoryListing = function (response, questionIndex, categoryIndex) {
+                toaster.clear();
+                if(response == '') {
+                    toaster.error("Please enter response.");
+                    return false;
+                }
+                $scope.categoryList[categoryIndex].question[questionIndex].option.push({id : null, option : response});
+                $scope.questionResponse = '';
+                angular.element(".responseModel").val("");
+            };
+            
+            $scope.showQuestionDivInListing = function (questionBlock) {
+                $scope.questionDetail = {
+                    question_title : null,
+                    description : null,
+                    option : []
+                };
+                angular.element("#questionBlock"+questionBlock).show();
+                angular.element("#questionButtonDiv"+questionBlock).hide();
+            };
+
+            $scope.saveQuestionInListing = function (categoryIndex) {
+                toaster.clear();
+                if($scope.questionDetail.question_title == '' || $scope.questionDetail.description == '' ||
+                    $scope.questionDetail.option.length == 0) {
+                    toaster.error("Question title, description, response are required field.");
+                    return false;
+                }
+
+                $scope.categoryList[categoryIndex].question.push($scope.questionDetail);
+                toaster.success("Question added to category successfully.");
+                $scope.questionDetail = {
+                    question_title : null,
+                    description : null,
+                    option : []
+                };
+                angular.element("#questionBlock"+categoryIndex).hide();
+                angular.element("#questionButtonDiv"+categoryIndex).show();
             };
 
             init();

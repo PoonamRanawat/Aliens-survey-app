@@ -8,7 +8,8 @@ angular.module('createsurvey')
             saveSurveyInfo : saveSurveyInfo,
             updateSurveyInfo : updateSurveyInfo,
             deleteCategory : deleteCategory,
-            deleteQuestion : deleteQuestion
+            deleteQuestion : deleteQuestion,
+            deleteQuestionOption : deleteQuestionOption
         }
 
         function createSurvey(data) {
@@ -139,6 +140,23 @@ angular.module('createsurvey')
             return $http({
                 method: 'DELETE',
                 url: 'http://aliens.dev.easternenterprise.com/api/question/delete?question_id=' + questionId
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for saving survey');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
+            })
+        }
+        
+        function deleteQuestionOption(optionId) {
+            return $http({
+                method: 'DELETE',
+                url: 'http://aliens.dev.easternenterprise.com/api/option/delete?option_id=' + optionId
             }).success(function (response) {
                 return response;
             }).error(function (response) {
