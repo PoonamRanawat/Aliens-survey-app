@@ -17,7 +17,6 @@ angular.module('results', ['notification', 'chart.js'])
                 $scope.resultdata = response.data.data.resultByCompany;
                 $scope.totalNoOfEntries = [];
                 $scope.totalNoOfParticipants = [];
-                $scope.totalResponse = [];
                 if($scope.resultdata){
                     angular.forEach($scope.resultdata, function (item) {
                         $scope.totalNoOfEntries.push(item.no_of_entries_count);
@@ -29,14 +28,11 @@ angular.module('results', ['notification', 'chart.js'])
                         }
                         $scope.sumOfEntries = sumOfEntries;
                         $scope.sumOfParticipants = sumOfParticipants;
-
-                        //$scope.totalResponse = $scope
                     });
                 };
             });
         };
         results();
-
 
         function getValues() {
             resultService.getLocations().then(function (response) {
