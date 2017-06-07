@@ -46,24 +46,31 @@
 .cursor-pointer{
     cursor: pointer;
 }
-.add-category-header{
+
+.survey-view-page {
+    border: 1px solid #e7e7e7;
+    padding: 15px;
+    margin: 30px auto;
+}
+
+.add-category-header, .survey-view-header {
     border-bottom: 1px solid #e7e7e7;
     position: relative;
     padding: 5px;
     margin-bottom: 30px;
     min-height:62px;
 }
-.add-category-header > figure{
+.add-category-header > figure, .survey-view-header > figure {
     position: absolute;
     width: 50px;
     height: 50px;
     background-color: #efefef;
     top: calc(50% - 25px);
 }
-.add-category-header > figure img {
+.add-category-header > figure img, .survey-view-header > figure img {
     width:100%;
 }
-.add-category-header h2{
+.add-category-header h2, .survey-view-header > div {
     padding-left: 70px;
     margin: 9px 0;
 }
@@ -72,17 +79,56 @@
     right:0;
     top:13px;
 }
-.category-block{
+
+/**.add-category-body{
+    min-height: 200px;
+    max-height: 460px;
+    overflow: auto;
+}*/
+.category-block {
     border: 1px solid #c0c0c0;
     padding: 20px;
     margin-bottom: 20px;
     background-color: #e0e0e0;
 }
-.question-block{
+.question-block {
     background: #f0f0f0;
-    padding: 15px;
+    padding: 0px;
     margin-bottom: 15px;
     border: 1px solid #c0c0c0;
+}
+.question-block .panel-collapse {
+    padding: 15px;
+}
+.question-block .panel-heading .panel-title {
+    padding: 10px 0;
+    position: relative;
+}
+.question-block .panel-heading .panel-title .panel-title-link {
+    padding-left:25px;
+    padding-right:40px;
+    display: block;
+    cursor: pointer;
+}
+.question-block .panel-heading .panel-title .panel-title-link:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    content: "\f106";
+    left: 0;
+    top: calc(50% - 8px);
+}
+.question-block .panel-heading .panel-title .panel-title-link.collapsed:before {
+    content: "\f107";
+}
+.question-block .panel-heading .panel-title .delete-block {
+    position: absolute;
+    right: 0px;
+    top: calc(50% - 8px);
 }
 .answer-row > *:first-child {
     width: calc(50% - 15px);

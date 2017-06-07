@@ -1,45 +1,73 @@
-angular.module('viewsurvey', ['notification','ngMaterial', 'ngMessages'])
-    .controller("viewSurveyController" , ['$scope','viewSurveyService', function ($scope, viewSurveyService) {
+angular.module('viewsurvey', ['notification'])
+    .controller("viewSurveyController" , ['$scope','viewSurveyService','$location','$routeParams','dataGetService','$timeout', function ($scope, viewSurveyService,$location, $routeParams, dataGetService,$timeout) {
         $scope.resultdata = [];
         $scope.category = [];
         function resultView() {
-           viewSurveyService.getSurveyDetails().then( function (response) {
+           viewSurveyService.getSurveyDetails($routeParams.survey_id, $routeParams.participantid).then( function (response) {
                if(response.data.success && response.data.status_code == 200){
-                   console.log(response.data.data);
-                   $scope.resultdata =  response.data.data[0];
-               }
+                   $scope.surveyDetail = response.data.data[0];
+                   $scope.resultdata =  response.data.data[0].category;
+                   $scope.selected = [];
+
+                   for (var i = 0; i < $scope.resultdata.length; i++) {
+                       for (var k = 0; k < $scope.resultdata[i].question.length; k++) {
+                           var question = $scope.resultdata[i].question[k];
+                           $scope.selected.push(question);
+                       }
+                   }
+               };
             });
         };
 
         resultView();
-        // $scope.selected_ids = [];
-        // $scope.submitAnswers = function() {
-        //     angular.forEach($scope.resultdata.category, function(question) {
-        //        angular.forEach(question.question, function (option) {
-        //             //angular.forEach(option, function (id) {
-        //                     $scope.selected_ids.push(option.selectedValue);
-        //             //});
-        //         });
-        //     });
-        // };
-
-        $scope.selected = [];
-        $scope.category = $scope.resultdata.category;
-
-        for (var i = 0; i < $scope.category.length; i++) {
-            for (var k = 0; k < $scope.category[i].question.length; k++) {
-                var question = $scope.category[i].question[k];
-                $scope.selected.push(question);
-            }
-        }
 
         $scope.selected_ids = [];
-        $scope.submitAnswers = function () {
+        $scope.selected_option = [];
 
+        $scope.submitAnswers = function () {
             angular.forEach($scope.selected, function (option) {
-                $scope.selected_ids.push(option.selected_id);
+                if(option.selected_id){
+                    $scope.selected_ids.push(option.id);
+                    $scope.selected_option.push(option.selected_id);
+                }
             });
 
-        }
+            var $array1 = $scope.selected_ids;
+            // for(var i=0; $array1.length> i;i++){
+            //     $array1[i].toString();
+            // }
+            var $array2 = $scope.selected_option;
+            var obj = {};
 
+            for(var i=0,len=$array1.length; i < len ;i++) {
+                obj[$array1[i]] = $array2[i];
+            }
+
+            var request = {
+                "survey_id": $routeParams.survey_id,
+                "participant_id": $routeParams.participantid,
+                "answer": obj
+            }
+            //validateAnswers(request);
+            viewSurveyService.submitAnswers(request).then(function (response) {
+                if(response.data.success && response.data.status_code == 200){
+                    $timeout(function () {
+                        dataGetService.success('Survey submitted successfully', 5000);
+                    },50);
+                };
+            });
+        };
+
+        // function validateAnswers(request) {
+        //     if(request.answer){
+        //         $timeout(function () {
+        //             dataGetService.errors('Please select answers', 5000);
+        //         },50);
+        //         //toaster.error('Please select answers');
+        //     } else {
+        //         viewSurveyService.submitAnswers(request).then(function (response) {
+        //             return response.data;
+        //         });
+        //     }
+        // };
     }]);

@@ -7,35 +7,79 @@
                 <h1>Results</h1>
             </section>
             <section class="page-body">
-                <section class="row">
-                    <div class="col-sm-3">
-                        <label>Results from:</label>
-                        <label class="radio-inline">
-                            <input type="radio" name="radio" id="company" ng-model="type" value="company" ng-value="true" />Company
-                        </label>
-                    </div>
-                    <div class="col-sm-3">
-                       <label class="radio-inline">
-                           <input type="radio" name="radio" id="location" ng-model="type" value="location">Location
-                           <select ng-disabled="type == 'participant' || type == 'company'">
-                               <option value="locations" id="locations" ng-repeat="locations in locations" ng-model="locations" ng-change="showResults(locations)">{{locations}}</option>
-                           </select>
-                       </label>
-                    </div>
-                    <div class="col-sm-3">
-                        <label class="radio-inline">
-                            <input type="radio" name="radio" id="participant" ng-model="type" value="participant">Participant
-                            <select ng-disabled="type == 'location' || type == 'company'">
-                                <option value="participants" id="participants" ng-repeat="participants in participants">{{participants}}</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="col-sm-3">
-                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showAllResults()">Show all results</button>
-                    </div>
-                </section>
+                <div class="row">
+                    <section class="col-sm-12">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-1">Results from:</label>
+                                <div class="col-sm-2">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="company" id="companyid" ng-model="type" value="company" ng-click="showByCompany()"/>Company
+                                    </label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <label class="radio-inline">
+                                               <input type="radio" name="radio" id="location" ng-model="type" value="location"/>Location
+                                           </label>
+                                        </span>
+                                        <select class="form-control" ng-disabled="type == 'participant' || type == 'company'" ng-model="locationSelected"  ng-change="showByLocation()">
+                                            <!--<option value="locations" id="locations" ng-repeat="locations in locations" ng-model="selected" >{{locations}}</option>-->
+                                            <option ng-value="locations" ng-repeat="locations in locations">{{locations}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <label class="radio-inline">
+                                               <input type="radio" name="radio" ng-model="type" id="participant" value="participant"/>Participant
+                                           </label>
+                                        </span>
+                                        <select class="form-control" ng-disabled="type == 'location' || type == 'company'" ng-model="participantSelected"  ng-change="showByParticipant()">
+                                            <!--<option value="participants" id="participants" ng-repeat="participants in participants">{{participants}}</option>-->
+                                            <option ng-value="participants" ng-repeat="participants in participants">{{participants}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 text-right">
+                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showAllResults()">Show all results</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
                 <!--Listing data displayed - start-->
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover" ng-show="resultsview">
+                    <thead>
+                        <tr>
+                            <th>Survey Name</th>
+                            <th>Created on</th>
+                            <th>No of entries</th>
+                            <th>Total no of question</th>
+                            <th>No of participants</th>
+                            <th>Total Response(%)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in resultdata | orderBy:'created_at':true">
+                            <td>{{data.name}}</td>
+                            <td>{{data.created_at}}</td>
+                            <td>{{data.no_of_entries_count}}</td>
+                            <td>{{data.total_no_of_questions_count}}</td>
+                            <td>{{data.no_of_participants_count}}</td>
+                            <td ng-show="(data.no_of_entries_count == 0)">{{data.no_of_entries_count}}%</td>
+                            <td ng-hide="(data.no_of_entries_count == 0)">{{(data.no_of_participants_count/data.no_of_entries_count)*100}}%</td>
+                            <td><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraph(data)">Show Bar Graph</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--Listing data displayed - end-->
+
+                <!--Listing data displayed - start location-->
+                <table class="table table-striped table-bordered table-hover" ng-show="locationview">
                     <thead>
                     <tr>
                         <th>Survey Name</th>
@@ -48,18 +92,51 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="data in resultdata | orderBy:'created_at':true">
+                    <tr ng-repeat="data in resultdatabylocation | orderBy:'created_at':true">
                         <td>{{data.name}}</td>
                         <td>{{data.created_at}}</td>
-                        <td>{{data.no_of_entries}}</td>
-                        <td>{{data.total_no_of_questions}}</td>
-                        <td>{{data.no_of_participants}}</td>
-                        <td>{{data.total_response}}</td>
-                        <td><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraph(data)">Show Bar Graph</button></td>
+                        <td>{{data.entriesCount}}</td>
+                        <td>{{data.questionCount}}</td>
+                        <td>{{data.participantCount}}</td>
+                        <td ng-show="(data.entriesCount == 0)">{{data.entriesCount}}%</td>
+                        <td ng-hide="(data.entriesCount == 0)">{{(data.participantCount/data.entriesCount)*100}}%</td>
+                        <!--<td>{{data.total_response}}</td>-->
+                        <td><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraphLocation(data)">Show Bar Graph</button></td>
                     </tr>
                     </tbody>
                 </table>
-                <!--Listing data displayed - end-->
+                <!--Listing data displayed - end location-->
+
+                <!--Listing data displayed - start participant-->
+                <table class="table table-striped table-bordered table-hover" ng-show="participantview">
+                    <thead>
+                    <tr>
+                        <th>Survey Name</th>
+                        <th>Created on</th>
+                        <th>Participant Name</th>
+                        <th>Total no of question</th>
+                        <th>Total no of answers given</th>
+                        <th>Total Response(%)</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="data in resultdatabyparticipant | orderBy:'created_at':true">
+                        <td>{{data.survey_name}}</td>
+                        <td>{{data.created_at}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.total_no_of_question}}</td>
+                        <td>{{data.total_no_of_answer}}</td>
+                        <td ng-show="(data.total_no_of_question == 0)">{{data.total_no_of_question}}%</td>
+                        <td ng-hide="(data.total_no_of_question == 0)">{{(data.total_no_of_answer/data.total_no_of_question)*100}}%</td>
+                        <!--<td>{{data.total_response}}</td>-->
+                        <td>
+                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraphParticipant(data)">Show Bar Graph</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--Listing data displayed - end participant-->
             </section>
         </section>
     </div>

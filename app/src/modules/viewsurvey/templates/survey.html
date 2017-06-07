@@ -1,36 +1,44 @@
-<div class="container" ng-controller="viewSurveyController">
-    <section class="col-sm-12">
-        <section class="page-body">
+<div class="container survey-view-page" ng-controller="viewSurveyController">
+    <div class="row">
+        <section class="col-sm-12">
             <form name="questionsForm" ng-submit="submitAnswers()">
-                <div class="row padding">
-                    <!--<button class="btn btn-success text-right pull-right" ng-submit="submitAnswers()">Submit</button>-->
-                    <input type="submit" class="btn btn-success text-right pull-right" value="Submit" />
-                    <figure><img src="{{resultdata.logo_path}}"></figure>
-                    <div ta-bind ng-model="resultdata.name"></div>
-                    <div ta-bind ng-model="resultdata.description"></div>
+                <div class="text-right">
+                    <input type="submit" class="btn btn-success" value="Submit" />
                 </div>
-                <div ng-repeat="(key,value) in category">
+                <div class="survey-view-header">
+                    <figure><img src="{{surveyDetail.logo_path}}"></figure>
+                    <div ta-bind ng-model="surveyDetail.name"></div>
+                </div>
+                <article ta-bind ng-model="surveyDetail.description"></article>
+                <div ng-repeat="(key,value) in resultdata">
                     <div class="row padding">
                         <div ta-bind ng-model="value.name"></div>
                     </div>
                     <div class="row padding">
                         {{value.description}}
                     </div>
-                    <div ng-repeat="(key,value) in value.question " class="well well-sm">
+                    <div ng-repeat="(key,value) in value.question" class="well well-sm">
                         <div>
                             <div ta-bind ng-model="value.question_title"></div>
                         </div>
                         <div>
                             {{value.description}}
                         </div>
-                        <md-radio-group>
-                            <md-radio-button name="option_question_{{value.id}}" ng-repeat="option in value.option" ng-model="value.selected_id" ng-value="option.id" required>
-                                {{ option.option }}
-                            </md-radio-button>
-                        </md-radio-group>
+                        <!--<md-radio-group>-->
+                        <!--<md-radio-button name="option_question_{{value.id}}" ng-repeat="option in value.option" ng-model="value.selected_id" ng-value="option.id">-->
+                        <!--{{ option.option }}-->
+                        <!--</md-radio-button>-->
+                        <!--</md-radio-group>-->
+                        <div ng-repeat="option in value.option">
+                              <span>
+                                 <input type="radio" name="option_question_{{value.id}}" ng-model="value.selected_id" ng-value="option.option"/>
+                                  {{option.option}}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </form>
         </section>
-    </section>
+    </div>
+    <div ng-include="'src/core/notification/popups.html'"></div>
 </div>

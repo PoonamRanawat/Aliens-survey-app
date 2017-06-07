@@ -16,7 +16,7 @@ angular.module('survey', ['notification'])
 
         function surveyList() {
             $scope.data = surveyOverviewservice.getSurveyData().then(function (response) {
-                $scope.surveydata = response.data.data;
+                $scope.surveydata = response.data.data.resultByCompany;
             });
         }
         surveyList();
@@ -69,7 +69,7 @@ angular.module('survey', ['notification'])
 
 
         $scope.storeSurveyData = function (data) {
-            $rootScope.surveyName = data.surveyName;
+            $rootScope.surveyName = data.name;
             $rootScope.surveyId = data.id;
             getPaticipantsData();
         };

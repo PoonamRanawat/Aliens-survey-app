@@ -12,24 +12,24 @@
                 <!--Listing data displayed - start-->
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Created on</th>
-                        <th>No of entries</th>
-                        <th>No of participants</th>
-                        <th>No of questions</th>
-                        <th>Action</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>No of entries</th>
+                            <th>No of participants</th>
+                            <th>No of questions</th>
+                            <th>Created on</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="data in surveydata.SurveyList | orderBy:'created_at':true">
-                        <td><a class="cursor-pointer" ng-click="storeSurveyData(data)">{{data.surveyName}}</a></td>
-                        <td>{{data.created_at}}</td>
-                        <td>{{data.participant_count}}</td>
-                        <td>{{data.participant_count}}</td>
-                        <td>{{data.noOfQuestions}}</td>
-                        <td><span class="fa fa-pencil-square-o cursor-pointer" ng-click="editSurveyData(data)"> </span> &#124; <span class="fa fa-trash-o cursor-pointer" data-toggle="modal" data-target="#myDeleteItemModal" ng-click="deleteItem(data)"></span></td>
-                    </tr>
+                        <tr ng-repeat="data in surveydata | orderBy:'created_at':true">
+                            <td><a class="cursor-pointer" ng-click="storeSurveyData(data)">{{data.name}}</a></td>
+                            <td>{{data.no_of_entries_count}}</td>
+                            <td>{{data.no_of_participants_count}}</td>
+                            <td>{{data.total_no_of_questions_count}}</td>
+                            <td>{{data.created_at}}</td>
+                            <td><span class="fa fa-pencil-square-o cursor-pointer" ng-click="editSurveyData(data)"> </span> &#124; <span class="fa fa-trash-o cursor-pointer" data-toggle="modal" data-target="#myDeleteItemModal" ng-click="deleteItem(data)"></span></td>
+                        </tr>
                     </tbody>
                 </table>
                 <!--Listing data displayed - end-->
