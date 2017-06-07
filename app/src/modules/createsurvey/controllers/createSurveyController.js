@@ -28,8 +28,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                         description : surveyData.description,
                         message : surveyData.message
                     };
-                }).catch(function (error) {
-                    toaster.error(error);
                 });
             }
 
@@ -75,9 +73,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                         $scope.isNewCreated = true;
                         goToSurveyManageTab();
                     }
-                }).catch(function (error) {
-                    toaster.clear();
-                    toaster.error(error);
                 });
             };
 
@@ -89,9 +84,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                         },50);
                         goToSurveyManageTab();
                     }
-                }).catch(function (error) {
-                    toaster.clear();
-                    toaster.error(error);
                 });
             };
 
@@ -148,6 +140,12 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             };
 
             $scope.deleteQuestion = function (indexNumber) {
+                toaster.clear();
+                if($scope.categoryDetail.question.length == 1) {
+                    toaster.clear();
+                    toaster.error("Minimum one question required for category.");
+                    return;
+                }
                 $scope.categoryDetail.question.splice(indexNumber, 1);
                 toaster.success("Question removed from category successfully.");
             };
@@ -176,8 +174,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                     createSurveyService.deleteCategory(categoryObjDetail.id).then(function (response) {
                         $scope.categoryList.splice(indexNumber, 1);
                         toaster.success("Category detail removed successfully.");
-                    }).catch(function (error) {
-                        toaster.error(error);
                     });
                 } else {
                     $scope.categoryList.splice(indexNumber, 1);
@@ -205,9 +201,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                             $location.path("/surveyoverview");
                         },50);
                     }
-                }).catch(function (error) {
-                    toaster.clear();
-                    toaster.error(error);
                 });
             };
 
@@ -215,17 +208,24 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 $scope.categoryDetail = categoryDetail;
             };
 
-            $scope.deleteQuestionFromAPI = function (categoryId, indexNumber, questionId) {
+            $scope.deleteQuestionFromAPI = function (categoryId, indexNumber, questionId, categoryIndex) {
+                if($scope.categoryList[categoryIndex].question.length === 1) {
+                    toaster.clear();
+                    toaster.error("Minimum one question required for category.");
+                    return;
+                }
                 createSurveyService.deleteQuestion(questionId).then(function (response) {
                     $filter('filter')($scope.categoryList, {id: parseInt(categoryId)}, true)[0].question.splice(indexNumber, 1);
-                }).catch(function (error) {
-                    toaster.clear();
-                    toaster.error(error);
                 });
             };
 
             //Remove category option from category Listing.
             $scope.removeResponseFromList = function (optionIndex, questionIndex, categoryIndex) {
+                if($scope.categoryList[categoryIndex].question[questionIndex].option.length == 1) {
+                    toaster.clear();
+                    toaster.error("Minimum one response required for question.");
+                    return;
+                }
                 var optionId = $scope.categoryList[categoryIndex].question[questionIndex].option[optionIndex].id;
                 if(optionId == null) {
                     $scope.categoryList[categoryIndex].question[questionIndex].option.splice(optionIndex, 1)
@@ -238,9 +238,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                     $scope.categoryList[categoryIndex].question[questionIndex].option.splice(optionIndex, 1)
                     toaster.clear();
                     toaster.success("Option deleted successfully.");
-                }).catch(function (error) {
-                    toaster.clear();
-                    toaster.error(error);
                 });
             };
 
@@ -288,6 +285,11 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             };
             
             $scope.deleteQuestionResponseFromList = function (optionIndex, questionIndex) {
+                if($scope.categoryDetail.question[questionIndex].option.length == 1) {
+                    toaster.clear();
+                    toaster.error("Minimum one response required for question.");
+                    return;
+                }
                 $scope.categoryDetail.question[questionIndex].option.splice(optionIndex, 1);
             };
             
@@ -300,7 +302,15 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 $scope.categoryDetail.question[questionIndex].option.push({id : null, option : optionDetail});
                 angular.element(".responseData").val("");
                 $scope.optionDetail = '';
-            }
+            };
+            
+            $scope.removeImage = function (flag) {
+                if(flag) {
+                    $scope.surveyData.logo_path = {};
+                } else {
+                    $scope.surveyData.logo_path_url = null;
+                }
+            };
 
             init();
         }]);
