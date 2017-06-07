@@ -61,6 +61,13 @@ angular.module('results', ['notification', 'chart.js'])
             $scope.series = ['No of entries', 'No of participants'];
             $scope.labels = [ data.no_of_participants_count ];
         };
+
+        $scope.showBarGraphParticipant = function (data) {
+            $scope.surveyName = data.name;
+            $scope.data = [data.total_no_of_question];
+            $scope.series = ['No of questions', 'No of answers'];
+            $scope.labels = [ data.total_no_of_answer ];
+        };
         $scope.showAllResults = function () {
             $scope.data = [$scope.sumOfEntries];
             $scope.labels = [$scope.sumOfParticipants];
