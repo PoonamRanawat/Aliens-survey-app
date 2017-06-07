@@ -22,6 +22,19 @@
                                     <input type='file' ng-model='surveyData.logo_path' class="form-control"  placeholder="Upload logo" value="fileupload" id="fileUpload" accept="image/jpg, image/png" maxsize="5000" base-sixty-four-input>
                                     <span ng-show="surveyData.logo_path.$error.maxsize">Files must not exceed 5000 KB</span>
                                 </div>
+                                <div ng-show="surveyData.logo_path.base64">
+                                    <div class="col-sm-1 text-right" style="padding:5px">
+                                        <img style="width: 50px; height: 50px;" data-ng-src="data:image/gif;base64,{{surveyData.logo_path.base64}}">
+                                    </div>
+                                    <div ng-click="removeImage(true)" class="col-sm-1" style="padding:0px"><a class="delete-block" href=""><i class="fa fa-trash"></i></a></div>
+                                </div>
+
+                                <div ng-if="surveyData.logo_path_url && !surveyData.logo_path.base64">
+                                    <div class="col-sm-1 text-right" style="padding:5px">
+                                        <img style="width: 50px; height: 50px;" src="{{surveyData.logo_path_url}}">
+                                    </div>
+                                    <div ng-click="removeImage(false)" class="col-sm-1" style="padding:0px"><a class="delete-block" href=""><i class="fa fa-trash"></i></a></div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2">Name of survey:</label>

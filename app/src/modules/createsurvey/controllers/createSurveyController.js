@@ -300,7 +300,15 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 $scope.categoryDetail.question[questionIndex].option.push({id : null, option : optionDetail});
                 angular.element(".responseData").val("");
                 $scope.optionDetail = '';
-            }
+            };
+            
+            $scope.removeImage = function (flag) {
+                if(flag) {
+                    $scope.surveyData.logo_path = {};
+                } else {
+                    $scope.surveyData.logo_path_url = null;
+                }
+            };
 
             init();
         }]);
