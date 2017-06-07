@@ -30,6 +30,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             }
 
             function init() {
+                $scope.isNewCreated = false;
                 $rootScope.activeCreateSurveyTab = true;
                 $rootScope.activeSurveyTab = false;
                 $rootScope.activeResultsTab = false;
@@ -38,12 +39,14 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 $scope.surveyId = null;
                 $scope.surveyData = {};
                 $scope.categoryDetail = {
+                    id : null,
                     name : '',
                     description : '',
                     question : []
                 };
 
                 $scope.questionDetail = {
+                    id : null,
                     question_title : null,
                     description : null,
                     option : []
@@ -69,6 +72,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                             dataGetService.success('Survey created successfully', 5000);
                         },50);
                         $scope.surveyId = response.data.data.id;
+                        $scope.isNewCreated = true;
                         goToSurveyManageTab();
                     }
                 }).catch(function (error) {
@@ -118,6 +122,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             $scope.showQuestion = false;
             $scope.showQuestionDiv = function () {
                 $scope.questionDetail = {
+                    id : null,
                     question_title : null,
                     description : null,
                     option : []
@@ -134,6 +139,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 $scope.categoryDetail.question.push($scope.questionDetail);
                 toaster.success("Question added to category successfully.");
                 $scope.questionDetail = {
+                    id : null,
                     question_title : null,
                     description : null,
                     option : []
@@ -156,6 +162,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 console.log($scope.categoryDetail);
                 $scope.categoryList.push($scope.categoryDetail);
                 $scope.categoryDetail = {
+                    id : null,
                     name : '',
                     description : '',
                     question : []
@@ -190,7 +197,8 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                     toaster.error("Please create survey first.");
                     return false;
                 }
-                createSurveyService.saveSurveyInfo($scope.categoryList, $scope.surveyId).then(function (response) {
+
+                createSurveyService.saveSurveyInfo($scope.categoryList, $scope.surveyId, $scope.isNewCreated).then(function (response) {
                     if(response.data.success && response.data.status_code == 200){
                         $timeout(function () {
                             dataGetService.success('Survey Category saved successfully', 5000);
@@ -250,6 +258,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             
             $scope.showQuestionDivInListing = function (questionBlock) {
                 $scope.questionDetail = {
+                    id : null,
                     question_title : null,
                     description : null,
                     option : []
@@ -269,6 +278,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 $scope.categoryList[categoryIndex].question.push($scope.questionDetail);
                 toaster.success("Question added to category successfully.");
                 $scope.questionDetail = {
+                    id : null,
                     question_title : null,
                     description : null,
                     option : []
