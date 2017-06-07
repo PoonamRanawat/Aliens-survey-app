@@ -100,14 +100,14 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
 
             };
 
-            $scope.addQuestionResponse = function () {
+            $scope.addQuestionResponse = function (response) {
                 toaster.clear();
-                if($scope.optionDetail == '') {
+                if(response == '') {
                     toaster.error("Please enter response.");
                     return false;
                 }
-                $scope.questionDetail.option.push({id : null, option : $scope.optionDetail});
-                $scope.optionDetail = '';
+                $scope.questionDetail.option.push({id : null, option : response});
+                angular.element(".responseData").val('');
             };
 
             $scope.deleteQuestionResponse = function (indexNumber) {
@@ -116,6 +116,11 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
 
             $scope.showQuestion = false;
             $scope.showQuestionDiv = function () {
+                $scope.questionDetail = {
+                    question_title : null,
+                    description : null,
+                    option : []
+                };
                 $scope.showQuestion = true;
             };
             $scope.addQuestion = function () {
@@ -240,6 +245,35 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 $scope.categoryList[categoryIndex].question[questionIndex].option.push({id : null, option : response});
                 $scope.questionResponse = '';
                 angular.element(".responseModel").val("");
+            };
+            
+            $scope.showQuestionDivInListing = function (questionBlock) {
+                $scope.questionDetail = {
+                    question_title : null,
+                    description : null,
+                    option : []
+                };
+                angular.element("#questionBlock"+questionBlock).show();
+                angular.element("#questionButtonDiv"+questionBlock).hide();
+            };
+
+            $scope.saveQuestionInListing = function (categoryIndex) {
+                toaster.clear();
+                if($scope.questionDetail.question_title == '' || $scope.questionDetail.description == '' ||
+                    $scope.questionDetail.option.length == 0) {
+                    toaster.error("Question title, description, response are required field.");
+                    return false;
+                }
+
+                $scope.categoryList[categoryIndex].question.push($scope.questionDetail);
+                toaster.success("Question added to category successfully.");
+                $scope.questionDetail = {
+                    question_title : null,
+                    description : null,
+                    option : []
+                };
+                angular.element("#questionBlock"+categoryIndex).hide();
+                angular.element("#questionButtonDiv"+categoryIndex).show();
             };
 
             init();

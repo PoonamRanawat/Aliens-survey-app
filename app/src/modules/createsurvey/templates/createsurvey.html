@@ -61,8 +61,8 @@
                     <!----Survey Management Content----->
                     <div id="surveyManageContent" class="tab-pane fade">
                         <div class="add-category-header">
-                            <figure ng-if="surveyData.logo_path.base64 && isUpdate != true"><img data-ng-src="data:image/gif;base64,{{surveyData.logo_path.base64}}"></figure>
-                            <figure ng-if="surveyData.logo_path.base64 && isUpdate == true"><img src="{{surveyData.logo_path.base64}}"></figure>
+                            <figure ng-if="surveyData.logo_path.base64"><img data-ng-src="data:image/gif;base64,{{surveyData.logo_path.base64}}"></figure>
+                            <figure ng-if="surveyData.logo_path_url && !surveyData.logo_path.base64"><img src="{{surveyData.logo_path_url}}"></figure>
                             <h2 ng-if="surveyData.name">{{surveyData.name}}</h2>
                             <div class="button-group">
                                 <button type="button" class="btn btn-success" ng-click="saveSurveyDetail()">Save Survey</button>
@@ -150,8 +150,8 @@
                                             <div class="answer-row">
                                                 <div class="form-group">
                                                     <div class="input-group">
-                                                        <input ng-model="optionDetail" type="text" class="form-control">
-                                                        <span class="input-group-addon" ng-click="addQuestionResponse()"><i class="fa fa-plus"></i></span>
+                                                        <input ng-model="optionDetail" type="text" class="form-control responseData">
+                                                        <span class="input-group-addon" ng-click="addQuestionResponse(optionDetail)"><i class="fa fa-plus"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,6 +240,56 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!--Question Add block inside category Listing-->
+                                <div class="row" id="questionButtonDiv{{$index}}">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="button" ng-click="showQuestionDivInListing($index)" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</button>
+                                    </div>
+                                </div>
+                                <div class="question-block" id="questionBlock{{$index}}" style="display:none">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Question:</label>
+                                                <div class="text-editor">
+                                                    <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="questionDetail.question_title"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>Description:</label>
+                                                <textarea class="form-control" rows="4" placeholder="Description" ng-model="questionDetail.description"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="answer-block">
+                                        <label>Answer:</label>
+                                        <div class="answer-row">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input ng-model="optionDetail" type="text" class="form-control responseData">
+                                                    <span class="input-group-addon" ng-click="addQuestionResponse(optionDetail)"><i class="fa fa-plus"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="answer-row" ng-repeat="options in questionDetail.option track by $index">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input ng-model="options.option" type="text" class="form-control">
+                                                    <span class="input-group-addon" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 text-right">
+                                            <button type="button" ng-click="saveQuestionInListing($index)" class="btn btn-success">Save Question</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Question Add block inside category Listing End here-->
                             </section>
                             <!-----Category Listing Block End---->
                         </div>
