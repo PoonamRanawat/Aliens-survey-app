@@ -8,8 +8,8 @@
             </section>
             <section class="page-body">
                 <ul class="nav nav-tabs">
-                    <li id="generalInfoTab" class="active"><a data-toggle="tab" data-target="#generalInfoContent">General Information</a></li>
-                    <li id="surveyManageTab"><a data-toggle="tab" data-target="#surveyManageContent">Survey Management</a></li>
+                    <li id="generalInfoTab" class="active"><a href="" data-toggle="tab" data-target="#generalInfoContent">General Information</a></li>
+                    <li id="surveyManageTab"><a href="" data-toggle="tab" data-target="#surveyManageContent">Survey Management</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -27,7 +27,7 @@
                                 <label class="control-label col-sm-2">Name of survey:</label>
                                 <div class="col-sm-10">
                                     <div class="text-editor">
-                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="surveyData.name"></div>
+                                        <input class="form-control" rows="4" placeholder="Name of survey" ng-model="surveyData.name">
                                     </div>
                                 </div>
                             </div>
@@ -65,14 +65,18 @@
                             <figure ng-if="surveyData.logo_path.base64 && isUpdate == true"><img src="{{surveyData.logo_path.base64}}"></figure>
                             <h2 ng-if="surveyData.name">{{surveyData.name}}</h2>
                             <div class="button-group">
-                                <button type="button" class="btn btn-primary" ng-click="addCategory()"><i class="fa fa-plus"></i> Add Category</button>
-                                <button type="button" class="btn btn-success" ng-click="saveSurveyDetail()">Save</button>
+                                <button type="button" class="btn btn-success" ng-click="saveSurveyDetail()">Save Survey</button>
                             </div>
                         </div>
 
                         <div class="add-category-body" id="add-category-body">
                             <section class="category-block">
                                 <form id="form1">
+                                    <div class="row">
+                                        <div class="col-sm-12 text-right">
+                                            <button type="button" class="btn btn-primary" ng-click="addCategory()">Save Category</button>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
@@ -121,7 +125,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-----Question Listing Block end---->
 
+                                    <!-----Question Add Block start---->
                                     <div class="question-block" ng-show="showQuestion">
                                         <div class="row">
                                             <div class="col-sm-12">
@@ -169,9 +175,12 @@
                                             <button type="button" ng-click="showQuestionDiv()" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</button>
                                         </div>
                                     </div>
-                                    <!-----Question Listing Block end---->
+                                    <!-----Question Add Block End---->
                                 </form>
                             </section>
+
+
+
 
                             <!-----Category Listing Block start---->
                             <section class="category-block" ng-repeat="categoryListing in categoryList track by $index">
@@ -214,11 +223,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="answer-row">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input ng-model="questionResponse" type="text" class="form-control responseModel">
+                                                <span class="input-group-addon" ng-click="addResponseFromCategoryListing(questionResponse, $index, $parent.$index)"><i class="fa fa-plus"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="answer-row" ng-repeat="options in question.option track by $index">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <input ng-model="options.option" type="text" class="form-control">
-                                                <span class="input-group-addon" ><i class="fa fa-check-square-o"></i></span>
+                                                <span class="input-group-addon" ng-click="removeResponseFromList($index, $parent.$index, $parent.$parent.$index)"><i class="fa fa-trash-o"></i></span>
                                             </div>
                                         </div>
                                     </div>

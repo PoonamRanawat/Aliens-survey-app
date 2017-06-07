@@ -17,9 +17,8 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                     $scope.categoryList = surveyData.category;
                     $scope.surveyData = {
                         id : surveyData.id,
-                        logo_path : {
-                            base64 : surveyData.logo_path
-                        },
+                        logo_path : null,
+                        logo_path_url : surveyData.logo_path,
                         name : surveyData.name,
                         description : surveyData.description,
                         message : surveyData.message
@@ -31,11 +30,13 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             }
 
             function init() {
+                $rootScope.activeCreateSurveyTab = true;
+                $rootScope.activeSurveyTab = false;
+                $rootScope.activeResultsTab = false;
+
                 $scope.isUpdate = false;
                 $scope.surveyId = null;
                 $scope.surveyData = {};
-                //$scope.createSurveyTab = true;
-                //$scope.generalInfoTab = false;
                 $scope.categoryDetail = {
                     name : '',
                     description : '',
@@ -49,8 +50,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 };
 
                 $scope.categoryList = [];
-                //$scope.createSurveyTab = false;
-                //$scope.generalInfoTab = true;
 
                 if($location.path() == '/edit-survey') {
                     if(typeof $rootScope.editSurveyId == 'undefined') {
@@ -159,12 +158,12 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             };
 
             $scope.deleteCategory = function (indexNumber, categoryObjDetail) {
+                toaster.clear();
                 if(typeof categoryObjDetail.id != 'undefined') {
                     createSurveyService.deleteCategory(categoryObjDetail.id).then(function (response) {
                         $scope.categoryList.splice(indexNumber, 1);
                         toaster.success("Category detail removed successfully.");
                     }).catch(function (error) {
-                        toaster.clear();
                         toaster.error(error);
                     });
                 } else {
@@ -211,8 +210,36 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 });
             };
 
-            $scope.deleteQuestionResponseList = function (parentQuestionId, indexNumber, responseId) {
+            //Remove category option from category Listing.
+            $scope.removeResponseFromList = function (optionIndex, questionIndex, categoryIndex) {
+                var optionId = $scope.categoryList[categoryIndex].question[questionIndex].option[optionIndex].id;
+                if(optionId == null) {
+                    $scope.categoryList[categoryIndex].question[questionIndex].option.splice(optionIndex, 1)
+                    toaster.clear();
+                    toaster.success("Option deleted successfully.");
+                    return true;
+                }
 
+                createSurveyService.deleteQuestionOption(optionId).then(function (response) {
+                    $scope.categoryList[categoryIndex].question[questionIndex].option.splice(optionIndex, 1)
+                    toaster.clear();
+                    toaster.success("Option deleted successfully.");
+                }).catch(function (error) {
+                    toaster.clear();
+                    toaster.error(error);
+                });
+            };
+
+            //Add category option from category Listing.
+            $scope.addResponseFromCategoryListing = function (response, questionIndex, categoryIndex) {
+                toaster.clear();
+                if(response == '') {
+                    toaster.error("Please enter response.");
+                    return false;
+                }
+                $scope.categoryList[categoryIndex].question[questionIndex].option.push({id : null, option : response});
+                $scope.questionResponse = '';
+                angular.element(".responseModel").val("");
             };
 
             init();
