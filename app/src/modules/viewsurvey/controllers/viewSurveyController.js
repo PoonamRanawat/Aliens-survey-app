@@ -1,14 +1,10 @@
 angular.module('viewsurvey', ['notification'])
     .controller("viewSurveyController" , ['$scope','viewSurveyService','$location','$routeParams','dataGetService','$timeout', function ($scope, viewSurveyService,$location, $routeParams, dataGetService,$timeout) {
-        console.log($location.path());
-        console.log($routeParams);
-        $scope.surveyid = $routeParams.survey_id;
         $scope.resultdata = [];
         $scope.category = [];
         function resultView() {
-           viewSurveyService.getSurveyDetails($scope.surveyid).then( function (response) {
+           viewSurveyService.getSurveyDetails($routeParams.survey_id, $routeParams.participantid).then( function (response) {
                if(response.data.success && response.data.status_code == 200){
-                   console.log(response.data.data);
                    $scope.surveyDetail = response.data.data[0];
                    $scope.resultdata =  response.data.data[0].category;
                    $scope.selected = [];

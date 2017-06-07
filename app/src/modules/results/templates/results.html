@@ -14,7 +14,7 @@
                                 <label class="col-sm-1">Results from:</label>
                                 <div class="col-sm-2">
                                     <label class="radio-inline">
-                                        <input type="radio" name="radio" id="company" ng-model="type" value="company" ng-checked="type === 'company'" ng-click="showByCompany()"/>Company
+                                        <input type="radio" name="company" id="companyid" ng-model="type" value="company" ng-click="showByCompany()"/>Company
                                     </label>
                                 </div>
                                 <div class="col-sm-3">
@@ -98,7 +98,7 @@
                         <td>{{data.questionCount}}</td>
                         <td>{{data.participantCount}}</td>
                         <td>{{data.total_response}}</td>
-                        <td><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraph(data)">Show Bar Graph</button></td>
+                        <td><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraphLocation(data)">Show Bar Graph</button></td>
                     </tr>
                     </tbody>
                 </table>

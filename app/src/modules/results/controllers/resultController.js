@@ -1,6 +1,6 @@
 angular.module('results', ['notification', 'chart.js'])
     .controller("resultController" , ['$scope','$rootScope','dataGetService','$timeout','resultService','$filter','$location', function ($scope,$rootScope, dataGetService, $timeout, resultService,$filter, $location) {
-
+        $scope.type = "company";
         $rootScope.activeCreateSurveyTab = false;
         $rootScope.activeSurveyTab = false;
         $rootScope.activeResultsTab = true;
@@ -29,6 +29,8 @@ angular.module('results', ['notification', 'chart.js'])
                         }
                         $scope.sumOfEntries = sumOfEntries;
                         $scope.sumOfParticipants = sumOfParticipants;
+
+                        //$scope.totalResponse = $scop
                     });
                 };
             });
@@ -39,14 +41,12 @@ angular.module('results', ['notification', 'chart.js'])
         function getValues() {
             resultService.getLocations().then(function (response) {
                 $scope.locations = [];
-                console.log($scope.locations);
                 angular.forEach(response.data.data.location, function (item) {
                     $scope.locations.push(item);
                 });
             });
             resultService.getParticipants().then(function (response) {
                 $scope.participants = [];
-                console.log($scope.participants);
                 angular.forEach(response.data.data.names, function (item) {
                     $scope.participants.push(item);
                 });
@@ -62,6 +62,13 @@ angular.module('results', ['notification', 'chart.js'])
             $scope.labels = [ data.no_of_participants_count ];
         };
 
+        $scope.showBarGraphLocation = function (data) {
+            $scope.surveyName = data.name;
+            $scope.data = [data.entriesCount];
+            $scope.series = ['No of questions', 'No of answers'];
+            $scope.labels = [ data.participantCount ];
+        };
+
         $scope.showBarGraphParticipant = function (data) {
             $scope.surveyName = data.name;
             $scope.data = [data.total_no_of_question];
@@ -69,6 +76,7 @@ angular.module('results', ['notification', 'chart.js'])
             $scope.labels = [ data.total_no_of_answer ];
         };
         $scope.showAllResults = function () {
+            $scope.surveyName = "Results";
             $scope.data = [$scope.sumOfEntries];
             $scope.labels = [$scope.sumOfParticipants];
         };

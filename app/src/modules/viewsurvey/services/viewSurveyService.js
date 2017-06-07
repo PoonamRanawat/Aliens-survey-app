@@ -5,10 +5,10 @@ angular.module('viewsurvey')
             submitAnswers: submitAnswers
         };
 
-        function getSurveyDetails(data) {
+        function getSurveyDetails(data, id) {
             return $http({
                 method: 'GET',
-                url: 'http://aliens.dev.easternenterprise.com/api/survey-details?survey_id=' + data,
+                url: 'http://aliens.dev.easternenterprise.com/api/survey-details?survey_id=' + data + '&participant=' + id,
             }).success(function (response) {
                 return response;
             }).error(function (response) {
