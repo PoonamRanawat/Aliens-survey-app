@@ -23,7 +23,7 @@ angular.
           templateUrl : 'src/modules/createsurvey/templates/surveymanagement.html'
         }).when('/results',{
             templateUrl : 'src/modules/results/templates/results.html'
-        }).when('/viewsurvey',{
+        }).when('/viewsurvey/:survey_id/:participantid',{
           templateUrl : 'src/modules/viewsurvey/templates/survey.html'
         }).otherwise({
             templateUrl : 'src/core/login/templates/login.html'
