@@ -83,10 +83,16 @@ angular.module('createsurvey')
             })
         }
         
-        function saveSurveyInfo(data, surveyId) {
+        function saveSurveyInfo(data, surveyId, isNew) {
+            var method = 'PUT';
+            var url = 'http://aliens.dev.easternenterprise.com/api/question/update?survey_id=' + surveyId;
+            if(isNew) {
+                method = 'POST';
+                url = 'http://aliens.dev.easternenterprise.com/api/question/create?survey_id=' + surveyId;
+            }
             return $http({
-                method: 'POST',
-                url: 'http://aliens.dev.easternenterprise.com/api/question/create?survey_id=' + surveyId,
+                method: method,
+                url: url,
                 data: data
             }).success(function (response) {
                 return response;
