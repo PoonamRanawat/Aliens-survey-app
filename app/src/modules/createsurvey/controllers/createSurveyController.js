@@ -34,8 +34,8 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 $scope.isUpdate = false;
                 $scope.surveyId = null;
                 $scope.surveyData = {};
-                $scope.createSurveyTab = true;
-                $scope.generalInfoTab = false;
+                //$scope.createSurveyTab = true;
+                //$scope.generalInfoTab = false;
                 $scope.categoryDetail = {
                     name : '',
                     description : '',
@@ -49,8 +49,8 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 };
 
                 $scope.categoryList = [];
-                $scope.createSurveyTab = false;
-                $scope.generalInfoTab = true;
+                //$scope.createSurveyTab = false;
+                //$scope.generalInfoTab = true;
 
                 if($location.path() == '/edit-survey') {
                     if(typeof $rootScope.editSurveyId == 'undefined') {
@@ -174,6 +174,12 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
             };
 
             $scope.saveSurveyDetail = function () {
+                if($scope.categoryList.length == 0) {
+                    var iscategoryAdded = $scope.addCategory();
+                    if(iscategoryAdded == false) {
+                        return false;
+                    }
+                }
                 if($scope.surveyId == null) {
                     toaster.clear();
                     toaster.error("Please create survey first.");
