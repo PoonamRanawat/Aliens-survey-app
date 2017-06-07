@@ -170,7 +170,7 @@ angular.module('survey', ['notification'])
 
         $scope.editSurveyData = function (data) {
             $rootScope.editSurveyId = data.id;
-            $location.path('/edit-survey');
+            $location.path('/edit-survey/'+data.id);
         }
 
     }]);
