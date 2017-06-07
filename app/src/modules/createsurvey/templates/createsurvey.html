@@ -76,6 +76,8 @@
                         <div class="add-category-header">
                             <figure ng-if="surveyData.logo_path.base64"><img data-ng-src="data:image/gif;base64,{{surveyData.logo_path.base64}}"></figure>
                             <figure ng-if="surveyData.logo_path_url && !surveyData.logo_path.base64"><img src="{{surveyData.logo_path_url}}"></figure>
+                            <figure ng-if="!surveyData.logo_path_url && !surveyData.logo_path.base64"><img src="src/core/shared/css/Default-Icon-icon.png"></figure>
+
                             <h2 ng-if="surveyData.name">{{surveyData.name}}</h2>
                             <div class="button-group">
                                 <button type="button" class="btn btn-success" ng-click="saveSurveyDetail()">Save Survey</button>
@@ -197,7 +199,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12 text-right">
-                                                <button type="button" ng-click="addQuestion()" class="btn btn-success">Add Question</button>
+                                                <button type="button" ng-click="addQuestion()" class="btn btn-success">Save Question</button>
                                             </div>
                                         </div>
                                         </div>
@@ -240,7 +242,7 @@
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a class="panel-title-link collapsed" data-toggle="collapse" data-target="#collapse{{$index}}" ng-bind-html="question.question_title"></a>
-                                            <a class="delete-block" href="" ng-click="deleteQuestionFromAPI(categoryListing.id, $index, question.id)"><i class="fa fa-trash"></i></a>
+                                            <a class="delete-block" href="" ng-click="deleteQuestionFromAPI(categoryListing.id, $index, question.id, $parent.$index)"><i class="fa fa-trash"></i></a>
                                         </h4>
                                     </div>
 
@@ -339,11 +341,5 @@
             </section>
         </section>
     </div>
-    <div ng-include="'src/core/notification/popups.html'"></div>
+    <toaster-container toaster-options="{'time-out': 3000,'position-class': 'toast-top-center','close-button':true}"></toaster-container>
 </div>
-<script>
-    $(".disabled-tab").click(function (e) {
-        e.preventDefault();
-        return false;
-    });
-</script>
