@@ -1,7 +1,12 @@
 angular.module('user', ['notification'])
     .controller("userController" , ['$scope','userService' ,'$rootScope','CommonService','dataGetService','$timeout', function ($scope, userService, $rootScope, CommonService, dataGetService, $timeout) {
         $scope.textsearch = "";
-
+        $(document).keypress(
+            function(event){
+                if (event.which == '13') {
+                    event.preventDefault();
+                }
+            });
         function userlist() {
             $scope.data = userService.getUserData().then(function (response) {
                 $rootScope.listdata = response.data.data;
