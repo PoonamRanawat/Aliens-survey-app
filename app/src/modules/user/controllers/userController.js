@@ -93,7 +93,7 @@ angular.module('user', ['notification'])
             }
 
         }
-        
+
         $scope.closeForm = function () {
 
             $('#addUserForm.modal').on('hidden.bs.modal', function () {
