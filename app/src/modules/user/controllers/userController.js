@@ -3,18 +3,19 @@ angular.module('user', ['notification'])
         $scope.textsearch = "";
         $scope.dataEntered= "";
         $scope.dataToEdit= "";
+        $rootScope.dataToEditNew = '';
+        console.log($rootScope.dataToEditNew);
         $scope.removeData = function () {
            alert('t3r');
             $scope.textsearch = "";
         };
         $scope.addUser = function () {
-
             $(".modal").on("hidden.bs.modal", function () {
-                        $(this).find("input,textarea,select").val('').end();
+                      //  $(this).find("input,textarea,select").val('').end();
                     });
 
-            $("#addForm").find("input,textarea,select").val('').end();
-        }
+            //$("#addForm").find("input,textarea,select").val('').end();
+        };
         $(document).keypress(
             function(event){
                 if (event.which == '13') {
@@ -30,7 +31,6 @@ angular.module('user', ['notification'])
         userlist();
 
         $scope.addEmployees = function (dataEntered) {
-
             if (dataEntered == undefined || dataEntered == "undefined" || dataEntered == "null" || dataEntered == null) {
                 $timeout(function () {
                     dataGetService.errors('Please enter data', 1500);
@@ -38,7 +38,6 @@ angular.module('user', ['notification'])
             } else {
                 validateDataEntered(dataEntered, '', true);
             }
-
         };
 
         function validateDataEntered(dataEntered,newpassword ,flag){
@@ -95,31 +94,15 @@ angular.module('user', ['notification'])
             }
 
         }
-        $scope.closeForm = function () {
 
-            $('#addUserForm.modal').on('hidden.bs.modal', function () {
-               $(this).find("input,textarea,select").val('').end();
+        $scope.editData = function(data) {
+            //$scope.dataToEdit = CommonService.getData();
+            userService.getEditData(data.id).then(function (response) {
+                if(response.data.success){
+                    $rootScope.dataToEditNew = response.data.data;
+                };
             });
-            $('#addUserForm').modal('hide');
         };
-
-        //edit data - start
-        $scope.open = function (data) {
-            CommonService.setData(data);
-            editData();
-        };
-
-        if(CommonService.getFlag())
-        {
-            $scope.dataToEdit='';
-        }else{
-            editData();
-            CommonService.setFlag(true);
-        }
-
-        function editData() {
-            $scope.dataToEdit = CommonService.getData();
-        }
 
         //edit data - end
         $scope.deleteUser = function (data) {

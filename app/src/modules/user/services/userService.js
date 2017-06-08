@@ -4,7 +4,8 @@ angular.module('user')
             getUserData: getUserData,
             addUser: addUser,
             updateUser: updateUser,
-            deleteUser: deleteUser
+            deleteUser: deleteUser,
+            getEditData: getEditData
         };
 
         function getUserData() {
@@ -69,6 +70,23 @@ angular.module('user')
                 return response;
             }).error(function (response) {
                 console.log('XHR Failed for deleting user');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
+            })
+        }
+
+        function getEditData(data) {
+            return $http({
+                method: 'GET',
+                url: 'http://aliens.dev.easternenterprise.com/api/user/edit?user_id=' + data,
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for getting edit data');
                 $timeout(function () {
                     dataGetService.errors(response.message, 1500);
                 },500);
