@@ -1,6 +1,9 @@
 angular.module('user', ['notification'])
     .controller("userController" , ['$scope','userService' ,'$rootScope','CommonService','dataGetService','$timeout', function ($scope, userService, $rootScope, CommonService, dataGetService, $timeout) {
         $scope.textsearch = "";
+        $scope.removeData = function () {
+            $scope.textsearch = "";
+        };
         $(document).keypress(
             function(event){
                 if (event.which == '13') {
