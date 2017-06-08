@@ -1,9 +1,24 @@
 angular.module('user', ['notification'])
     .controller("userController" , ['$scope','userService' ,'$rootScope','CommonService','dataGetService','$timeout', function ($scope, userService, $rootScope, CommonService, dataGetService, $timeout) {
         $scope.textsearch = "";
+        $scope.dataEntered= "";
         $scope.removeData = function () {
+           alert('t3r');
             $scope.textsearch = "";
         };
+        $scope.addUser = function () {
+
+            $('.modal').on('shown.bs.modal', function (e) {
+                // do something...
+
+                   // alert('hi');
+                    $(".modal").on("hidden.bs.modal", function () {
+                        //$("#name").val('');
+                        //$("#email").val('');
+                        $(this).find("input,textarea,select").val('').end();
+                    });
+            })
+        }
         $(document).keypress(
             function(event){
                 if (event.which == '13') {
@@ -19,6 +34,7 @@ angular.module('user', ['notification'])
         userlist();
 
         $scope.addEmployees = function (dataEntered) {
+
             if (dataEntered == undefined || dataEntered == "undefined" || dataEntered == "null" || dataEntered == null) {
                 $timeout(function () {
                     dataGetService.errors('Please enter data', 1500);
@@ -81,8 +97,10 @@ angular.module('user', ['notification'])
                     userlist();
                 });
             }
+
         }
         $scope.closeForm = function () {
+
             $('#addUserForm.modal').on('hidden.bs.modal', function () {
                $(this).find("input,textarea,select").val('').end();
             });
