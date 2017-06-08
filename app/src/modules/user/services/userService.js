@@ -1,5 +1,5 @@
 angular.module('user')
-    .factory("userService" , ['$q','$http','dataGetService','$timeout', function ($q,$http, dataGetService, $timeout) {
+    .factory("userService" , ['$q','$http','dataGetService','$timeout','$location', function ($q,$http, dataGetService, $timeout, $location) {
         return {
             getUserData: getUserData,
             addUser: addUser,

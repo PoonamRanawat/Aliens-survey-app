@@ -1,5 +1,5 @@
 angular.module('createsurvey')
-    .factory("createSurveyService" , ['$q','$http','dataGetService','$timeout', function ($q,$http, dataGetService, $timeout) {
+    .factory("createSurveyService" , ['$q','$http','dataGetService','$timeout','$location', function ($q,$http, dataGetService, $timeout,$location) {
         return {
             createSurvey: createSurvey,
             updateSurvey: updateSurvey,
