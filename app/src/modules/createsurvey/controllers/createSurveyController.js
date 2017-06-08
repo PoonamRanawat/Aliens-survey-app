@@ -157,7 +157,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                     toaster.error("Name, Description, questions are required field.");
                     return false;
                 }
-                console.log($scope.categoryDetail);
                 $scope.categoryList.push($scope.categoryDetail);
                 $scope.categoryDetail = {
                     id : null,
@@ -165,7 +164,6 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                     description : '',
                     question : []
                 };
-                console.log($scope.categoryList);
             };
 
             $scope.deleteCategory = function (indexNumber, categoryObjDetail) {
