@@ -2,22 +2,18 @@ angular.module('user', ['notification'])
     .controller("userController" , ['$scope','userService' ,'$rootScope','CommonService','dataGetService','$timeout', function ($scope, userService, $rootScope, CommonService, dataGetService, $timeout) {
         $scope.textsearch = "";
         $scope.dataEntered= "";
+        $scope.dataToEdit= "";
         $scope.removeData = function () {
            alert('t3r');
             $scope.textsearch = "";
         };
         $scope.addUser = function () {
 
-            $('.modal').on('shown.bs.modal', function (e) {
-                // do something...
-                $(this).find("input,textarea,select").val('').end();
-                   // alert('hi');
-                    $(".modal").on("hidden.bs.modal", function () {
-                        //$("#name").val('');
-                        //$("#email").val('');
+            $(".modal").on("hidden.bs.modal", function () {
                         $(this).find("input,textarea,select").val('').end();
                     });
-            })
+
+            $("#addForm").find("input,textarea,select").val('').end();
         }
         $(document).keypress(
             function(event){
