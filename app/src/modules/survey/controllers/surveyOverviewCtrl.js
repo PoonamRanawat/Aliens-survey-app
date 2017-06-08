@@ -114,7 +114,8 @@ angular.module('survey', ['notification'])
             if(validated){
                 if(id){
                     //update
-                    request ['id'] =  $rootScope.participantId
+                    request ['id'] =  $rootScope.participantId;
+                    request ['survey_id'] =  $rootScope.surveyId;
                     surveyOverviewservice.updateParticipant(request, $rootScope.participantId).then(function (response) {
                         if(response.data.success){
                             $timeout(function () {
