@@ -10,7 +10,7 @@ angular.module('user', ['notification'])
 
             $('.modal').on('shown.bs.modal', function (e) {
                 // do something...
-
+                $(this).find("input,textarea,select").val('').end();
                    // alert('hi');
                     $(".modal").on("hidden.bs.modal", function () {
                         //$("#name").val('');

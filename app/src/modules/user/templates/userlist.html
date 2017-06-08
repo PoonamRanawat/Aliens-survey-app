@@ -18,8 +18,8 @@
                         <form action="" class="search-form" autocomplete="off" role="presentation">
                             <div class="form-group has-feedback">
                                 <label for="search" class="sr-only">Search</label>
-                                <input type="search" class="form-control" name="search" id="search" placeholder="Search User by name or email..." ng-model="textsearch">
-                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                <input type="search" class="form-control" name="search" id="search" placeholder="Search User by name or email..." ng-model="textsearch" />
+                                <i class="glyphicon glyphicon-remove form-control-feedback" ng-click="textsearch = null" ng-show="textsearch"></i>
                             </div>
                         </form>
                     </div>
