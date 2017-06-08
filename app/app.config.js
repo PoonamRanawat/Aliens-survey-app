@@ -26,7 +26,7 @@ angular.
         }).when('/viewsurvey/:survey_id/:participantid',{
           templateUrl : 'src/modules/viewsurvey/templates/survey.html'
         }).otherwise({
-            templateUrl : 'src/core/login/templates/login.html'
+            templateUrl : 'src/core/shared/templates/pagenotfound.html'
         })
     }
   ]);
