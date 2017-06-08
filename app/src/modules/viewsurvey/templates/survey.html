@@ -3,7 +3,7 @@
         <section class="col-sm-12">
             <form name="questionsForm" ng-submit="submitAnswers()">
                 <div class="text-right" ng-hide="disabledButton">
-                    <input type="submit" class="btn btn-success" value="Submit" />
+                    <input type="submit" class="btn btn-success" value="Submit"/>
                 </div>
                 <div class="survey-view-header">
                     <figure><img src="{{surveyDetail.logo_path}}"></figure>
@@ -24,11 +24,6 @@
                         <div>
                             {{value.description}}
                         </div>
-                        <!--<md-radio-group>-->
-                        <!--<md-radio-button name="option_question_{{value.id}}" ng-repeat="option in value.option" ng-model="value.selected_id" ng-value="option.id">-->
-                        <!--{{ option.option }}-->
-                        <!--</md-radio-button>-->
-                        <!--</md-radio-group>-->
                         <div ng-repeat="option in value.option">
                               <span>
                                  <input type="radio" name="option_question_{{value.id}}" ng-model="value.selected_id" ng-value="option.option"/>

@@ -9,7 +9,6 @@ angular.module('viewsurvey', ['notification'])
                    $scope.surveyDetail = response.data.data[0];
                    $scope.resultdata =  response.data.data[0].category;
                    $scope.selected = [];
-
                    for (var i = 0; i < $scope.resultdata.length; i++) {
                        for (var k = 0; k < $scope.resultdata[i].question.length; k++) {
                            var question = $scope.resultdata[i].question[k];
@@ -61,16 +60,5 @@ angular.module('viewsurvey', ['notification'])
             });
         };
 
-        // function validateAnswers(request) {
-        //     if(request.answer){
-        //         $timeout(function () {
-        //             dataGetService.errors('Please select answers', 5000);
-        //         },50);
-        //         //toaster.error('Please select answers');
-        //     } else {
-        //         viewSurveyService.submitAnswers(request).then(function (response) {
-        //             return response.data;
-        //         });
-        //     }
-        // };
+
     }]);
