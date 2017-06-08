@@ -4,17 +4,16 @@ angular.module('user', ['notification'])
         $scope.dataEntered= "";
         $scope.dataToEdit= "";
         $rootScope.dataToEditNew = '';
-        console.log($rootScope.dataToEditNew);
         $scope.removeData = function () {
            alert('t3r');
             $scope.textsearch = "";
         };
         $scope.addUser = function () {
             $(".modal").on("hidden.bs.modal", function () {
-                      //  $(this).find("input,textarea,select").val('').end();
+                      $(this).find("input,textarea,select").val('').end();
                     });
 
-            //$("#addForm").find("input,textarea,select").val('').end();
+            $("#addForm").find("input,textarea,select").val('').end();
         };
         $(document).keypress(
             function(event){
@@ -94,6 +93,14 @@ angular.module('user', ['notification'])
             }
 
         }
+        
+        $scope.closeForm = function () {
+
+            $('#addUserForm.modal').on('hidden.bs.modal', function () {
+                $(this).find("input,textarea,select").val('').end();
+            });
+            $('#addUserForm').modal('hide');
+        };
 
         $scope.editData = function(data) {
             //$scope.dataToEdit = CommonService.getData();
