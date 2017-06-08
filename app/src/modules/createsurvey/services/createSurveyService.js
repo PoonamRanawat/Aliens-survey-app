@@ -109,8 +109,8 @@ angular.module('createsurvey')
         
         function updateSurveyInfo(data, surveyId) {
             return $http({
-                method: 'PUT',
-                url: 'http://aliens.dev.easternenterprise.com/api/question/update?survey_id=' + surveyId,
+                method: 'POST',
+                url: 'http://aliens.dev.easternenterprise.com/api/survey/update',
                 data: data
             }).success(function (response) {
                 return response;

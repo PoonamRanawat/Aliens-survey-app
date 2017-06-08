@@ -23,11 +23,11 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                     $scope.surveyData = {
                         id : surveyData.id,
                         logo_path : null,
-                        logo_path_url : surveyData.logo_path,
                         name : surveyData.name,
                         description : surveyData.description,
                         message : surveyData.message
                     };
+                    $scope.logo_path_url = surveyData.logo_path;
                 });
             }
 
@@ -306,7 +306,7 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
                 if(flag) {
                     $scope.surveyData.logo_path = {};
                 } else {
-                    $scope.surveyData.logo_path_url = null;
+                    $scope.logo_path_url = null;
                 }
             };
 
