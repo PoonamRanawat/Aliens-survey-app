@@ -15,6 +15,7 @@ angular.module('user', ['notification'])
                     });
 
             $("#addForm").find("input,textarea,select").val('').end();
+            $("#addForm").find("input,textarea,select").val('');
         };
         $(document).keypress(
             function(event){
@@ -45,19 +46,16 @@ angular.module('user', ['notification'])
                 $timeout(function () {
                     dataGetService.errors('Please enter Name', 1500);
                 },500);
-                return;
             }
             else if (!dataEntered.email) {
                 $timeout(function () {
                     dataGetService.errors('Please enter valid Email', 1500);
                 },500);
-                return;
             }
             else if (!dataEntered.company) {
                 $timeout(function () {
                     dataGetService.errors('Please enter Company', 1500);
                 },500);
-                return;
             }
             else if(flag == true){
                 if (!dataEntered.password) {
@@ -65,7 +63,6 @@ angular.module('user', ['notification'])
                         dataGetService.errors('Please enter Password', 1500);
                     },500);
                 }
-                return;
             }
             if(flag == true){
                 userService.addUser(dataEntered).then(function (response) {
