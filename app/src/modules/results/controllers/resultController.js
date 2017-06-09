@@ -1,5 +1,6 @@
 angular.module('results', ['notification', 'chart.js'])
     .controller("resultController" , ['$scope','$rootScope','dataGetService','$timeout','resultService','$filter','$location', function ($scope,$rootScope, dataGetService, $timeout, resultService,$filter, $location) {
+        $rootScope.loggedInPersonName =localStorage.getItem("loggedInPersonName");
         $scope.type = "company";
         $rootScope.activeCreateSurveyTab = false;
         $rootScope.activeSurveyTab = false;

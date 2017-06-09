@@ -1,5 +1,6 @@
 angular.module('viewsurvey', ['notification'])
     .controller("viewSurveyController" , ['$scope','viewSurveyService','$location','$routeParams','dataGetService','$timeout', function ($scope, viewSurveyService,$location, $routeParams, dataGetService,$timeout) {
+        $rootScope.loggedInPersonName =localStorage.getItem("loggedInPersonName");
         $scope.resultdata = [];
         $scope.category = [];
         $scope.disabledButton = false;

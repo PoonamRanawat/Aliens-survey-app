@@ -1,5 +1,6 @@
 angular.module('user', ['notification'])
     .controller("userController" , ['$scope','userService' ,'$rootScope','CommonService','dataGetService','$timeout', function ($scope, userService, $rootScope, CommonService, dataGetService, $timeout) {
+        $rootScope.loggedInPersonName =localStorage.getItem("loggedInPersonName");
         $scope.textsearch = "";
         $scope.dataEntered= "";
         $scope.dataToEdit= "";

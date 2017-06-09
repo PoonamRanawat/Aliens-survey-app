@@ -1,6 +1,6 @@
 angular.module('survey', ['notification'])
     .controller("surveyOverviewCtrl" , ['$scope','$rootScope','surveyOverviewservice','$location','CommonService','dataGetService','$timeout', function ($scope, $rootScope,surveyOverviewservice, $location, CommonService, dataGetService, $timeout) {
-
+        $rootScope.loggedInPersonName =localStorage.getItem("loggedInPersonName");
         $rootScope.activeSurveyTab = true;
         $rootScope.activeCreateSurveyTab = false;
         $rootScope.activeResultsTab = false;

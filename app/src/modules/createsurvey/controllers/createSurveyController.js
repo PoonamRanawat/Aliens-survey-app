@@ -1,7 +1,7 @@
 angular.module('createsurvey', ['naif.base64', 'notification'])
     .controller("createSurveyCtrl" , ['$scope','$rootScope','createSurveyService','$location','CommonService','$timeout','dataGetService', '$routeParams','toaster', '$filter','$route',
         function ($scope, $rootScope, createSurveyService, $location, CommonService, $timeout, dataGetService, $routeParams, toaster, $filter, $route) {
-
+            $rootScope.loggedInPersonName =localStorage.getItem("loggedInPersonName");
             function goToSurveyManageTab() {
                 $("#surveyManageTab").removeClass("disabled-tab").off('click');
                 $("#generalInfoTab").removeClass("active");

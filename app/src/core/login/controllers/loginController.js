@@ -1,5 +1,5 @@
 angular.module('login', [])
-    .controller("loginController" , ['$scope' ,'loginService','$auth','$location','$rootScope', function ($scope, loginService, $auth, $location, $rootScope) {
+    .controller("loginController" , ['$scope' ,'loginService','$auth','$location','$rootScope','CommonService', function ($scope, loginService, $auth, $location, $rootScope,CommonService) {
         $scope.login = function (user, pwd) {
             var password = 'password';
             var client_secret = 'zweSbThZRtujlkrqA5uogn3Zn30Htzl6y9IDT1YM';
@@ -20,6 +20,7 @@ angular.module('login', [])
                         $auth.setToken(response.data.data.tokenDetails.access_token);
                         setInterval(function(){refresh()},expiry * 1000);
                         $rootScope.loggedInPersonName = response.data.data.userName;
+                        localStorage.setItem('loggedInPersonName',response.data.data.userName);
                     if(response.data.data.userType == 'admin' ){
                         $location.path('/userlist');
                     } else if(response.data.data.userType == 'customer'){
