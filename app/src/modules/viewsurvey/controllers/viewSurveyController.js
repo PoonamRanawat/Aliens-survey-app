@@ -1,5 +1,5 @@
 angular.module('viewsurvey', ['notification'])
-    .controller("viewSurveyController" , ['$scope','viewSurveyService','$location','$routeParams','dataGetService','$timeout', function ($scope, viewSurveyService,$location, $routeParams, dataGetService,$timeout) {
+    .controller("viewSurveyController" , ['$scope','viewSurveyService','$location','$routeParams','dataGetService','$timeout','$rootScope', function ($scope, viewSurveyService,$location, $routeParams, dataGetService,$timeout, $rootScope) {
         $rootScope.loggedInPersonName =localStorage.getItem("loggedInPersonName");
         $scope.resultdata = [];
         $scope.category = [];

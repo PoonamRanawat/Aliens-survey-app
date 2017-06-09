@@ -18,6 +18,10 @@ angular.module('viewsurvey')
                     $timeout(function () {
                         dataGetService.errors("You have already filled the survey", 1500);
                     },500);
+                } else if(response.message == 'invalid Data'){
+                    $timeout(function () {
+                        dataGetService.errors("Link not available", 1500);
+                    },500);
                 }
             })
         };
