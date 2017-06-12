@@ -125,13 +125,13 @@
                     <tbody>
                     <tr ng-repeat="data in resultdatabyparticipant | orderBy:'created_at':true">
                         <td>{{data.survey_name}}</td>
-                        <td>{{data.created_at}}</td>
                         <td>{{data.name}}</td>
                         <td>{{data.total_no_of_question}}</td>
                         <td>{{data.total_no_of_answer}}</td>
                         <td ng-show="(data.total_no_of_question == 0)">{{data.total_no_of_question}}%</td>
                         <td ng-hide="(data.total_no_of_question == 0)">{{(data.total_no_of_answer/data.total_no_of_question)*100}}%</td>
                         <!--<td>{{data.total_response}}</td>-->
+                        <td>{{data.created_at}}</td>
                         <td>
                             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraphParticipant(data)">Show Bar Graph</button>
                         </td>
