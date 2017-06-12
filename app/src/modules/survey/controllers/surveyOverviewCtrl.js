@@ -5,6 +5,7 @@ angular.module('survey', ['notification'])
         $rootScope.activeCreateSurveyTab = false;
         $rootScope.activeResultsTab = false;
         $scope.activeParticipant = true;
+        $scope.update = false;
         if($location.path() == '/participant'){
                 $scope.activeParticipant = true;
                 $scope.activeaddparticipant = false;
@@ -159,6 +160,7 @@ angular.module('survey', ['notification'])
         }
 
         function editData() {
+            $scope.update = true;
             $scope.dataToEditParticipant = CommonService.getData();
             $rootScope.participantId = $scope.dataToEditParticipant.id;
 
