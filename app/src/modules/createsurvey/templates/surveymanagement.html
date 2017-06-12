@@ -15,8 +15,8 @@
                     <figure><img src="{{surveyDetails.logo_path}}"></figure>
                     <h2>{{surveyDetails.name}}</h2>
                     <div class="button-group">
-                        <button type="button" class="btn btn-primary" ng-click="addCategory()"><i class="fa fa-plus"></i> Add Category</button>
-                        <button type="button" class="btn btn-success" ng-click="saveSurveyDetail()">Save</button>
+                        <button type="button" class="btn btn-primary cursor-pointer" ng-click="addCategory()"><i class="fa fa-plus"></i> Add Category</button>
+                        <button type="button" class="btn btn-success cursor-pointer" ng-click="saveSurveyDetail()">Save</button>
                     </div>
                 </div>
                 <div class="add-category-body" id="add-category-body">
@@ -27,7 +27,8 @@
                                     <div class="form-group">
                                         <label>Category Name:</label>
                                         <div class="text-editor">
-                                            <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="categoryDetail.name"></div>
+                                            <textarea class="form-control" rows="4" placeholder="Description" ng-model="categoryDetail.name"></textarea>
+                                            <!--<div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="categoryDetail.name"></div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +42,7 @@
                             <div class="question-block">
                                 <div class="row">
                                     <div class="col-sm-12 text-right">
-                                        <button type="button" ng-click="addQuestion()" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</button>
+                                        <button type="button" ng-click="addQuestion()" class="btn btn-primary cursor-pointer"><i class="fa fa-plus"></i> Add Question</button>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -56,7 +57,10 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Description:</label>
-                                            <textarea class="form-control" rows="4" placeholder="Description" ng-model="questionDetail.description"></textarea>
+                                            <div class="text-editor">
+                                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="questionDetail.description"></div>
+                                                <!--<textarea class="form-control" rows="4" placeholder="Description" ng-model="questionDetail.description"></textarea>-->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -66,34 +70,38 @@
                                         <label class="radio-inline">
                                             <input type="text" ng-model="optionDetail">
                                         </label>
-                                        <a class="btn btn-primary" ng-click="addQuestionResponse()"><i class="fa fa-plus"></i></a>
+                                        <a class="btn btn-primary cursor-pointer" ng-click="addQuestionResponse()"><i class="fa fa-plus"></i></a>
                                     </div>
 
                                     <div class="answer-row" ng-repeat="options in questionDetail.options track by $index">
                                         <label class="radio-inline">
                                             <input type="text" ng-model="options.response">
                                         </label>
-                                        <a class="btn btn-danger" href="" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></a>
+                                        <a class="btn btn-danger cursor-pointer" href="" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></a>
                                     </div>
                                 </div>
                             </div>
 
 
                             <div class="question-block" ng-repeat="question in categoryDetail.questions track by $index">
-                                <div class="text-right" ng-click="deleteQuestion($index)"><a class="delete-question btn btn-danger" href=""><i class="fa fa-trash"></i> Delete Question</a></div>
+                                <div class="text-right" ng-click="deleteQuestion($index)"><a class="delete-question btn btn-danger cursor-pointer" href=""><i class="fa fa-trash"></i> Delete Question</a></div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Question:</label>
                                             <div class="text-editor">
-                                                <textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.question_title"></textarea>
+                                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.question_title"></div>
+                                                <!--<textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.question_title"></textarea>-->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Description:</label>
-                                            <textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.description"></textarea>
+                                            <div class="text-editor">
+                                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.description"></div>
+                                                <!--<textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.description"></textarea>-->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +119,7 @@
 
                     <!-----Category Listing Block---->
                     <section class="category-block" ng-repeat="categoryObjDetail in categoryList track by $index">
-                        <div class="text-right"><a class="delete-question btn btn-danger" href="" ng-click="deleteCategory($index)"><i class="fa fa-trash"></i> Delete Category</a></div>
+                        <div class="text-right"><a class="delete-question btn btn-danger cursor-pointer" href="" ng-click="deleteCategory($index)"><i class="fa fa-trash"></i> Delete Category</a></div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -134,14 +142,18 @@
                                     <div class="form-group">
                                         <label>Question:</label>
                                         <div class="text-editor">
-                                            <textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.question_title"></textarea>
+                                            <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.question_title"></div>
+                                            <!--<textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.question_title"></textarea>-->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Description:</label>
-                                        <textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.description"></textarea>
+                                        <div class="text-editor">
+                                            <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.description"></div>
+                                            <!--<textarea class="form-control" ng-disabled="true" rows="4" placeholder="Description" ng-model="question.description"></textarea>-->
+                                        </div>
                                     </div>
                                 </div>
                             </div>

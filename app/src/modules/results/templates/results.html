@@ -26,6 +26,7 @@
                                         </span>
                                         <select class="form-control" ng-disabled="type == 'participant' || type == 'company'" ng-model="locationSelected"  ng-change="showByLocation()">
                                             <!--<option value="locations" id="locations" ng-repeat="locations in locations" ng-model="selected" >{{locations}}</option>-->
+                                            <option ng-value="selectlocation" >Select Location
                                             <option ng-value="locations" ng-repeat="locations in locations">{{locations}}
                                         </select>
                                     </div>
@@ -39,6 +40,7 @@
                                         </span>
                                         <select class="form-control" ng-disabled="type == 'location' || type == 'company'" ng-model="participantSelected"  ng-change="showByParticipant()">
                                             <!--<option value="participants" id="participants" ng-repeat="participants in participants">{{participants}}</option>-->
+                                            <option ng-value="selectparticipant" >Select Participant
                                             <option ng-value="participants" ng-repeat="participants in participants">{{participants}}
                                         </select>
                                     </div>
@@ -55,23 +57,23 @@
                     <thead>
                         <tr>
                             <th>Survey Name</th>
-                            <th>Created on</th>
                             <th>No of entries</th>
                             <th>Total no of question</th>
                             <th>No of participants</th>
                             <th>Total Response(%)</th>
+                            <th>Created on</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="data in resultdata | orderBy:'created_at':true">
                             <td>{{data.name}}</td>
-                            <td>{{data.created_at}}</td>
                             <td>{{data.no_of_entries_count}}</td>
                             <td>{{data.total_no_of_questions_count}}</td>
                             <td>{{data.no_of_participants_count}}</td>
                             <td ng-show="(data.no_of_entries_count == 0)">{{data.no_of_entries_count}}%</td>
                             <td ng-hide="(data.no_of_entries_count == 0)">{{(data.no_of_participants_count/data.no_of_entries_count)*100}}%</td>
+                            <td>{{data.created_at}}</td>
                             <td><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraph(data)">Show Bar Graph</button></td>
                         </tr>
                     </tbody>
@@ -83,24 +85,24 @@
                     <thead>
                     <tr>
                         <th>Survey Name</th>
-                        <th>Created on</th>
                         <th>No of entries</th>
                         <th>Total no of question</th>
                         <th>No of participants</th>
                         <th>Total Response(%)</th>
+                        <th>Created on</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="data in resultdatabylocation | orderBy:'created_at':true">
                         <td>{{data.name}}</td>
-                        <td>{{data.created_at}}</td>
                         <td>{{data.entriesCount}}</td>
                         <td>{{data.questionCount}}</td>
                         <td>{{data.participantCount}}</td>
                         <td ng-show="(data.entriesCount == 0)">{{data.entriesCount}}%</td>
                         <td ng-hide="(data.entriesCount == 0)">{{(data.participantCount/data.entriesCount)*100}}%</td>
                         <!--<td>{{data.total_response}}</td>-->
+                        <td>{{data.created_at}}</td>
                         <td><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraphLocation(data)">Show Bar Graph</button></td>
                     </tr>
                     </tbody>
@@ -112,11 +114,11 @@
                     <thead>
                     <tr>
                         <th>Survey Name</th>
-                        <th>Created on</th>
                         <th>Participant Name</th>
                         <th>Total no of question</th>
                         <th>Total no of answers given</th>
                         <th>Total Response(%)</th>
+                        <th>Created on</th>
                         <th>Action</th>
                     </tr>
                     </thead>

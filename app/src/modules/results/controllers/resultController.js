@@ -79,6 +79,13 @@ angular.module('results', ['notification', 'chart.js'])
         };
 
         $scope.showByLocation = function () {
+            if($scope.locationSelected == 'Select Location'){
+                $scope.resultsview = true;
+                $scope.participantview = false;
+                $scope.locationview = false;
+                results();
+                return;
+            }
             resultService.getResultByLocation($scope.locationSelected).then(function (response) {
                 if(response.data.success && response.data.status_code){
                     $scope.resultsview = false;
@@ -90,6 +97,13 @@ angular.module('results', ['notification', 'chart.js'])
         };
 
         $scope.showByParticipant = function () {
+            if($scope.participantSelected == 'Select Participant'){
+                $scope.resultsview = true;
+                $scope.participantview = false;
+                $scope.locationview = false;
+                results();
+                return;
+            }
             resultService.getResultByParticipants($scope.participantSelected).then(function (response) {
                 if(response.data.success && response.data.status_code){
                     $scope.resultsview = false;

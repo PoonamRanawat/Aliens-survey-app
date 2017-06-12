@@ -10,7 +10,8 @@
             <section class="page-body">
                 <ul class="nav nav-tabs">
                     <li role="presentation" ng-class="{'active': activeParticipant}"><a href="#/participant">Participant List</a></li>
-                    <li role="presentation" ng-class="{'active': activeaddparticipant}"><a href="#/addparticipant">Add Participant</a></li>
+                    <li role="presentation" ng-if="!dataToEditParticipant" ng-class="{'active': activeaddparticipant}"><a href="#/addparticipant">Add Participant</a></li>
+                    <li role="presentation" ng-if="dataToEditParticipant" ng-class="{'active': activeaddparticipant}"><a href="#/addparticipant">Update Participant</a></li>
                 </ul>
                 <!--Add Participant View - start-->
                 <form class="form-horizontal" name="addPartcipantForm" style="padding-top: 10px;">
@@ -40,7 +41,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-8 text-right">
-                            <button type="submit" class="btn btn-success" ng-click="addParticipant(dataToEditParticipant.first_name, dataToEditParticipant.last_name, dataToEditParticipant.email, dataToEditParticipant.location, dataToEditParticipant.id)">Save</button>
+                            <button type="submit" ng-if="!dataToEditParticipant" class="btn btn-success" ng-click="addParticipant(dataToEditParticipant.first_name, dataToEditParticipant.last_name, dataToEditParticipant.email, dataToEditParticipant.location, dataToEditParticipant.id)">Save</button>
+                            <button type="submit" ng-if="dataToEditParticipant" class="btn btn-success" ng-click="addParticipant(dataToEditParticipant.first_name, dataToEditParticipant.last_name, dataToEditParticipant.email, dataToEditParticipant.location, dataToEditParticipant.id)">Update</button>
                             <button type="submit" class="btn btn-danger" ng-click="cancelParticipant()">Cancel</button>
                         </div>
                     </div>

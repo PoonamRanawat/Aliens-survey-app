@@ -26,14 +26,14 @@
                                     <div class="col-sm-1 text-right" style="padding:5px">
                                         <img style="width: 50px; height: 50px;" data-ng-src="data:image/gif;base64,{{surveyData.logo_path.base64}}">
                                     </div>
-                                    <div ng-click="removeImage(true)" class="col-sm-1" style="padding:0px"><a class="delete-block" href=""><i class="fa fa-trash"></i></a></div>
+                                    <div ng-click="removeImage(true)" class="col-sm-1" style="padding:0px"><a class="delete-block cursor-pointer" href=""><i class="fa fa-trash"></i></a></div>
                                 </div>
 
                                 <div ng-if="logo_path_url && !surveyData.logo_path.base64">
                                     <div class="col-sm-1 text-right" style="padding:5px">
                                         <img style="width: 50px; height: 50px;" src="{{logo_path_url}}">
                                     </div>
-                                    <div ng-click="removeImage(false)" class="col-sm-1" style="padding:0px"><a class="delete-block" href=""><i class="fa fa-trash"></i></a></div>
+                                    <div ng-click="removeImage(false)" class="col-sm-1" style="padding:0px"><a class="delete-block cursor-pointer" href=""><i class="fa fa-trash"></i></a></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -97,7 +97,8 @@
                                             <div class="form-group">
                                                 <label>Category Name:</label>
                                                 <div class="text-editor">
-                                                    <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="categoryDetail.name"></div>
+                                                    <textarea class="form-control" rows="4" placeholder="Description" ng-model="categoryDetail.name"></textarea>
+                                                    <!--<div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="categoryDetail.name"></div>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -114,7 +115,7 @@
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a class="panel-title-link collapsed" data-toggle="collapse" data-target="#collapseQuestion{{$index}}" ng-bind-html="question.question_title"></a>
-                                                <a class="delete-block" href="" ng-click="deleteQuestion($index)"><i class="fa fa-trash"></i></a>
+                                                <a class="delete-block cursor-pointer" href="" ng-click="deleteQuestion($index)"><i class="fa fa-trash"></i></a>
                                             </h4>
                                         </div>
 
@@ -132,7 +133,10 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Description:</label>
-                                                    <textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>
+                                                    <div class="text-editor">
+                                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.description"></div>
+                                                        <!--<textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>-->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,7 +146,7 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <input ng-model="optionDetail" type="text" class="form-control responseData">
-                                                        <span class="input-group-addon" ng-click="addQuestionResponseList(optionDetail, $index)"><i class="fa fa-plus"></i></span>
+                                                        <span class="input-group-addon cursor-pointer" ng-click="addQuestionResponseList(optionDetail, $index)"><i class="fa fa-plus"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -150,7 +154,7 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <input ng-model="options.option" type="text" class="form-control">
-                                                        <span class="input-group-addon" ng-click="deleteQuestionResponseFromList($index, $parent.$index)"><i class="fa fa-trash-o"></i></span>
+                                                        <span class="input-group-addon cursor-pointer" ng-click="deleteQuestionResponseFromList($index, $parent.$index)"><i class="fa fa-trash-o"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,7 +178,10 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Description:</label>
-                                                    <textarea class="form-control" rows="4" placeholder="Description" ng-model="questionDetail.description"></textarea>
+                                                    <div class="text-editor">
+                                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="questionDetail.description"></div>
+                                                        <!--<textarea class="form-control" rows="4" placeholder="Description" ng-model="questionDetail.description"></textarea>-->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -184,7 +191,7 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <input ng-model="optionDetail" type="text" class="form-control responseData">
-                                                        <span class="input-group-addon" ng-click="addQuestionResponse(optionDetail)"><i class="fa fa-plus"></i></span>
+                                                        <span class="input-group-addon cursor-pointer" ng-click="addQuestionResponse(optionDetail)"><i class="fa fa-plus"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -192,7 +199,7 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <input ng-model="options.option" type="text" class="form-control">
-                                                        <span class="input-group-addon" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></span>
+                                                        <span class="input-group-addon cursor-pointer" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,7 +213,7 @@
                                     </div>
                                     <div class="row" ng-show="!showQuestion">
                                         <div class="col-sm-12 text-right">
-                                            <button type="button" ng-click="showQuestionDiv()" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</button>
+                                            <button type="button" ng-click="showQuestionDiv()" class="btn btn-primary cursor-pointer"><i class="fa fa-plus"></i> Add Question</button>
                                         </div>
                                     </div>
                                     <!-----Question Add Block End---->
@@ -219,14 +226,15 @@
                             <!-----Category Listing Block start---->
                             <section class="category-block" ng-repeat="categoryListing in categoryList track by $index">
                                 <div class="button-group text-right">
-                                    <a class="delete-question" href="" ng-click="deleteCategory($index, categoryListing)"><i class="fa fa-trash"></i></a>
+                                    <a class="delete-question cursor-pointer" href="" ng-click="deleteCategory($index, categoryListing)"><i class="fa fa-trash"></i></a>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Category Name:</label>
                                             <div class="text-editor">
-                                                <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="categoryListing.name"></div>
+                                                <textarea class="form-control" rows="4" placeholder="Description" ng-model="categoryListing.name"></textarea>
+                                                <!--<div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="categoryListing.name"></div>-->
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +250,7 @@
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a class="panel-title-link collapsed" data-toggle="collapse" data-target="#collapse{{$index}}" ng-bind-html="question.question_title"></a>
-                                            <a class="delete-block" href="" ng-click="deleteQuestionFromAPI(categoryListing.id, $index, question.id, $parent.$index)"><i class="fa fa-trash"></i></a>
+                                            <a class="delete-block cursor-pointer" href="" ng-click="deleteQuestionFromAPI(categoryListing.id, $index, question.id, $parent.$index)"><i class="fa fa-trash"></i></a>
                                         </h4>
                                     </div>
 
@@ -259,7 +267,10 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Description:</label>
-                                                    <textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>
+                                                    <div class="text-editor">
+                                                        <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="question.description"></div>
+                                                        <!--<textarea class="form-control" rows="4" placeholder="Description" ng-model="question.description"></textarea>-->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -267,7 +278,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <input ng-model="questionResponse" type="text" class="form-control responseModel">
-                                                    <span class="input-group-addon" ng-click="addResponseFromCategoryListing(questionResponse, $index, $parent.$index)"><i class="fa fa-plus"></i></span>
+                                                    <span class="input-group-addon cursor-pointer" ng-click="addResponseFromCategoryListing(questionResponse, $index, $parent.$index)"><i class="fa fa-plus"></i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -275,7 +286,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <input ng-model="options.option" type="text" class="form-control">
-                                                    <span class="input-group-addon" ng-click="removeResponseFromList($index, $parent.$index, $parent.$parent.$index)"><i class="fa fa-trash-o"></i></span>
+                                                    <span class="input-group-addon cursor-pointer" ng-click="removeResponseFromList($index, $parent.$index, $parent.$parent.$index)"><i class="fa fa-trash-o"></i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -285,7 +296,7 @@
                                 <!--Question Add block inside category Listing-->
                                 <div class="row" id="questionButtonDiv{{$index}}">
                                     <div class="col-sm-12 text-right">
-                                        <button type="button" ng-click="showQuestionDivInListing($index)" class="btn btn-primary"><i class="fa fa-plus"></i> Add Question</button>
+                                        <button type="button" ng-click="showQuestionDivInListing($index)" class="btn btn-primary cursor-pointer"><i class="fa fa-plus"></i> Add Question</button>
                                     </div>
                                 </div>
                                 <div class="question-block" id="questionBlock{{$index}}" style="display:none">
@@ -302,7 +313,10 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Description:</label>
-                                                <textarea class="form-control" rows="4" placeholder="Description" ng-model="questionDetail.description"></textarea>
+                                                <div class="text-editor">
+                                                    <div text-angular ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6'],['bold','italics','underline','strikeThrough', 'ul', 'ol', 'undo', 'redo', 'clear']]" ng-model="questionDetail.description"></div>
+                                                    <!--<textarea class="form-control" rows="4" placeholder="Description" ng-model="questionDetail.description"></textarea>-->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -312,7 +326,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <input ng-model="optionDetail" type="text" class="form-control responseData">
-                                                    <span class="input-group-addon" ng-click="addQuestionResponse(optionDetail)"><i class="fa fa-plus"></i></span>
+                                                    <span class="input-group-addon cursor-pointer" ng-click="addQuestionResponse(optionDetail)"><i class="fa fa-plus"></i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -320,7 +334,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <input ng-model="options.option" type="text" class="form-control">
-                                                    <span class="input-group-addon" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></span>
+                                                    <span class="input-group-addon cursor-pointer" ng-click="deleteQuestionResponse($index)"><i class="fa fa-trash-o"></i></span>
                                                 </div>
                                             </div>
                                         </div>
