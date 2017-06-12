@@ -15,7 +15,6 @@ angular.module('user', ['notification'])
                     });
 
             $("#addForm").find("input,textarea,select").val('').end();
-            $("#addForm").find("input,textarea,select").val('');
         };
         $(document).keypress(
             function(event){
@@ -82,7 +81,8 @@ angular.module('user', ['notification'])
                 delete dataEntered.survey_count;
                 if(newpassword){
                     dataEntered ['password'] = newpassword;
-                } else if($scope.dataToEdit.password == dataEntered.password ){
+                    delete dataEntered.newpassword;
+                } else {
                     dataEntered ['password'] = '';
                 }
                 userService.updateUser(dataEntered).then(function (response) {
@@ -132,17 +132,18 @@ angular.module('user', ['notification'])
         };
         //delete user - end
         //update data - start
-        $scope.updateEmployees = function (dataToEdit, password) {
+        $scope.updateEmployees = function (dataToEdit) {
             if (dataToEdit == undefined || dataToEdit == "undefined" || dataToEdit == "null" || dataToEdit == null) {
                 $timeout(function () {
                     dataGetService.errors('Please enter data', 5000);
                 },50);
             } else {
-                validateDataEntered(dataToEdit,password, false);
+                delete dataToEdit.password;
+                validateDataEntered(dataToEdit,dataToEdit.newpassword, false);
             }
-            // $('#editUserModal').on('hidden.bs.modal', function () {
-            //     $(this).find("input,textarea,select").val('').end();
-            // });
+            $('#editUserModal').on('hidden.bs.modal', function () {
+                $(this).find("input,textarea,select").val('').end();
+            });
         };
         //update data - end
 

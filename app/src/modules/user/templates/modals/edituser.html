@@ -33,13 +33,13 @@
                         <div class="form-group">
                             <label for="password" class="col-sm-2 control-label">Password</label>
                             <div class="col-sm-10">
-                                <input type="password" id="password" placeholder="Password" class="form-control" ng-model="newpassword" name="password" autofocus required autocomplete="off">
+                                <input type="password" id="password" placeholder="Password" class="form-control" ng-model="dataToEditNew.newpassword" autofocus required autocomplete="off">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="edit" class="btn btn-success" ng-click='updateEmployees(dataToEditNew,newpassword, $index)'>Update</button>
+                    <button type="button" id="edit" class="btn btn-success" ng-click='updateEmployees(dataToEditNew)'>Update</button>
                 </div>
             </div>
         </div>
