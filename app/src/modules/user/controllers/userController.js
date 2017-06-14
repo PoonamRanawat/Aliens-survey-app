@@ -154,7 +154,6 @@ angular.module('user', ['notification'])
             };
         };
         //Function to filter name and city from listing - end
-
     }]);
 
 

@@ -8,6 +8,7 @@ angular.module('results', ['notification', 'chart.js'])
         $scope.resultsview = true;
         $scope.participantview = false;
         $scope.locationview = false;
+        $scope.viewerParticipant = false;
         Array.prototype.unique = function() {
             return this.filter(function (value, index, self) {
                 return self.indexOf(value) === index;
@@ -53,6 +54,7 @@ angular.module('results', ['notification', 'chart.js'])
         getValues();
 
         $scope.showBarGraph = function (data) {
+            $scope.viewerParticipant = false;
             $scope.surveyName = data.name;
             $scope.data = [data.no_of_entries_count];
             $scope.series = ['No of entries', 'No of participants'];
@@ -60,6 +62,7 @@ angular.module('results', ['notification', 'chart.js'])
         };
 
         $scope.showBarGraphLocation = function (data) {
+            $scope.viewerParticipant = false;
             $scope.surveyName = data.name;
             $scope.data = [data.entriesCount];
             $scope.series = ['No of questions', 'No of answers'];
@@ -67,37 +70,62 @@ angular.module('results', ['notification', 'chart.js'])
         };
 
         $scope.showBarGraphParticipant = function (data) {
+            $scope.viewerParticipant = true;
             $scope.surveyName = data.survey_name;
             $scope.data = [data.total_no_of_question];
             $scope.series = ['No of questions', 'No of answers'];
             $scope.labels = [ data.total_no_of_answer ];
         };
         $scope.showAllResults = function () {
+            $scope.viewerParticipant = false;
             $scope.surveyName = "Results";
             $scope.data = [$scope.sumOfEntries];
             $scope.labels = [$scope.sumOfParticipants];
         };
 
         $scope.showByLocation = function () {
-            resultService.getResultByLocation($scope.locationSelected).then(function (response) {
-                if(response.data.success && response.data.status_code){
-                    $scope.resultsview = false;
-                    $scope.participantview = false;
-                    $scope.locationview = true;
-                    $scope.resultdatabylocation = response.data.data.locationResult;
-                };
-            });
+            if($scope.locationSelected == 'Select Location'){
+                $scope.resultsview = true;
+                $scope.locationview = false;
+                $scope.participantview = false;
+                results();
+                return;
+            }
+            if($scope.locationSelected == undefined){
+                return;
+            } else {
+                resultService.getResultByLocation($scope.locationSelected).then(function (response) {
+                    if(response.data.success && response.data.status_code){
+                        $scope.resultsview = false;
+                        $scope.participantview = false;
+                        $scope.locationview = true;
+                        $scope.resultdatabylocation = response.data.data.locationResult;
+                    };
+                });
+            }
         };
 
         $scope.showByParticipant = function () {
-            resultService.getResultByParticipants($scope.participantSelected).then(function (response) {
-                if(response.data.success && response.data.status_code){
-                    $scope.resultsview = false;
-                    $scope.participantview = true;
-                    $scope.locationview = false;
-                    $scope.resultdatabyparticipant = response.data.data.resultByParticipant;
-                };
-            });
+            if($scope.participantSelected == 'Select Participant'){
+                $scope.resultsview = true;
+                $scope.locationview = false;
+                $scope.participantview = false;
+                results();
+                return;
+            }
+            if($scope.participantSelected == undefined){
+                return;
+            } else {
+                resultService.getResultByParticipants($scope.participantSelected).then(function (response) {
+                    if (response.data.success && response.data.status_code) {
+                        $scope.resultsview = false;
+                        $scope.participantview = true;
+                        $scope.locationview = false;
+                        $scope.resultdatabyparticipant = response.data.data.resultByParticipant;
+                    }
+                    ;
+                });
+            }
         };
 
         $scope.showByCompany = function () {

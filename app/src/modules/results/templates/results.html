@@ -21,11 +21,12 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <label class="radio-inline">
-                                               <input type="radio" name="radio" id="location" ng-model="type" value="location"/>Location
+                                               <input type="radio" name="radio" id="location" ng-model="type" value="location" ng-click="showByLocation()"/>Location
                                            </label>
                                         </span>
                                         <select class="form-control" ng-disabled="type == 'participant' || type == 'company'" ng-model="locationSelected"  ng-change="showByLocation()">
                                             <!--<option value="locations" id="locations" ng-repeat="locations in locations" ng-model="selected" >{{locations}}</option>-->
+                                            <option ng-value="selectlocation" >Select Location
                                             <option ng-value="locations" ng-repeat="locations in locations">{{locations}}
                                         </select>
                                     </div>
@@ -34,11 +35,12 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <label class="radio-inline">
-                                               <input type="radio" name="radio" ng-model="type" id="participant" value="participant"/>Participant
+                                               <input type="radio" name="radio" ng-model="type" id="participant" value="participant" ng-click="showByParticipant()"/>Participant
                                            </label>
                                         </span>
                                         <select class="form-control" ng-disabled="type == 'location' || type == 'company'" ng-model="participantSelected"  ng-change="showByParticipant()">
                                             <!--<option value="participants" id="participants" ng-repeat="participants in participants">{{participants}}</option>-->
+                                            <option ng-value="selectparticipant" >Select Participant
                                             <option ng-value="participants" ng-repeat="participants in participants">{{participants}}
                                         </select>
                                     </div>
