@@ -15,15 +15,13 @@
                     <div class="row padding">
                         <div ta-bind ng-model="value.name"></div>
                     </div>
-                    <div class="row padding">
-                        {{value.description}}
+                    <div class="row padding" ta-bind ng-model="value.description">
                     </div>
                     <div ng-repeat="(key,value) in value.question" class="well well-sm">
                         <div>
                             <div ta-bind ng-model="value.question_title"></div>
                         </div>
-                        <div>
-                            {{value.description}}
+                        <div ta-bind ng-model="value.description">
                         </div>
                         <div ng-repeat="option in value.option">
                               <span>
