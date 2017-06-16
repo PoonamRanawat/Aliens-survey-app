@@ -56,6 +56,9 @@ angular.module('createsurvey', ['naif.base64', 'notification'])
 
                 $scope.categoryList = [];
                 if($location.path() == '/edit-survey/'+$route.current.params.id) {
+                    $rootScope.activeCreateSurveyTab = false;
+                    $rootScope.activeSurveyTab = true;
+                    $rootScope.activeResultsTab = false;
                     $scope.isUpdate = true;
                     $scope.surveyId = $route.current.params.id;
                     getSurveyDetail($scope.surveyId);
