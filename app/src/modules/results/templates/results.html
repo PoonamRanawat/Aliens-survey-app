@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3 text-right">
-                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showAllResults()">Show all results</button>
+                                    <!--<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showAllResults()">Show all results</button>-->
                                 </div>
                             </div>
                         </form>
@@ -133,7 +133,7 @@
                         <!--<td>{{data.total_response}}</td>-->
                         <td>{{data.created_at}}</td>
                         <td>
-                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myBarChart" ng-click="showBarGraphParticipant(data)">Show Bar Graph</button>
+                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myParticipantResult" ng-click="showBarGraphParticipant(data)">Show Bar Graph</button>
                         </td>
                     </tr>
                     </tbody>
@@ -143,4 +143,5 @@
         </section>
     </div>
     <div ng-include="'src/modules/results/templates/modals/bargraph.html'"></div>
+    <div ng-include="'src/modules/results/templates/modals/participantresult.html'"></div>
 </div>

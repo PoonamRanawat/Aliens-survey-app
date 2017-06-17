@@ -41,7 +41,7 @@ angular.module('viewsurvey')
                 // if(response.message == 'Unathenticated'){
                 //     $location.path('/');
                 // }
-            })
+            });
         }
 
 

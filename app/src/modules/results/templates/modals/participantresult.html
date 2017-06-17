@@ -1,0 +1,29 @@
+<div id="myParticipantResult" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="col-sm-12">
+                    <span class="modal-title"><strong> Survey Name : </strong>{{surveyName}} </span> <br>
+                    <span ng-if="participantview" class="modal-title"><strong> Result from Participant : </strong>{{participantSelected}} </span>
+                </div>
+            </div>
+            <div class="modal-body">
+                    <div class="row" ng-repeat="data in graphdataparticipant">
+                        <div class="col-sm-12 well">
+                            <span class="col-sm-12">
+                                <strong class="col-sm-3">Question :</strong> <span ta-bind ng-model="data.question_title" class="col-sm-9"></span>
+                            </span>
+                            <span class="col-sm-12">
+                                <strong class="col-sm-3">Answer :</strong> <span class="col-sm-9">{{data.answer}}</span>
+                            </span>
+                        </div>
+                        <hr>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -54,34 +54,34 @@ angular.module('results', ['notification', 'chart.js'])
         getValues();
 
         $scope.showBarGraph = function (data) {
-            $scope.viewerParticipant = false;
+            $scope.resultsview = true;
+            $scope.locationview = false;
+            $scope.participantview = false;
             $scope.surveyName = data.name;
-            $scope.data = [data.no_of_entries_count];
-            $scope.series = ['No of entries', 'No of participants'];
-            $scope.labels = [ data.no_of_participants_count ];
+            getGraphDataByCompany(data);
         };
 
         $scope.showBarGraphLocation = function (data) {
-            $scope.viewerParticipant = false;
+            $scope.resultsview = false;
+            $scope.locationview = true;
+            $scope.participantview = false;
             $scope.surveyName = data.name;
-            $scope.data = [data.entriesCount];
-            $scope.series = ['No of questions', 'No of answers'];
-            $scope.labels = [ data.participantCount ];
+            getGraphDataByLocation(data);
         };
 
         $scope.showBarGraphParticipant = function (data) {
-            $scope.viewerParticipant = true;
+            $scope.resultsview = false;
+            $scope.locationview = false;
+            $scope.participantview = true;
             $scope.surveyName = data.survey_name;
-            $scope.data = [data.total_no_of_question];
-            $scope.series = ['No of questions', 'No of answers'];
-            $scope.labels = [ data.total_no_of_answer ];
+            getGraphDataByParticipant(data);
         };
-        $scope.showAllResults = function () {
-            $scope.viewerParticipant = false;
-            $scope.surveyName = "Results";
-            $scope.data = [$scope.sumOfEntries];
-            $scope.labels = [$scope.sumOfParticipants];
-        };
+        // $scope.showAllResults = function () {
+        //     $scope.viewerParticipant = false;
+        //     $scope.surveyName = "Results";
+        //     $scope.data = [$scope.sumOfEntries];
+        //     $scope.labels = [$scope.sumOfParticipants];
+        // };
 
         $scope.showByLocation = function () {
             if($scope.locationSelected == 'Select Location'){
@@ -134,6 +134,31 @@ angular.module('results', ['notification', 'chart.js'])
             $scope.locationview = false;
             results();
         };
+
+
+        function getGraphDataByCompany(data){
+            resultService.getGraphData(data.id).then(function (response) {
+                if(response.data.success && response.data.status_code) {
+                    $scope.graphdata = response.data.data.result;
+                }
+            });
+        }
+
+        function  getGraphDataByLocation(data) {
+            resultService.getGraphDataByLocation(data.survey_id, $scope.locationSelected).then(function (response) {
+                if(response.data.success && response.data.status_code){
+                   $scope.graphdata = response.data.data.result;
+                }
+            });
+        }
+
+        function getGraphDataByParticipant(data) {
+            resultService.getGraphDataByParticipant(data.survey_id, data.part_id).then(function (response) {
+                if(response.data.success && response.data.status_code){
+                    $scope.graphdataparticipant = response.data.data;
+                }
+            });
+        }
 
     }]);
 

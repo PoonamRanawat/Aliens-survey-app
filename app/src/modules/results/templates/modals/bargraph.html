@@ -1,37 +1,34 @@
 <div id="myBarChart" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{surveyName}}</h4>
-            </div>
-            <div class="modal-body">
-                <canvas id="bar" class="chart chart-bar"
-                        chart-data="data" chart-labels="labels" chart-series="series">
-                </canvas>
-            </div>
-            <div class="modal-footer">
-                <div class="pull-left" ng-if="!viewerParticipant">
-                    <ul>
-                        <li>
-                            <strong>X-axis :</strong> No of participants
-                        </li>
-                        <li class="pull-left">
-                            <strong>Y-axis :</strong> No of entries
-                        </li>
-                    </ul>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <span class="modal-title"><strong> Survey Name : </strong>{{surveyName}} </span> <br>
+                        <span ng-if="locationview" class="modal-title"><strong> Result from Location : </strong>{{locationSelected}} </span>
+                        <span ng-if="participantview" class="modal-title"><strong> Result from Participant : </strong>{{participantSelected}} </span>
+                    </div>
+                    <div class="col-sm-6 align-top">
+                    <span>
+                       <ul>
+                            <li>
+                                <strong>X-axis :</strong> No of answers
+                            </li>
+                            <li>
+                                <strong>Y-axis :</strong> No of times answer
+                            </li>
+                        </ul>
+                    </span>
+                    </div>
                 </div>
-                <div class="pull-left" ng-if="viewerParticipant">
-                    <ul>
-                        <li>
-                            <strong>X-axis :</strong> No of questions
-                        </li>
-                        <li class="pull-left">
-                            <strong>Y-axis :</strong> No of answers
-                        </li>
-                    </ul>
+            </div>
+            <div class="modal-body" ng-repeat="(key,value) in graphdata">
+                <h3 ta-bind ng-model="value.title"></h3>
+                <div  ng-repeat="(key, values) in value.option">
+                    <canvas id="bar" class="chart chart-bar" chart-data="values.count" chart-labels="values.title">
+                    </canvas>
                 </div>
             </div>
         </div>

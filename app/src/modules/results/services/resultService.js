@@ -5,19 +5,11 @@ angular.module('results')
             getLocations: getLocations,
             getResultByLocation: getResultByLocation,
             getParticipants: getParticipants,
-            getResultByParticipants: getResultByParticipants
+            getResultByParticipants: getResultByParticipants,
+            getGraphData: getGraphData,
+            getGraphDataByLocation: getGraphDataByLocation,
+            getGraphDataByParticipant: getGraphDataByParticipant
         }
-        //
-        // function getResultsData() {
-        //     var defer = $q.defer();
-        //     $http.get('src/modules/results/assets/results.json').then(function (data) {
-        //             defer.resolve(data);
-        //         }
-        //         , function () {
-        //             defer.reject('could not find token.json');
-        //         });
-        //     return defer.promise;
-        // };
 
         function getResultsData() {
             return $http({
@@ -103,4 +95,57 @@ angular.module('results')
                 }
             })
         };
+
+        function getGraphData(data) {
+            return $http({
+                method: 'GET',
+                url: 'http://aliens.dev.easternenterprise.com/api/result?survey_id=' + data,
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for getting graph data');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
+            })
+        };
+
+        function getGraphDataByLocation(id, location) {
+            return $http({
+                method: 'GET',
+                url: 'http://aliens.dev.easternenterprise.com/api/result/location?survey_id=' + id + '&location=' + location
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for getting graph data');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
+            })
+        };
+
+        function getGraphDataByParticipant(id, participant) {
+            return $http({
+                method: 'GET',
+                url: 'http://aliens.dev.easternenterprise.com/api/result/participant?survey_id=' + id + '&part_id=' + participant
+            }).success(function (response) {
+                return response;
+            }).error(function (response) {
+                console.log('XHR Failed for getting graph data');
+                $timeout(function () {
+                    dataGetService.errors(response.message, 1500);
+                },500);
+                if(response.message == 'Unathenticated'){
+                    $location.path('/');
+                }
+            })
+        };
+
+
     }]);
