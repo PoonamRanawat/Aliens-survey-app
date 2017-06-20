@@ -17,3 +17,5 @@ angular.module('aliensSurveyApp').run(function($http, $auth) {
     $http.defaults.headers.common.Authorization = $auth.getToken();
     $http.defaults.headers.common.Accept = 'application/json';
 });
+
+angular.module('aliensSurveyApp').constant('API_URL' , 'http://aliens.dev.easternenterprise.com');
