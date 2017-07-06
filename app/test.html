@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" ng-app="aliensSurveyApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Aliens</title>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="src/core/shared/css/main.css">
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/satellizer/dist/satellizer.js"></script>
+    <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css">
+    <script src="bower_components/textAngular/dist/textAngular-rangy.min.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular-sanitize.min.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular.min.js"></script>
+    <script src="bower_components/angular-base64-upload/src/angular-base64-upload.js"></script>
+    <script src="bower_components/AngularJS-Toaster/toaster.min.js"></script>
+    <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.min.css">
+    <script src="bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+      <!--Custom scripts-->
+    <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
+    <script src="src/core/core.module.js"></script>
+    <script src="src/core/login/login.module.js"></script>
+    <script src="src/core/login/controllers/loginController.js"></script>
+    <script src="src/core/login/services/loginService.js"></script>
+    <script src="src/modules/module.module.js"></script>
+    <script src="src/modules/user/user.module.js"></script>
+    <script src="src/modules/user/controllers/userController.js"></script>
+    <script src="src/modules/user/services/userService.js"></script>
+    <script src="src/modules/survey/survey.module.js"></script>
+    <script src="src/modules/survey/controllers/surveyOverviewCtrl.js"></script>
+    <script src="src/modules/survey/services/surveyOverviewService.js"></script>
+    <script src="src/modules/createsurvey/createsurvey.module.js"></script>
+    <script src="src/modules/createsurvey/controllers/createSurveyController.js"></script>
+    <script src="src/modules/createsurvey/services/createSurveyService.js"></script>
+    <script src="src/core/shared/shared.module.js"></script>
+    <script src="src/core/shared/services/commonService.js"></script>
+    <script src="src/core/notification/notification.module.js"></script>
+    <script src="src/core/notification/services/dataGetService.js"></script>
+    <script src="src/core/notification/notification.js"></script>
+    <script src="src/modules/results/results.module.js"></script>
+    <script src="src/modules/results/controllers/resultController.js"></script>
+    <script src="src/modules/results/services/resultService.js"></script>
+    <script src="src/modules/viewsurvey/viewsurvey.module.js"></script>
+    <script src="src/modules/viewsurvey/controllers/viewSurveyController.js"></script>
+    <script src="src/modules/viewsurvey/services/viewSurveyService.js"></script>
+  </head>
+  <body>
+
+  <ng-view></ng-view>
+
+  </body>
+</html>
